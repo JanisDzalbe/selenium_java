@@ -1,5 +1,7 @@
 ### Setup
-[see wiki](https://github.com/JanisDzalbe/selenium_java/wiki/Project-Setup)
+[see wiki for Project Setup](https://github.com/JanisDzalbe/selenium_java/wiki/Project-Setup)
+
+[see wiki for WebDriver Setup](https://github.com/JanisDzalbe/selenium_java/wiki/WebDriver-Setup)
 
 ---
 ### GIT
@@ -10,45 +12,45 @@
 ---
 ### Samples and SampleTask so far...
 * Opening a page and printing out url/page title:
-    * [Sample1.java](../master/src/selenium/sample/Sample1.java)
-    * [Sample1Task.java](../master/src/selenium/sample/Sample1Task.java)
+    * [Sample1.java](../main/src/test/java/selenium/sample/Sample1.java)
+    * [Sample1Task.java](../main/src/test/java/selenium/sample/Sample1Task.java)
 * Locators (id, class, name):
-    * [Sample2.java](../master/src/selenium/sample/Sample2.java)
-    * [Sample2Task.java](../master/src/selenium/sample/Sample2Task.java)
+    * [Sample2.java](../main/src/test/java/selenium/sample/Sample2.java)
+    * [Sample2Task.java](../main/src/test/java/selenium/sample/Sample2Task.java)
 * Asserts:
-    * [Sample3.java](../master/src/selenium/sample/Sample3.java)
-    * [Sample3Task.java](../master/src/selenium/sample/Sample3Task.java)
+    * [Sample3.java](../main/src/test/java/selenium/sample/Sample3.java)
+    * [Sample3Task.java](../main/src/test/java/selenium/sample/Sample3Task.java)
 * Actions (click, send keys):
-    * [Sample4.java](../master/src/selenium/sample/Sample4.java)
-    * [Sample4Task.java](../master/src/selenium/sample/Sample4Task.java)
+    * [Sample4.java](../main/src/test/java/selenium/sample/Sample4.java)
+    * [Sample4Task.java](../main/src/test/java/selenium/sample/Sample4Task.java)
 * Alerts:
-    * [Sample5.java](../master/src/selenium/sample/Sample5.java)
-    * [Sample5Task.java](../master/src/selenium/sample/Sample5Task.java)
+    * [Sample5.java](../main/src/test/java/selenium/sample/Sample5.java)
+    * [Sample5Task.java](../main/src/test/java/selenium/sample/Sample5Task.java)
 * Locators (xPath, CSS):
-    * [Sample6.java](../master/src/selenium/sample/Sample6.java)
-    * [Sample6Task.java](../master/src/selenium/sample/Sample6Task.java)
+    * [Sample6.java](../main/src/test/java/selenium/sample/Sample6.java)
+    * [Sample6Task.java](../main/src/test/java/selenium/sample/Sample6Task.java)
 * Actions (checkbox, radio button and option selector) + bonus of calendar:
-    * [Sample7.java](../master/src/selenium/sample/Sample7.java)
-    * [Sample7Task.java](../master/src/selenium/sample/Sample7Task.java)
+    * [Sample7.java](../main/src/test/java/selenium/sample/Sample7.java)
+    * [Sample7Task.java](../main/src/test/java/selenium/sample/Sample7Task.java)
 * Styles:
-    * [Sample8.java](../master/src/selenium/sample/Sample8.java)
-    * [Sample8Task.java](../master/src/selenium/sample/Sample8Task.java)
+    * [Sample8.java](../main/src/test/java/selenium/sample/Sample8.java)
+    * [Sample8Task.java](../main/src/test/java/selenium/sample/Sample8Task.java)
 * Waits:
-    * [Sample9.java](../master/src/selenium/sample/Sample9.java)
-    * [Sample9Task.java](../master/src/selenium/sample/Sample9Task.java)
+    * [Sample9.java](../main/src/test/java/selenium/sample/Sample9.java)
+    * [Sample9Task.java](../main/src/test/java/selenium/sample/Sample9Task.java)
 * Into to Page Object:
-    * [Sample10.java](../master/src/selenium/sample/Sample10.java)
-    * [GenericSamplePage.java](../master/src/selenium/pages/GenericSamplePage.java)
-    * [AgeSamplePage.java](../master/src/selenium/pages/AgeSamplePage.java)
-    * [AgeSubmittedSamplePage.java](../master/src/selenium/pages/AgeSubmittedSamplePage.java)
-    * [Sample10Task.java](../master/src/selenium/sample/Sample10Task.java)
-    * [ColorSamplePage.java](../master/src/selenium/pages/ColorSamplePage.java)
+    * [Sample10.java](../main/src/test/java/selenium/sample/Sample10.java)
+    * [GenericSamplePage.java](../main/src/test/java/selenium/pages/GenericSamplePage.java)
+    * [AgeSamplePage.java](../main/src/test/java/selenium/pages/AgeSamplePage.java)
+    * [AgeSubmittedSamplePage.java](../main/src/test/java/selenium/pages/AgeSubmittedSamplePage.java)
+    * [Sample10Task.java](../main/src/test/java/selenium/sample/Sample10Task.java)
+    * [ColorSamplePage.java](../main/src/test/java/selenium/pages/ColorSamplePage.java)
 
  
 ---
 ### Individual Tasks:
-* [Task1](../master/src/selenium/tasks/Task1.java)
-* [Task2](../master/src/selenium/tasks/Task2.java)
+* [Task1](../main/src/test/java/selenium/tasks/Task1.java)
+* [Task2](../main/src/test/java/selenium/tasks/Task2.java)
 ---
 #### Test on locators
 [click here](https://docs.google.com/forms/d/e/1FAIpQLSfVURa4wYHQrKUzXNwg5JeduAfpBuGQkpmMuHIF6Wfd9ivWEQ/viewform?usp=sf_link)
@@ -56,15 +58,15 @@
 ---
 ### Bonuses in case of boredom
 * Driver Navigation:
-    * [extra1.java](../master/src/selenium/sample/extra/extra1.java)
-    * [extra1Task.java](../master/src/selenium/sample/extra/extra1Task.java)
+    * [extra1.java](../main/src/test/java/selenium/sample/extra/extra1.java)
+    * [extra1Task.java](../main/src/test/java/selenium/sample/extra/extra1Task.java)
 * Using different browsers:
-    * [extra2.java](../master/src/selenium/sample/extra2.java)
-    * [extra2Task.java](../master/src/selenium/sample/extra2Task.java)
+    * [extra2.java](../main/src/test/java/selenium/sample/extra2.java)
+    * [extra2Task.java](../main/src/test/java/selenium/sample/extra2Task.java)
 * Calendar picker:
-    * [Sample7Task.java](../master/src/selenium/sample/Sample7Task.java) -> `chooseDateViaCalendarBonus()` and `chooseDateViaTextBoxBonus()`
+    * [Sample7Task.java](../main/src/test/java/selenium/sample/Sample7Task.java) -> `chooseDateViaCalendarBonus()` and `chooseDateViaTextBoxBonus()`
 * Page Object + Page Factory:
-    * [Task3Bonus.java](../master/src/selenium/tasks/Task3Bonus.java)
+    * [Task3Bonus.java](../main/src/test/java/selenium/tasks/Task3Bonus.java)
 ---
 ### Cucumber project
 [link to cucumber project](https://github.com/JanisDzalbe/cucumber_java)
