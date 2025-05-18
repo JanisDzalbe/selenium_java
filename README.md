@@ -7,7 +7,7 @@
 ### GIT
 [see wiki for Create-a-branch](https://github.com/JanisDzalbe/selenium_java/wiki/Create-new-branch)
 
-[see wiki for Git-add-commit-pust](https://github.com/JanisDzalbe/selenium_java/wiki/Commiting-code-and-pushing-to-remote)
+[see wiki for Git-add-commit-pust](https://github.com/JanisDzalbe/selenium_java/wiki/Committing-code-and-pushing-to-remote)
 
 ---
 ### Samples and SampleTask so far...
@@ -61,8 +61,8 @@
     * [extra1.java](../main/src/test/java/selenium/sample/extra/extra1.java)
     * [extra1Task.java](../main/src/test/java/selenium/sample/extra/extra1Task.java)
 * Using different browsers:
-    * [extra2.java](../main/src/test/java/selenium/sample/extra2.java)
-    * [extra2Task.java](../main/src/test/java/selenium/sample/extra2Task.java)
+    * [extra2.java](../main/src/test/java/selenium/sample/extra/extra2.java)
+    * [extra2Task.java](../main/src/test/java/selenium/sample/extra/extra2Task.java)
 * Calendar picker:
     * [Sample7Task.java](../main/src/test/java/selenium/sample/Sample7Task.java) -> `chooseDateViaCalendarBonus()` and `chooseDateViaTextBoxBonus()`
 * Page Object + Page Factory:
