@@ -53,7 +53,7 @@ public class Sample3Task {
         String expected = "this is Also a Button";
         String actual = driver.findElement(By.id("buttonId")).getAttribute("value");
 
-        assertTrue(actual.equalsIgnoreCase(expected), "Custom Error mesage");
+        assertTrue(actual.equalsIgnoreCase(expected), "Custom Error message");
     }
 
     @Test
