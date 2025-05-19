@@ -60,7 +60,7 @@ public class Sample3Task {
 //        check that none of items with class "test"
 //        contain number 190
         for(WebElement element : driver.findElements(By.className("test"))) {
-            assertNotEquals(190, element);
+            assertFalse(element.getText().contains("190"),"Items contain unwanted value");
         }
     }
 }
