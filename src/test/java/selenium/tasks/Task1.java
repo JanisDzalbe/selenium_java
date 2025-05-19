@@ -46,8 +46,7 @@ public class Task1 {
         submitButton.click();
         assertTrue(errorMes.isDisplayed());
         assertEquals("Please enter a number",errorMes.getText());
-        System.out.println("Error message: " + errorMes.getText());
-    }
+        }
 
     @Test
     public void errorOnNumberTooSmall() {
@@ -63,8 +62,7 @@ public class Task1 {
         submitButton.click();
         assertTrue(errorMes.isDisplayed());
         assertEquals("Number is too small",errorMes.getText());
-        System.out.println("Error message: " + errorMes.getText());
-    }
+        }
 
     @Test
     public void errorOnNumberTooBig() {
@@ -81,8 +79,7 @@ public class Task1 {
         submitButton.click();
         assertTrue(errorMes.isDisplayed());
         assertEquals("Number is too big",errorMes.getText());
-        System.out.println("Error message: " + errorMes.getText());
-    }
+        }
 
     @Test
     public void correctSquareRoot() {
@@ -103,11 +100,11 @@ public class Task1 {
         fieldNumb.clear();
         fieldNumb.sendKeys(String.valueOf(inputNumber));
         submitButton.click();
-//        System.out.println(errorMes.getText());
         Alert alert = driver.switchTo().alert();
         String allertText = alert.getText();
-
         assertEquals(allertExp, allertText);
+        driver.switchTo().alert().accept();
+        assertEquals("",errorMes.getText());
         System.out.println("It works");
     }
 }
