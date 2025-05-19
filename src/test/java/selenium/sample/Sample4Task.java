@@ -92,7 +92,6 @@ public class Sample4Task {
 //        click on "This is a link to Homepage"
 //        check that current url is not base_url
 //        verify that current url is homepage
-
         assertEquals(base_url, driver.getCurrentUrl());
         driver.findElement(By.id("homepage_link")).click();
         assertEquals("This is a home page", driver.findElement(By.id("h1")).getText());
