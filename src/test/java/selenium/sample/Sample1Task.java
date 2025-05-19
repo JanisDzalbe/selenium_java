@@ -3,7 +3,7 @@ package selenium.sample;
 
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import selenium.utility.BootcampUtils;
 
 public class Sample1Task {
 
@@ -11,8 +11,7 @@ public class Sample1Task {
     public void goToHomepage() throws Exception {
 //        TODO:
 //         define driver
-        System.setProperty("webdriver.chrome.driver", "lib/chromedriver" + new selenium.ChangeToFileExtension().extension());
-        WebDriver driver = new ChromeDriver();
+        WebDriver driver = BootcampUtils.initializeChromeDriver();
 
 //         go to https://acctabootcamp.github.io/site/index2.html
         driver.get("https://acctabootcamp.github.io/site/index2.html");
