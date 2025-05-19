@@ -5,9 +5,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import javax.management.StringValueExp;
 import java.io.File;
+import java.time.Duration;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class Task1 {
@@ -88,6 +92,18 @@ public class Task1 {
 //        BUG: if I enter number 666 no errors where seen
 //        TODO
 //        enter number which is too big (above 100), check that correct error is seen
+        WebElement numberInput = driver.findElement(By.id("numb"));
+        WebElement submitButton = driver.findElement(By.className("w3-btn"));
+
+        numberInput.clear();
+        numberInput.sendKeys("666");
+        submitButton.click();
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        try {
+            Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+            fail("Alert shown unexpectedly: " + alert.getText());
+        } catch (TimeoutException e) {}
     }
 
     @Test
