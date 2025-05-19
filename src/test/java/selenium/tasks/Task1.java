@@ -105,6 +105,5 @@ public class Task1 {
         assertEquals(allertExp, allertText);
         driver.switchTo().alert().accept();
         assertEquals("",errorMes.getText());
-        System.out.println("It works");
     }
 }
