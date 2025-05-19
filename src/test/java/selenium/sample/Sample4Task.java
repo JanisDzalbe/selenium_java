@@ -3,8 +3,13 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import selenium.utility.BootcampUtils;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Sample4Task {
     WebDriver driver;
@@ -14,7 +19,7 @@ public class Sample4Task {
     @BeforeEach
     public void startingTests() throws Exception {
         // Initialize driver
-        driver = BootcampUtils.initializeChromeDriver();
+        driver = new ChromeDriver();
 
         //open page:
         driver.get(base_url);
@@ -38,6 +43,23 @@ public class Sample4Task {
 //        check that the button "Clear Result" is clickable now
 //        click on "Clear Result"
 //        check that the text is now (""), but it is not displayed
+        WebElement numInput = driver.findElement(By.id("number"));
+        WebElement resultButton = driver.findElement(By.id("result_button_number"));
+        WebElement clearButton = driver.findElement(By.id("clear_result_button_number"));
+        WebElement resultText = driver.findElement(By.id("result_number"));
+
+        numInput.clear();
+        numInput.sendKeys("4");
+        assertFalse(clearButton.isEnabled());
+        assertFalse(resultText.isDisplayed());
+
+        resultButton.click();
+        assertTrue(resultText.isDisplayed());
+        assertEquals("You entered number: \"4\"",resultText.getText());
+        assertTrue(clearButton.isEnabled());
+
+        clearButton.click();
+        assertEquals("",resultText.getText());
     }
 
     @Test
@@ -47,5 +69,9 @@ public class Sample4Task {
 //        click on "This is a link to Homepage"
 //        check that current url is not base_url
 //        verify that current url is homepage
+        assertEquals("https://acctabootcamp.github.io/site/examples/actions", driver.getCurrentUrl());
+        driver.findElement(By.id("homepage_link")).click();
+        assertFalse(driver.getCurrentUrl().equals("https://acctabootcamp.github.io/site/examples/actions"));
+        }
     }
-}
+
