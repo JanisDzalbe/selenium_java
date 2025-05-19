@@ -3,8 +3,14 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import selenium.utility.BootcampUtils;
+
+import java.time.Duration;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Sample5Task {
     WebDriver driver;
@@ -35,6 +41,19 @@ public class Sample5Task {
 //        verify alert text
 //        click ok on second alert
 //        verify that the correct page is opened
+        try {
+            driver.findElement(By.className("w3-blue")).click();
+            Alert popup1 = driver.switchTo().alert();
+            popup1.accept();
+
+            Alert popup2 = driver.switchTo().alert();
+            assertEquals("Booooooooo!", popup2.getText());
+
+            popup2.accept();
+            assertEquals("https://acctabootcamp.github.io/site/examples/alerted_page", driver.getCurrentUrl());
+        } catch(NoAlertPresentException exception){
+            System.out.println(exception.getMessage());
+        }
     }
 
     @Test
@@ -44,5 +63,12 @@ public class Sample5Task {
 //        switch to alert
 //        click cancel
 //        verify the text on page
+        driver.findElement(By.className("w3-blue")).click();
+
+        Alert popup = driver.switchTo().alert();
+        popup.dismiss();
+
+        WebElement resultText = driver.findElement(By.id("textForAlerts"));
+        assertEquals("So you desided to say? Good!", resultText.getText());
     }
 }
