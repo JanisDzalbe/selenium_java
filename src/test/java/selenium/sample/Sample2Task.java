@@ -5,7 +5,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import selenium.utility.BootcampUtils;
+
+import java.util.List;
 
 public class Sample2Task {
     WebDriver driver;
@@ -54,8 +57,13 @@ public class Sample2Task {
 //         get size text of class "test" (should be 5)
 //         get text of class "test"
 //         get third text of class "test" (should be "Test Text 4")
-        System.out.println(driver.findElements(By.className("test")).size());
-        System.out.println(driver.findElements(By.className("test")).get(0).getText());
-        System.out.println(driver.findElements(By.className("test")).get(2).getText());
+        List<WebElement> allTestElements = driver.findElements(By.className("test"));
+        System.out.println(allTestElements.size());
+
+        for (WebElement element : allTestElements) {
+            System.out.println(element.getText());
+        }
+
+        System.out.println(allTestElements.get(2).getText());
     }
 }
