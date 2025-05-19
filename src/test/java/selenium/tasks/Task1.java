@@ -31,11 +31,15 @@ public class Task1 {
 
     // There is quite a bit of identical or very similar text in my tests, I'm aware that it's probably bad practice
     // and probably should be avoided somehow, but I'm keeping them here currently as I don't want to "overengineer" these tasks :)
+    // Also not sure if I should handle errors that IJ shows such as Method invocation 'contains' may produce 'NullPointerException'
+    // obviously it would be just clicking alt-enter to fix as it wants us to :)
 
     @Test
     public void errorOnText() {
 //        TODO
 //        enter a text instead of a number, check that correct error is seen
+
+        //Also not sure if I should move these two to @BeforeEach
         WebElement errorElement = driver.findElement(By.id("ch1_error"));
         WebElement numberInput = driver.findElement(By.id("numb"));
 
@@ -113,7 +117,7 @@ public class Task1 {
         WebElement errorElement = driver.findElement(By.id("ch1_error"));
         WebElement numberInput = driver.findElement(By.id("numb"));
         int number = 58;
-        double correctCalculation = Math.sqrt(number);
+        double correctSquareRoot = Math.sqrt(number);
 
         Assertions.assertFalse(errorElement.isDisplayed());
         Assertions.assertEquals("", errorElement.getText());
@@ -125,9 +129,10 @@ public class Task1 {
 
         // This is the method I found to round to 2 decimal places, so weird though. Does java not have a better method?
         // https://stackoverflow.com/questions/11701399/round-up-to-2-decimal-places-in-java?__cf_chl_tk=rC2E2NVm9rLu76CXGB_qSLJ4rjppG5se0NKMI9TbhYE-1747656339-1.0.1.1-_gAmnq7TPtLrl.iHiRpZ4QGnHmSLRWVywd8b3nge8sE
-        // Also weird that comma or dot to seperate decimal part depends on locale. - https://stackoverflow.com/questions/23270269/formatting-doubles-to-two-decimal-places-in-java-produces-a-comma-instead-of-a-d
+        // Also weird that comm a or dot to seperate decimal part depends on locale. - https://stackoverflow.com/questions/23270269/formatting-doubles-to-two-decimal-places-in-java-produces-a-comma-instead-of-a-d
+        // Not sure if I should use string.format or decimalformat
 
-        Assertions.assertTrue(driver.switchTo().alert().getText().contains(String.format(Locale.US,"%.2f", correctCalculation)));
+        Assertions.assertTrue(driver.switchTo().alert().getText().contains(String.format(Locale.US,"%.2f", correctSquareRoot)));
         driver.switchTo().alert().accept();
 
         Assertions.assertFalse(errorElement.isDisplayed());
