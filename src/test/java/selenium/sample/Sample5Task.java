@@ -34,7 +34,6 @@ public class Sample5Task {
 //         TODO:
         driver.findElement(By.className("w3-blue")).click();
         driver.switchTo().alert().accept();
-        driver.switchTo().alert().accept();
         Alert alert = driver.switchTo().alert();
 
         assertEquals("Booooooooo!", alert.getText());
