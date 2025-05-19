@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import selenium.utility.BootcampUtils;
 
+import java.sql.SQLOutput;
 import java.util.List;
 
 public class Sample2Task {
@@ -44,6 +45,10 @@ public class Sample2Task {
         System.out.println(driver.findElement(By.name("randomButton2")).getDomAttribute("id"));
         System.out.println(driver.findElement(By.name("randomButton2")).getDomAttribute("value"));
 
+        //better practice way to do it probably
+        WebElement button = driver.findElement(By.name("randomButton2"));
+        System.out.println(button.getDomAttribute("id"));
+        System.out.println(button.getDomAttribute("value"));
     }
 
     @Test
@@ -63,15 +68,17 @@ public class Sample2Task {
 //         get third text of class "test" (should be "Test Text 4")
         List<WebElement> classes = driver.findElements(By.className("test"));
         System.out.println(classes.size());
-        System.out.println(classes.get(0).getText());
+        
+        for(WebElement element : classes) {
+            System.out.println(element.getText());
+        }
+
         System.out.println(classes.get(2).getText());
 
         // once, again, don't think it's neede but I'm doing it because why not :)
         Assertions.assertEquals(5, classes.size());
         Assertions.assertEquals("Test Text 4", classes.get(2).getText());
 
-/*        for(WebElement element : classes) {
-            System.out.println(element.getText());
-        }*/
+
     }
 }
