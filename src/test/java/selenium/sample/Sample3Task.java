@@ -50,7 +50,7 @@ public class Sample3Task {
 //         fail with custom error message:
         String actual = driver.findElement(By.name("randomButton2")).getAttribute("value");
         String expected = "this is Also a Button";
-        assertTrue(actual.equalsIgnoreCase(expected));
+        assertTrue(actual.equalsIgnoreCase(expected), "Expected: " + expected + " Actual: " + actual + " (ignore Caps Locks)");
     }
 
     @Test
