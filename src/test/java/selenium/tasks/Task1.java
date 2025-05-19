@@ -3,6 +3,7 @@ package selenium.tasks;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -26,16 +27,22 @@ public class Task1 {
     }
 
     @Test
-    public void errorOnText() {
+    public void errorOnText() throws InterruptedException {
 //        TODO
 //        enter a text instead of a number, check that correct error is seen
+        driver.findElement(By.id("numb")).sendKeys("Test text not a number");
+        driver.findElement(By.xpath("/html/body/div[2]/div/div/div[2]/button")).click();
+        System.out.println(driver.findElement(By.id("ch1_error")).getText());
     }
 
     @Test
-    public void errorOnNumberTooSmall() {
+    public void errorOnNumberTooSmall() throws InterruptedException {
 //        BUG: if I enter number 49 or 42 no errors where seen
 //        TODO
 //        enter number which is too small (positive number below 50), check that correct error is seen
+        driver.findElement(By.id("numb")).sendKeys("48");
+        driver.findElement(By.xpath("/html/body/div[2]/div/div/div[2]/button")).click();
+        System.out.println(driver.findElement(By.id("ch1_error")).getText());
     }
 
     @Test
