@@ -3,8 +3,14 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import selenium.utility.BootcampUtils;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Sample3Task {
     WebDriver driver;
@@ -30,6 +36,12 @@ public class Sample3Task {
 //         TODO:
 //         check how many element with class "test" there are on page (5)
 //         check that value of second button is "This is also a button"
+        int elementCount = driver.findElements(By.className("test")).size();
+        int expectedCount = 5;
+        assertEquals(expectedCount, elementCount);
+        String actual = driver.findElement(By.name("randomButton2")).getAttribute("value");
+        String expectedText = "This is also a button";
+        assertEquals(expectedText, actual);
     }
 
     @Test
@@ -38,12 +50,17 @@ public class Sample3Task {
 //         check that it is True that value of second button is
 //         "this is Also a Button" if you ignore Caps Locks
 //         fail with custom error message:
+        String actual = driver.findElement(By.name("randomButton2")).getAttribute("value");
+        String expected = "this is Also a Button";
+        assertTrue(actual.equalsIgnoreCase(expected), "Custom error message");
     }
 
     @Test
     public void assertFalseTask() throws Exception {
 //         TODO:
 //        check that it is False that value of second button is "This is a button"
+        String buttonText = driver.findElement(By.name("randomButton2")).getAttribute("value");
+        assertFalse(buttonText.equalsIgnoreCase("This is a button"));
     }
 
     @Test
@@ -51,5 +68,9 @@ public class Sample3Task {
 //        TODO:
 //        check that none of items with class "test"
 //        contain number 190
+        List<WebElement> elementList = driver.findElements(By.className("test"));
+        for(WebElement element : elementList){
+            assertFalse(element.getText().contains("190"));
+        }
     }
 }
