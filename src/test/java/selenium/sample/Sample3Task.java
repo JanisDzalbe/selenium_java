@@ -47,8 +47,12 @@ public class Sample3Task {
 //         check that it is True that value of second button is
 //         "this is Also a Button" if you ignore Caps Locks
 //         fail with custom error message:
-        String button2Name = driver.findElement(By.id("buttonId")).getAttribute( "value");
-        System.out.println(button2Name);
+        String button2Name = driver.findElement(By.id("buttonId")).getAttribute("value");
+      //  System.out.println(button2Name);
+        String expectedText = "this is Also a Button";
+        assertTrue(button2Name.equalsIgnoreCase(expectedText),
+                "Button text does not match the expected value (ignoring case). Expected: '"
+                        + expectedText + "', but found: '" + button2Name + "'");
     }
 
     @Test
@@ -57,7 +61,7 @@ public class Sample3Task {
 //        check that it is False that value of second button is "This is a button"
         String notAllowed = "This is a button";
         String button2Name = driver.findElement(By.id("buttonId")).getAttribute( "value");
-        assertFalse(notAllowed == button2Name);
+        assertNotEquals(notAllowed, button2Name);
     }
 
     @Test

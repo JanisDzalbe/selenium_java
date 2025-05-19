@@ -23,8 +23,6 @@ public class Task1 {
     @BeforeEach
     public void openPage() {
 
-        String libWithDriversLocation = System.getProperty("user.dir") + File.separator + "lib" + File.separator;
-        System.setProperty("webdriver.chrome.driver", libWithDriversLocation + "chromedriver" + new selenium.ChangeToFileExtension().extension());
         driver = new ChromeDriver();
         driver.get("https://acctabootcamp.github.io/site/tasks/enter_a_number");
     }
@@ -108,7 +106,7 @@ public class Task1 {
         String expectedError = "";
         String expectedErrorSelector = "#ch1_error";
         String inputFieldSelector = "#numb";
-        String number = "50";
+        String number = "81";
         String submitSelector = ".w3-btn";
 
         WebElement inputField = driver.findElement(By.cssSelector(inputFieldSelector));
