@@ -11,18 +11,14 @@ public class Sample1Task {
     public void goToHomepage() throws Exception {
 //        TODO:
 //         define driver
-        WebDriver driver = BootcampUtils.initializeChromeDriver();
-
 //         go to https://acctabootcamp.github.io/site/index2.html
-        driver.get("https://acctabootcamp.github.io/site/index2.html");
-
 //         get title of page
-        System.out.println(driver.getTitle());
-
 //         get URL of current page
-        System.out.println(driver.getCurrentUrl());
-
 //         close browser
+        WebDriver driver = BootcampUtils.initializeChromeDriver();
+        driver.get("https://acctabootcamp.github.io/site/index2.html");
+        System.out.println(driver.getTitle());
+        System.out.println(driver.getCurrentUrl());
         driver.quit();
     }
 }
