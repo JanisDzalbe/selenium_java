@@ -103,7 +103,7 @@ public class Task1 {
         Alert alert = driver.switchTo().alert();
         String allertText = alert.getText();
         assertEquals(allertExp, allertText);
-        driver.switchTo().alert().accept();
+        alert.accept();
         assertEquals("",errorMes.getText());
     }
 }
