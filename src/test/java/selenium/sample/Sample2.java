@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import selenium.utility.BootcampUtils;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class Sample2 {
     @BeforeEach
     public void startingTests() throws Exception {
         // initialize Chrome Driver
-        driver = BootcampUtils.initializeChromeDriver();
+        driver = new ChromeDriver();
 
         //open page:
         driver.get("https://acctabootcamp.github.io/site/examples/locators");

@@ -3,8 +3,15 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import selenium.utility.BootcampUtils;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Sample3Task {
     WebDriver driver;
@@ -13,7 +20,7 @@ public class Sample3Task {
     @BeforeEach
     public void startingTests() throws Exception {
         // Initialize driver
-        driver = BootcampUtils.initializeChromeDriver();
+        driver = new ChromeDriver();
 
         //open page:
         driver.get("https://acctabootcamp.github.io/site/examples/locators");
@@ -30,6 +37,10 @@ public class Sample3Task {
 //         TODO:
 //         check how many element with class "test" there are on page (5)
 //         check that value of second button is "This is also a button"
+        List<WebElement> elList = driver.findElements(By.className("test"));
+        assertEquals(5, elList.size());
+        String actual = driver.findElement(By.id("buttonId")).getAttribute("value");
+        assertEquals("This is also a button", actual);
     }
 
     @Test
@@ -38,12 +49,17 @@ public class Sample3Task {
 //         check that it is True that value of second button is
 //         "this is Also a Button" if you ignore Caps Locks
 //         fail with custom error message:
+    String expected = "this is Also a Button";
+    String actual = driver.findElement(By.id("buttonId")).getAttribute("value");
+    assertTrue(actual.equalsIgnoreCase(expected));
     }
 
     @Test
     public void assertFalseTask() throws Exception {
 //         TODO:
 //        check that it is False that value of second button is "This is a button"
+        String actual = driver.findElement(By.id("buttonId")).getAttribute("value");
+        assertFalse(actual.equalsIgnoreCase("This is a button"));
     }
 
     @Test
@@ -51,5 +67,12 @@ public class Sample3Task {
 //        TODO:
 //        check that none of items with class "test"
 //        contain number 190
+    List<WebElement> elemList = driver.findElements(By.className("test"));
+
+    for(WebElement testElement : elemList) {
+        if (testElement.getText().contains("190")) {
+            fail();
+        }
+    }
     }
 }
