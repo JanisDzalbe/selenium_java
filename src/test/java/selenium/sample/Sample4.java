@@ -107,6 +107,7 @@ public class Sample4 {
         // checking that value is "This is a text box" + " bla-bla"
 
         textInput.clear();
+        textInput.clear();
         assertEquals(textInput.getText(), ""); // checking that getText is empty
         assertEquals(textInput.getAttribute("value"), ""); // checking that value is also empty
 
