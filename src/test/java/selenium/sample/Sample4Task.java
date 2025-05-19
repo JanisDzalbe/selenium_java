@@ -3,8 +3,11 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import selenium.utility.BootcampUtils;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Sample4Task {
     WebDriver driver;
@@ -38,6 +41,17 @@ public class Sample4Task {
 //        check that the button "Clear Result" is clickable now
 //        click on "Clear Result"
 //        check that the text is now (""), but it is not displayed
+        driver.findElement(By.id("number")).clear();
+        driver.findElement(By.id("number")).sendKeys("228");
+        assertFalse(driver.findElement(By.id("clear_result_button_number")).isEnabled());
+        assertFalse(driver.findElement(By.id("result_number")).isDisplayed());
+        driver.findElement(By.id("result_button_number")).click();
+        assertTrue(driver.findElement(By.id("result_number")).isDisplayed());
+        assertEquals("You entered number: \""+driver.findElement(By.id("number")).getAttribute("value")+"\"", driver.findElement(By.id("result_number")).getText());
+        assertTrue(driver.findElement(By.id("clear_result_button_number")).isEnabled());
+        driver.findElement(By.id("clear_result_button_number")).click();
+        assertEquals("", driver.findElement(By.id("result_number")).getText());
+        assertFalse(driver.findElement(By.id("result_number")).isDisplayed());
     }
 
     @Test
@@ -47,5 +61,9 @@ public class Sample4Task {
 //        click on "This is a link to Homepage"
 //        check that current url is not base_url
 //        verify that current url is homepage
+        assertEquals(base_url, driver.getCurrentUrl());
+        driver.findElement(By.id("homepage_link")).click();
+        assertNotEquals(base_url, driver.getCurrentUrl());
+        assertEquals("https://acctabootcamp.github.io/site/", driver.getCurrentUrl());
     }
 }
