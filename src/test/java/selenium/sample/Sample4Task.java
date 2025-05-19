@@ -47,16 +47,18 @@ public class Sample4Task {
         WebElement resultText = driver.findElement(By.id("result_number"));
         String number = "1234567890";
 
+        numberInput.clear();;
         numberInput.sendKeys(number);
         Assertions.assertFalse(clearResult.isEnabled());
         Assertions.assertFalse(resultText.isDisplayed());
+
         resultButton.click();
         Assertions.assertTrue(resultText.isDisplayed());
 
-        // Not sure if we should let this test pass if the default 5 doesn't disappear, but sure I guess. Here I add the five
-        // Although in a normal case I'd mark it as a bug as the normal number 5 not dissapearing may be bad UX
+        // Not sure if we should let this test pass if the default 5 doesn't disappear as it's kinda bad UX
+        // but sure I'll clear it
 
-        Assertions.assertEquals("You entered number: \"" + number + "5" + "\"", resultText.getText());
+        Assertions.assertEquals("You entered number: \"" + number  + "\"", resultText.getText());
         Assertions.assertTrue(clearResult.isEnabled());
         clearResult.click();
         Assertions.assertFalse(resultText.isDisplayed());
