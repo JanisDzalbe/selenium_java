@@ -152,6 +152,7 @@ public class Sample7Task {
 
         WebElement clickButton = driver.findElement(By.id("result_button_date"));
 
+
         clickButton.click();
 
         WebElement result = driver.findElement(By.id("result_date"));
