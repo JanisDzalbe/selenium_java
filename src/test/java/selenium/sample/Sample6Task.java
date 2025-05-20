@@ -66,7 +66,6 @@ public class Sample6Task {
 //        1-2 ways to find text: "Test Text 3"
 //        1-2 ways to find text: "This is also a button"
         System.out.println(driver.findElement(By.cssSelector("#heading_2")).getText());
-
         System.out.println(driver.findElement(By.cssSelector("#test1 > .test")).getText());
         System.out.println(driver.findElement(By.cssSelector("#test1 .twoTest")).getText());
         System.out.println(driver.findElement(By.cssSelector("#test3 .test:nth-of-type(1)")).getText());
