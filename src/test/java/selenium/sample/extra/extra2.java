@@ -36,6 +36,7 @@ public class extra2 {
 
     @Test
     public void runningOnFirefox() throws Exception {
+        // Geckodriver fails to launch firefox for some reason, may try to fix it later
         System.setProperty("webdriver.gecko.driver", libWithDriversLocation + "geckodriver.exe");
         driver = new FirefoxDriver();
         pageCheck();
