@@ -3,10 +3,16 @@ package selenium.tasks;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 
 import java.io.File;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Task2 {
     WebDriver driver;
@@ -26,6 +32,22 @@ public class Task2 {
 
     @Test
     public void initialFeedbackPage() throws Exception {
+
+        Select dropdown = new Select(driver.findElement(By.id("like_us")));
+
+        assertTrue(driver.findElement(By.id("fb_name")).getText().isEmpty());
+        assertTrue(driver.findElement(By.id("fb_name")).getText().isEmpty());
+
+        List<WebElement> checkBoxes = driver.findElements(By.cssSelector(".w3-check[type='checkbox']"));
+        for (WebElement checkBox: checkBoxes) {
+            assertFalse(checkBox.isSelected());
+        }
+
+        assertEquals("Choose your option", dropdown.getFirstSelectedOption().getText());
+
+        assertEquals("rgba(33, 150, 243, 1)", driver.findElement(By.className("w3-btn-block")).getCssValue("background-color"));
+        assertEquals("rgba(255, 255, 255, 1)", driver.findElement(By.className("w3-btn-block")).getCssValue("border-bottom-color"));
+
 //         TODO:
 //         check that all field are empty and no ticks are clicked
 //         "Don't know" is selected in "Genre"
@@ -35,6 +57,20 @@ public class Task2 {
 
     @Test
     public void emptyFeedbackPage() throws Exception {
+
+        driver.findElement(By.className("w3-btn-block")).click();
+        Thread.sleep(1000);
+        List<WebElement> descriptions = driver.findElements(By.cssSelector(".w3-card-4 .description"));
+        int i = 0;
+        System.out.println("Size: " + descriptions.size());
+        for (WebElement description : descriptions) {
+            System.out.println(i);
+            // System.out.println(description.getText());
+            // assertFalse(description.getText().isEmpty());
+            i++;
+        }
+        System.out.println("Total: " + i);
+
 //         TODO:
 //         click "Send" without entering any data
 //         check fields are empty or "null"
