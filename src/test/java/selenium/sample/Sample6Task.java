@@ -3,6 +3,7 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import selenium.utility.BootcampUtils;
 
@@ -35,6 +36,25 @@ public class Sample6Task {
 //        1-2 ways to find text: "Test Text 4"
 //        1-2 ways to find text: "Test Text 5"
 //        1-2 ways to find text: "This is also a button"
+        System.out.println("Find element by id using xPath:");
+        System.out.println("\t text of element with id 'heading_2' is '" +
+                driver.findElement(By.xpath("//*[@id='heading_2']")).getText() + "'");
+        System.out.println("\t text of element with class 'test' is '" +
+                driver.findElement(By.xpath("//*[@class='test']")).getText() + "'");
+        System.out.println("\t text of element with class 'twoTest' is '" +
+                driver.findElement(By.xpath("//*[@class='twoTest']")).getText() + "'");
+        System.out.println("\t text of element with id 'test3' is '" +
+                driver.findElement(By.xpath("//*[@id='test3']")).getText() + "'");
+        System.out.println("\t text of element with class 'text' is '" +
+                driver.findElement(By.xpath("//*[@class='Test']")).getText() + "'");
+
+
+        System.out.println("\t value of element with name 'randomButton2' is '" +
+                driver.findElement(By.xpath("//*[@name='randomButton2']")).getAttribute("value") + "'");
+        System.out.println("\t name of element with value 'This is also a button' is '" +
+                driver.findElement(By.xpath("//*[@value='This is also a button']")).getAttribute("name") + "'");
+        System.out.println("\t value of element with type 'button' is '" +
+                driver.findElement(By.xpath("//*[@type='button']")).getAttribute("value") + "'");
     }
 
     @Test
@@ -45,5 +65,8 @@ public class Sample6Task {
 //        1-2 ways to find text: "Test Text 2"
 //        1-2 ways to find text: "Test Text 3"
 //        1-2 ways to find text: "This is also a button"
+
+
+
     }
 }
