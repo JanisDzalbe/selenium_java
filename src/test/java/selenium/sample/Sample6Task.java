@@ -3,6 +3,7 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import selenium.utility.BootcampUtils;
 
@@ -29,21 +30,35 @@ public class Sample6Task {
     public void findElementByXPath() throws Exception {
 //         TODO:
 //        1-2 ways to find text: "Heading 2 text":
+        System.out.println(driver.findElement(By.xpath("//*[@id='heading_2']")).getText());
 //        1-2 ways to find text: "Test Text 1"
+        System.out.println(driver.findElement(By.xpath("//*[@id='test1']//*[@class='test']")).getText());
 //        1-2 ways to find text: "Test Text 2"
+        System.out.println(driver.findElement(By.xpath("//*[@id='test1']//*[@class='twoTest']")).getText());
 //        1-2 ways to find text: "Test Text 3"
+        System.out.println(driver.findElement(By.xpath("//*[@id='test3']/*[contains(text(), 3)]")).getText());
 //        1-2 ways to find text: "Test Text 4"
+        System.out.println(driver.findElement(By.xpath("//*[@id='test3']/*[contains(text(), 'Test Text 4')]")).getText());
 //        1-2 ways to find text: "Test Text 5"
+        System.out.println(driver.findElement(By.xpath("//*[@id='test2']/*[@class='Test']")).getText());
 //        1-2 ways to find text: "This is also a button"
+        System.out.println(driver.findElement(By.xpath("//*[@type='button' and @name='randomButton2']")).getAttribute("value"));
+        System.out.println(driver.findElement(By.xpath("//*[@id='buttonId']")).getAttribute("value"));
     }
 
     @Test
     public void findElementByCssName() throws Exception {
 //         TODO:
 //        1-2 ways to find text: "Heading 2 text"
+        System.out.println(driver.findElement(By.cssSelector("#heading_2")).getText());
 //        1-2 ways to find text: "Test Text 1"
+        System.out.println(driver.findElement(By.cssSelector("#test1 .test")).getText());
 //        1-2 ways to find text: "Test Text 2"
+        System.out.println(driver.findElement(By.cssSelector("#test1 .twoTest")).getText());
 //        1-2 ways to find text: "Test Text 3"
+        System.out.println(driver.findElement(By.cssSelector("#test3 .test")).getText());
 //        1-2 ways to find text: "This is also a button"
+        System.out.println(driver.findElement(By.cssSelector("#buttonId")).getAttribute("value"));
+        System.out.println(driver.findElement(By.cssSelector("[type='button'][name='randomButton2']")).getAttribute("value"));
     }
 }
