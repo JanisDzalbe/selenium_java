@@ -38,9 +38,9 @@ public class Sample8Task {
 //        check h1 element font-size 64px
         WebElement sec1 = driver.findElement(By.className("w3-pale-red"));
         WebElement sec2 = driver.findElement(By.className("w3-pale-yellow"));
-        WebElement sec3 = driver.findElement(By.tagName("h1"));
+        WebElement h1 = driver.findElement(By.tagName("h1"));
         assertEquals("rgba(255, 221, 221, 1)", sec1.getCssValue("background-color"));
         assertEquals("rgba(255, 255, 204, 1)", sec2.getCssValue("background-color"));
-        assertEquals("64px", sec3.getCssValue("font-size"));
+        assertEquals("64px", h1.getCssValue("font-size"));
     }
 }
