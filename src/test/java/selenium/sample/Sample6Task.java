@@ -3,6 +3,7 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import selenium.utility.BootcampUtils;
 
@@ -35,6 +36,20 @@ public class Sample6Task {
 //        1-2 ways to find text: "Test Text 4"
 //        1-2 ways to find text: "Test Text 5"
 //        1-2 ways to find text: "This is also a button"
+        System.out.println(driver.findElement(By.xpath("//*[text()='Heading 2 text']")).getText());
+        System.out.println(driver.findElement(By.xpath("//*[@id='heading_2']")).getText());
+        System.out.println(driver.findElement(By.xpath("//*[@class='test' and text()='Test Text 1']")).getText());
+        System.out.println(driver.findElement(By.xpath("//*[@id='test1']//*[@class='test']")).getText());
+        System.out.println(driver.findElement(By.xpath("//*[@class='twoTest' and text()='Test Text 2']")).getText());
+        System.out.println(driver.findElement(By.xpath("//*[@id='test1']//*[@class='twoTest']")).getText());
+        System.out.println(driver.findElement(By.xpath("//*[@class='test' and text()='Test Text 3']")).getText());
+        System.out.println(driver.findElement(By.xpath("//*[@id='test3']//*[@class='test' and contains(text(), '3')]")).getText());
+        System.out.println(driver.findElement(By.xpath("//*[@class='test' and text()='Test Text 4']")).getText());
+        System.out.println(driver.findElement(By.xpath("//*[@id='test3']//*[@class='test' and contains(text(), '4')]")).getText());
+        System.out.println(driver.findElement(By.xpath("//*[@class='Test' and text()='Test Text 5']")).getText());
+        System.out.println(driver.findElement(By.xpath("//*[@id='test2']//*[@class='Test']")).getText());
+        System.out.println(driver.findElement(By.xpath("//*[@id='buttonId']")).getAttribute("value"));
+        System.out.println(driver.findElement(By.xpath("//*[@type='button' and @name='randomButton2']")).getAttribute("value"));
     }
 
     @Test
@@ -45,5 +60,14 @@ public class Sample6Task {
 //        1-2 ways to find text: "Test Text 2"
 //        1-2 ways to find text: "Test Text 3"
 //        1-2 ways to find text: "This is also a button"
+        System.out.println(driver.findElement(By.cssSelector("#heading_2")).getText());
+        System.out.println(driver.findElement(By.cssSelector("h2[id*='2']")).getText());
+        System.out.println(driver.findElement(By.cssSelector("#test1 .test")).getText());
+        System.out.println(driver.findElement(By.cssSelector("#test1 :nth-child(1)")).getText());
+        System.out.println(driver.findElement(By.cssSelector("#test1 .twoTest")).getText());
+        System.out.println(driver.findElement(By.cssSelector("#test1 :nth-child(2)")).getText());
+        System.out.println(driver.findElement(By.cssSelector("#test3 .test:nth-child(1)")).getText());
+        System.out.println(driver.findElement(By.cssSelector("#buttonId")).getAttribute("value"));
+        System.out.println(driver.findElement(By.cssSelector("[type=button][name=randomButton2]")).getAttribute("value"));
     }
 }
