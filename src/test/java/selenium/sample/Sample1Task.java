@@ -9,7 +9,7 @@ public class Sample1Task {
 
     @Test
     public void goToHomepage() throws Exception {
-//        
+//
 //         define driver
         WebDriver driver = new ChromeDriver();
 //         go to https://acctabootcamp.github.io/site/index2.html
