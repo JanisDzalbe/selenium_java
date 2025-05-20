@@ -3,8 +3,8 @@ package selenium;
 public class ChangeToFileExtension {
 
     public String extension() {
-        System.out.println(System.getProperty("os.name") );
-        if (System.getProperty("os.name").contains("Mac") || System.getProperty("os.name").contains("mac"))
+        String os = System.getProperty("os.name").toLowerCase();
+        if (os.contains("mac") || os.contains("linux"))
             return "";
         else
             return ".exe";
