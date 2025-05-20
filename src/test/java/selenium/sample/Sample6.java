@@ -68,7 +68,7 @@ public class Sample6 {
 
     @Test
     public void findElementBy1stClass() throws Exception {
-//        find element by 1 of nth class using CSS
+//        find element by 1 of nth class using xPath
         System.out.println("Find element by 1 of nth class using xPath:");
         System.out.println("\t text of element with class 'unbelievable' is '" +
                 driver.findElement(By.xpath("//*[contains(@class, 'unbelievable')]")).getText() + "'");
