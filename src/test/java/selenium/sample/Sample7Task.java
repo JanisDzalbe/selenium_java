@@ -73,7 +73,29 @@ public class Sample7Task {
 //        click result
 //        check that 'You selected option: Option 1' text is being displayed
 
-    }
+        List<WebElement> radioList = driver.findElements(By.cssSelector("[name='vfb-7']"));
+
+        for (WebElement rButton : radioList){
+            assertFalse(rButton.isSelected());
+        }
+
+        radioList.get(2).click();
+
+        assertFalse(radioList.get(0).isSelected();
+        assertFalse(radioList.get(1).isSelected();
+        assertTrue(radioList.get(2).isSelected();
+
+        radioList.get(0).click();
+
+        assertTrue(radioList.get(0).isSelected();
+        assertFalse(radioList.get(1).isSelected();
+        assertFalse(radioList.get(2).isSelected();
+
+        driver.findElement(By.id("result_button_ratio")).click();
+
+        assertTrue(driver.findElement(By.id("result_radio")).isDisplayed());
+        assertEquals("You selected option: Option 1", driver.findElement(By.id("result_radio")).getText();
+            }
 
     @Test
     public void selectOption() throws Exception {
@@ -83,6 +105,19 @@ public class Sample7Task {
 //        check that selected option is "Option 2"
 //        click result
 //        check that 'You selected option: Option 2' text is being displayed
+        Select sElement = new Select(driver.findElement(By.id("vfb-12")));
+
+        sElement.selectByVisibleText("Option 3");
+        assertEquals("Option 3", sElement.getFirstSelectedOption().getText());
+
+        sElement.selectByVisibleText("Option 2");
+        assertEquals("Option 2", sElement.getFirstSelectedOption().getText());
+
+        driver.findElement(By.id("result_button_select")).click();
+
+        assertTrue(driver.findElement(By.id("result_select")).isDisplayed());
+        assertEquals("You selected option: Option 2", driver.findElement(By.id("result_select")).getText();
+
     }
 
 
