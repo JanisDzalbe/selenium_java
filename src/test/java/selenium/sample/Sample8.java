@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import selenium.utility.BootcampUtils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,7 +18,7 @@ public class Sample8 {
     @BeforeEach
     public void startingTests() throws Exception {
         // Initialize driver
-        driver = BootcampUtils.initializeChromeDriver();
+        driver = new ChromeDriver();
 
         //open page:
         driver.get("https://acctabootcamp.github.io/site/examples/styles");

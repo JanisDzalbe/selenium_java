@@ -3,8 +3,13 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import selenium.utility.BootcampUtils;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Sample8Task {
     WebDriver driver;
@@ -13,7 +18,7 @@ public class Sample8Task {
     @BeforeEach
     public void startingTests() throws Exception {
         // Initialize driver
-        driver = BootcampUtils.initializeChromeDriver();
+        driver = new ChromeDriver();
 
         //open page:
         driver.get("https://acctabootcamp.github.io/site/examples/po");
@@ -31,5 +36,11 @@ public class Sample8Task {
 //        check the background of top 2 sections
 //        rgba(255, 221, 221, 1);
 //        check h1 element font-size 64px
+        WebElement sec1 = driver.findElement(By.className("w3-pale-red"));
+        WebElement sec2 = driver.findElement(By.className("w3-pale-yellow"));
+        WebElement sec3 = driver.findElement(By.tagName("h1"));
+        assertEquals("rgba(255, 221, 221, 1)", sec1.getCssValue("background-color"));
+        assertEquals("rgba(255, 255, 204, 1)", sec2.getCssValue("background-color"));
+        assertEquals("64px", sec3.getCssValue("font-size"));
     }
 }

@@ -60,6 +60,7 @@ public class Sample4Task {
 
         clearButton.click();
         assertEquals("",resultText.getText());
+
     }
 
     @Test

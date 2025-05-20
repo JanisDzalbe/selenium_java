@@ -53,9 +53,6 @@ public class Sample6Task {
 
         System.out.println(driver.findElement(By.xpath("//*[@id='buttonId']")).getAttribute("value"));
         System.out.println(driver.findElement(By.xpath("//*[@name='randomButton2']")).getAttribute("value"));
-
-
-
     }
     @Test
     public void findElementByCssName() throws Exception {

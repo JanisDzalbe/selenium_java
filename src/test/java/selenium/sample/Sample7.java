@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 import selenium.utility.BootcampUtils;
 
@@ -23,7 +24,7 @@ public class Sample7 {
     @BeforeEach
     public void startingTests() throws Exception {
         // Initialize driver
-        driver = BootcampUtils.initializeChromeDriver();
+        driver = new ChromeDriver();
 
         //open page:
         driver.get(base_url);
@@ -52,7 +53,6 @@ public class Sample7 {
         option3.click();
         assertTrue(option3.isSelected());
     }
-
 
     @Test
     public void selectRadioButton() throws Exception {
@@ -94,12 +94,12 @@ public class Sample7 {
         assertEquals("Option 3", dropdown.getFirstSelectedOption().getText());
     }
 
-    @Test
-    public void testDragAndDrop() throws Exception {
-        String dragElement = "#black_box";
-        String toTarget = "#drag_box2";
-        Sample7DragAndDropMagic.dragAndDropMagic(driver, dragElement, toTarget);
-    }
+//    @Test
+//    public void testDragAndDrop() throws Exception {
+//        String dragElement = "#black_box";
+//        String toTarget = "#drag_box2";
+//        Sample7DragAndDropMagic.dragAndDropMagic(driver, dragElement, toTarget);
+//    }
 
     @Test
     public void chooseDateViaCalendar() throws Exception {

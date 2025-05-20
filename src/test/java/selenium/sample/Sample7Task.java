@@ -3,8 +3,18 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 import selenium.utility.BootcampUtils;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static selenium.sample.Sample10.driver;
 
 public class Sample7Task {
     WebDriver driver;
@@ -14,12 +24,10 @@ public class Sample7Task {
     @BeforeEach
     public void startingTests() throws Exception {
         // Initialize driver
-        driver = BootcampUtils.initializeChromeDriver();
-
+        driver = new ChromeDriver();
         //open page:
         driver.get(base_url);
     }
-
     // method which is being run after each test
     @AfterEach
     public void endingTests() throws Exception {
@@ -35,8 +43,24 @@ public class Sample7Task {
 //        tick  "Option 3"
 //        click result
 //        check that text 'You selected value(s): Option 2, Option 3' is being displayed
-    }
 
+        assertFalse(driver.findElement(By.id("vfb-6-0")).isSelected());
+        assertFalse(driver.findElement(By.id("vfb-6-1")).isSelected());
+        assertFalse(driver.findElement(By.id("vfb-6-2")).isSelected());
+
+        driver.findElement(By.id("vfb-6-1")).click();
+
+        assertFalse(driver.findElement(By.id("vfb-6-0")).isSelected());
+        assertTrue(driver.findElement(By.id("vfb-6-1")).isSelected());
+        assertFalse(driver.findElement(By.id("vfb-6-2")).isSelected());
+
+        driver.findElement(By.id("vfb-6-2")).click();
+
+        driver.findElement(By.id("result_button_checkbox")).click();
+
+        assertTrue(driver.findElement(By.id("result_checkbox")).isDisplayed());
+        assertEquals("You selected value(s): Option 2, Option 3", driver.findElement(By.id("result_checkbox")).getText());
+    }
 
     @Test
     public void selectRadioButton() throws Exception {
@@ -48,6 +72,7 @@ public class Sample7Task {
 //        check that "Option 2" and "Option 3' are not select, but "Option 1" is selected
 //        click result
 //        check that 'You selected option: Option 1' text is being displayed
+
     }
 
     @Test
@@ -60,7 +85,10 @@ public class Sample7Task {
 //        check that 'You selected option: Option 2' text is being displayed
     }
 
-    @Test
+
+
+
+        @Test
     public void chooseDateViaCalendarBonus() throws Exception {
 //         TODO:
 //        enter date '4 of July 2007' using calendar widget
