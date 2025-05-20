@@ -4,11 +4,13 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import selenium.utility.BootcampUtils;
 
+import java.security.Key;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -120,6 +122,21 @@ public class Sample7Task {
 
     @Test
     public void chooseDateViaCalendarBonus() throws Exception {
+        WebElement dateInput = driver.findElement(By.id("vfb-8")); // adjust locator
+        dateInput.click();
+
+        while (true) {
+            String monthYear = driver.findElement(By.className("ui-datepicker-title")).getText();
+            if (monthYear.equals("July 2007")) {
+                break;
+            }
+            driver.findElement(By.className("ui-datepicker-prev")).click();
+            Thread.sleep(20);
+        }
+        driver.findElement(By.xpath("//a[text()='4']")).click();
+
+        String selectedDate = dateInput.getAttribute("value");
+        assertEquals("07/04/2007", selectedDate);
 //         TODO:
 //        enter date '4 of July 2007' using calendar widget
 //        check that correct date is added
@@ -127,6 +144,19 @@ public class Sample7Task {
 
     @Test
     public void chooseDateViaTextBoxBonus() throws Exception {
+        WebElement dateInput = driver.findElement(By.id("vfb-8")); // adjust locator
+        dateInput.click();
+        dateInput.clear();
+        dateInput.sendKeys("05/02/1959");
+        dateInput.sendKeys(Keys.TAB);
+
+        WebElement clickButton = driver.findElement(By.id("result_button_date"));
+
+        clickButton.click();
+
+        WebElement result = driver.findElement(By.id("result_date"));
+        assertEquals("You entered date: 05/02/1959", result.getText());
+
 //         TODO:
 //        enter date '2 of May 1959' using text
 //        check that correct date is added
