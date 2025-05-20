@@ -42,12 +42,10 @@ public class Sample7Task {
 //        click result
 //        check that text 'You selected value(s): Option 2, Option 3' is being displayed
         List<WebElement> checkBoxes = driver.findElements(By.cssSelector(".w3-check[type='checkbox']"));
-        System.out.println(checkBoxes);
         for (WebElement checkBox : checkBoxes) {
             assertFalse(checkBox.isSelected());// checkboxes are NOT selected
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         }
-        WebElement option2 = driver.findElement(By.cssSelector(".w3-check[value='Option 2'][type='checkbox']"));
         checkBoxes.get(1).click();
         assertFalse(checkBoxes.get(0).isSelected());
         assertFalse(checkBoxes.get(2).isSelected());
@@ -56,8 +54,7 @@ public class Sample7Task {
 
         checkBoxes.get(2).click();
         driver.findElement(By.id("result_button_checkbox")).click();
-        assertEquals(driver.findElement(By.id("result_checkbox")).getText(), "You selected value(s): Option 2, Option 3");
-        Thread.sleep(2000);
+        assertEquals("You selected value(s): Option 2, Option 3", driver.findElement(By.id("result_checkbox")).getText());
     }
 
 
@@ -72,7 +69,6 @@ public class Sample7Task {
 //        click result
 //        check that 'You selected option: Option 1' text is being displayed
         List<WebElement> radios = driver.findElements(By.cssSelector(".w3-check[type='radio']"));
-        System.out.println(radios);
         for (WebElement radio : radios) {
             assertFalse(radio.isSelected());// checkboxes are NOT selected
             Thread.sleep(2000);
@@ -88,10 +84,7 @@ public class Sample7Task {
         assertFalse(radios.get(1).isSelected());
 
         driver.findElement(By.id("result_button_ratio")).click();
-        assertEquals(driver.findElement(By.id("result_radio")).getText(), "You selected option: Option 1");
-        Thread.sleep(2000);
-
-
+        assertEquals("You selected option: Option 1", driver.findElement(By.id("result_radio")).getText());
     }
 
     @Test
@@ -114,7 +107,7 @@ public class Sample7Task {
         Thread.sleep(2000);
 
         driver.findElement(By.id("result_button_select")).click();
-        assertEquals(driver.findElement(By.id("result_select")).getText(), "You selected option: Option 2");
+        assertEquals("You selected option: Option 2", driver.findElement(By.id("result_select")).getText());
         Thread.sleep(2000);
     }
 
@@ -123,12 +116,37 @@ public class Sample7Task {
 //         TODO:
 //        enter date '4 of July 2007' using calendar widget
 //        check that correct date is added
+        WebElement calendarInput = driver.findElement(By.id("vfb-8"));
+        calendarInput.sendKeys("05/12/2007");
+        calendarInput.click();
+        WebElement calendar = driver.findElement(By.cssSelector("#ui-datepicker-div"));
+        clickNextMonth(calendar, 2);
+        WebElement day = calendar.findElement(By.xpath("//a[text()='4']"));
+        day.click();
+        WebElement resultButton = driver.findElement(By.id("result_button_date"));
+        resultButton.click();
+        assertEquals("07/04/2007", calendarInput.getAttribute("value"));
+        assertEquals("You entered date: 07/04/2007", driver.findElement(By.id("result_date")).getText());
     }
+    private void clickNextMonth(WebElement calendar, int times){
+        for (int i = 0; i < times; i++){
+            WebElement nextMonthButton = calendar.findElement(By.cssSelector("a[title='Next']"));
+            nextMonthButton.click();
+        }
+    }
+
 
     @Test
     public void chooseDateViaTextBoxBonus() throws Exception {
 //         TODO:
 //        enter date '2 of May 1959' using text
 //        check that correct date is added
+        WebElement calendarInput = driver.findElement(By.id("vfb-8"));
+        calendarInput.sendKeys("05/02/1959");
+       driver.findElement(By.cssSelector("body")).click();
+        WebElement resultButton = driver.findElement(By.id("result_button_date"));
+        resultButton.click();
+        assertEquals("05/02/1959", calendarInput.getAttribute("value"));
+        assertEquals("You entered date: 05/02/1959", driver.findElement(By.id("result_date")).getText());
     }
 }
