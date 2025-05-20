@@ -3,8 +3,12 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import selenium.utility.BootcampUtils;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Sample4Task {
     WebDriver driver;
@@ -29,6 +33,20 @@ public class Sample4Task {
     @Test
     public void enterNumber() throws Exception {
 //         TODO:
+        WebElement numInput = driver.findElement(By.id("number"));
+        WebElement resultButton = driver.findElement(By.id("result_button"));
+        WebElement clearButton = driver.findElement(By.id("clear_button"));
+        WebElement resultText = driver.findElement(By.id("result_text"));
+
+        numInput.sendKeys("5");
+        assertFalse(clearButton.isEnabled());
+        assertFalse(resultText.isDisplayed());
+
+        resultButton.click();
+        assertTrue(resultText.isDisplayed());
+        assertEquals("You enter number:"+ numInput, resultText.getText());
+        assertTrue(clearButton.isEnabled());
+
 //        enter a number under "Number"
 //        check that button is not clickable "Clear Result"
 //        check that text is not displayed
@@ -43,6 +61,10 @@ public class Sample4Task {
     @Test
     public void clickOnLink() throws Exception {
 //         TODO:
+        assertEquals("https://acctabootcamp.github.io/site/examples/actions",driver.getCurrentUrl());
+        driver.findElement(By.id("homepage_link")).click();
+        assertFalse(driver.getCurrentUrl().equals("https://acctabootcamp.github.io/site/examples/actions"),driver.getCurrentUrl());
+
 //        check current url is base_url
 //        click on "This is a link to Homepage"
 //        check that current url is not base_url
