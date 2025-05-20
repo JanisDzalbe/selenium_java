@@ -83,6 +83,7 @@ public class Sample6Task {
 
 //        1-2 ways to find text: "This is also a button"
 
+
         System.out.println(driver.findElement(By.cssSelector("[name='randomButton2']")).getAttribute("value"));
         System.out.println(driver.findElement(By.cssSelector("[value='This is also a button']")).getAttribute("value"));
 
