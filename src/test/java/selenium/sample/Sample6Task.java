@@ -36,6 +36,8 @@ public class Sample6Task {
 //        1-2 ways to find text: "Test Text 4"
 //        1-2 ways to find text: "Test Text 5"
 //        1-2 ways to find text: "This is also a button"
+
+
         System.out.println("Find element by id using xPath:");
         System.out.println("\t text of element with id 'heading_2' is '" +
                 driver.findElement(By.xpath("//*[@id='heading_2']")).getText() + "'");
@@ -44,15 +46,17 @@ public class Sample6Task {
         System.out.println("\t text of element with class 'twoTest' is '" +
                 driver.findElement(By.xpath("//*[@class='twoTest']")).getText() + "'");
         System.out.println("\t text of element with id 'test3' is '" +
-                driver.findElement(By.xpath("//*[@id='test3']")).getText() + "'");
+                driver.findElement(By.xpath("//*[@id='test3']/p")).getText() + "'");
+        System.out.println("\t text of element with id 'test3' is '" +
+                driver.findElement(By.xpath("//*[@id='test3']/p[text()='Test Text 4']")).getText() + "'");
+
+
         System.out.println("\t text of element with class 'text' is '" +
                 driver.findElement(By.xpath("//*[@class='Test']")).getText() + "'");
 
 
         System.out.println("\t value of element with name 'randomButton2' is '" +
                 driver.findElement(By.xpath("//*[@name='randomButton2']")).getAttribute("value") + "'");
-        System.out.println("\t name of element with value 'This is also a button' is '" +
-                driver.findElement(By.xpath("//*[@value='This is also a button']")).getAttribute("name") + "'");
         System.out.println("\t value of element with type 'button' is '" +
                 driver.findElement(By.xpath("//*[@type='button']")).getAttribute("value") + "'");
     }
@@ -67,6 +71,16 @@ public class Sample6Task {
 //        1-2 ways to find text: "This is also a button"
 
 
-
+        System.out.println("Find element by id using xPath:");
+        System.out.println("\t text of element with id 'heading_2' is '" +
+                driver.findElement(By.cssSelector("#heading_2")).getText() + "'");
+        System.out.println("\t text of element with class 'test' is '" +
+                driver.findElement(By.cssSelector(".test")).getText() + "'");
+        System.out.println("\t text of element with class 'twoTest' is '" +
+                driver.findElement(By.cssSelector(".twoTest")).getText() + "'");
+        System.out.println("\t text of element with id 'test3' is '" +
+                driver.findElement(By.cssSelector("#test3 > p")).getText() + "'");
+        System.out.println("\t value of element with name 'randomButton2' is '" +
+                driver.findElement(By.cssSelector("input[name='randomButton2'][type='button']")).getAttribute("value") + "'");
     }
 }
