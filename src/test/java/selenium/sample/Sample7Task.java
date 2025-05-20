@@ -81,20 +81,20 @@ public class Sample7Task {
 
         radioList.get(2).click();
 
-        assertFalse(radioList.get(0).isSelected();
-        assertFalse(radioList.get(1).isSelected();
-        assertTrue(radioList.get(2).isSelected();
+        assertFalse(radioList.get(0).isSelected());
+        assertFalse(radioList.get(1).isSelected());
+        assertTrue(radioList.get(2).isSelected());
 
         radioList.get(0).click();
 
-        assertTrue(radioList.get(0).isSelected();
-        assertFalse(radioList.get(1).isSelected();
-        assertFalse(radioList.get(2).isSelected();
+        assertTrue(radioList.get(0).isSelected());
+        assertFalse(radioList.get(1).isSelected());
+        assertFalse(radioList.get(2).isSelected());
 
         driver.findElement(By.id("result_button_ratio")).click();
 
         assertTrue(driver.findElement(By.id("result_radio")).isDisplayed());
-        assertEquals("You selected option: Option 1", driver.findElement(By.id("result_radio")).getText();
+        assertEquals("You selected option: Option 1", driver.findElement(By.id("result_radio")).getText());
             }
 
     @Test
@@ -116,7 +116,7 @@ public class Sample7Task {
         driver.findElement(By.id("result_button_select")).click();
 
         assertTrue(driver.findElement(By.id("result_select")).isDisplayed());
-        assertEquals("You selected option: Option 2", driver.findElement(By.id("result_select")).getText();
+        assertEquals("You selected option: Option 2", driver.findElement(By.id("result_select")).getText());
 
     }
 
