@@ -143,6 +143,25 @@ public class Task2 {
 
     @Test
     public void yesOnWithNameFeedbackPage() throws Exception {
+
+        WebElement nameInput = driver.findElement(By.id("fb_name"));
+        String name = "Daniils Grigorjevs";
+        nameInput.sendKeys(name);
+
+        driver.findElement(By.cssSelector("button[type='submit']")).click();
+
+        driver.findElement(By.xpath("//button[text()='Yes']")).click();
+
+        WebElement message = driver.findElement(By.id("message"));
+
+        assertEquals("Thank you, " +  name + ", for your feedback!", message.getText());
+
+        WebElement panel = driver.findElement(By.cssSelector("#fb_thx .w3-panel"));
+        String backgroundColor = panel.getCssValue("background-color");
+        String color = message.getCssValue("color");
+
+        assertEquals("rgba(76, 175, 80, 1)", backgroundColor);
+        assertEquals("rgba(255, 255, 255, 1)", color);
 //         TODO:
 //         enter only name
 //         click "Send"
@@ -153,6 +172,20 @@ public class Task2 {
 
     @Test
     public void yesOnWithoutNameFeedbackPage() throws Exception {
+
+        driver.findElement(By.cssSelector("button[type='submit']")).click();
+        driver.findElement(By.xpath("//button[text()='Yes']")).click();
+
+        WebElement message = driver.findElement(By.id("message"));
+        assertEquals("Thank you for your feedback!", message.getText());
+
+        WebElement panel = driver.findElement(By.cssSelector("#fb_thx .w3-panel"));
+        String backgroundColor = panel.getCssValue("background-color");
+        String color = message.getCssValue("color");
+
+        assertEquals("rgba(76, 175, 80, 1)", backgroundColor);
+        assertEquals("rgba(255, 255, 255, 1)", color);
+
 //         TODO:
 //         click "Send" (without entering anything
 //         click "Yes"
@@ -162,6 +195,47 @@ public class Task2 {
 
     @Test
     public void noOnFeedbackPage() throws Exception {
+        driver.findElement(By.id("fb_name")).sendKeys("Daniils Grigorjevs");
+        driver.findElement(By.id("fb_age")).sendKeys("28");
+
+        WebElement englishCheckbox = driver.findElement(By.cssSelector("input[type='checkbox'][value='English']"));
+        if (!englishCheckbox.isSelected()) {
+            englishCheckbox.click();
+        }
+
+        driver.findElement(By.cssSelector("input[name='gender'][value='male']")).click();
+
+        Select optSelect = new Select(driver.findElement(By.id("like_us")));
+        optSelect.selectByVisibleText("Ok, i guess");
+
+        driver.findElement(By.name("comment")).sendKeys("It was very good experience");
+
+        driver.findElement(By.cssSelector("button[type='submit']")).click();
+
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("fb_thx")));
+
+        driver.findElement(By.xpath("//button[text()='No']")).click();
+
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("fb_name")));
+
+        assertEquals("Daniils Grigorjevs", driver.findElement(By.id("fb_name")).getAttribute("value"));
+        assertEquals("28", driver.findElement(By.id("fb_age")).getAttribute("value"));
+
+        WebElement englishCheckboxAfter = driver.findElement(By.cssSelector("input[type='checkbox'][value='English']"));
+        assertTrue(englishCheckboxAfter.isSelected());
+
+        WebElement genderMaleAfter = driver.findElement(By.cssSelector("input[name='gender'][value='male']"));
+        assertTrue(genderMaleAfter.isSelected());
+
+        Select optSelectAfter = new Select(driver.findElement(By.id("like_us")));
+        assertEquals("Ok, i guess", optSelectAfter.getFirstSelectedOption().getText());
+
+        assertEquals("It was very good experience", driver.findElement(By.name("comment")).getAttribute("value"));
+
+
+
 //         TODO:
 //         fill the whole form
 //         click "Send"
