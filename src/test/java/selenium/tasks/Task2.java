@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
@@ -100,6 +101,39 @@ public class Task2 {
 
     @Test
     public void notEmptyFeedbackPage() throws Exception {
+
+        driver.findElement(By.id("fb_name")).sendKeys("Daniils Grigorjevs");
+        driver.findElement(By.id("fb_age")).sendKeys("28");
+
+        WebElement englishCheckbox = driver.findElement(By.cssSelector("input[type='checkbox'][value='English']"));
+        if (!englishCheckbox.isSelected()) {
+            englishCheckbox.click();
+        }
+
+        driver.findElement(By.name("gender")).click();
+
+        Select optSelect = new Select(driver.findElement(By.id("like_us")));
+        optSelect.selectByVisibleText("Ok, i guess");
+
+        driver.findElement(By.name("comment")).sendKeys("It was very good experience");
+
+        driver.findElement(By.cssSelector("button[type='submit']")).click();
+
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("fb_thx")));
+
+        assertEquals("Daniils Grigorjevs", driver.findElement(By.id("name")).getText());
+        assertEquals("28", driver.findElement(By.id("age")).getText());
+        assertEquals("English", driver.findElement(By.id("language")).getText());
+        assertEquals("male", driver.findElement(By.id("gender")).getText());
+        assertEquals("Ok, i guess", driver.findElement(By.id("option")).getText());
+        assertEquals("It was very good experience", driver.findElement(By.id("comment")).getText());
+
+        WebElement yesBtn = driver.findElement(By.xpath("//button[text()='Yes']"));
+        WebElement noBtn = driver.findElement(By.xpath("//button[text()='No']"));
+
+        assertTrue(yesBtn.getAttribute("class").contains("w3-green"));
+        assertTrue(noBtn.getAttribute("class").contains("w3-red"));
 //         TODO:
 //         fill the whole form, click "Send"
 //         check fields are filled correctly
