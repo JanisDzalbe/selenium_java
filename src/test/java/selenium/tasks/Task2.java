@@ -3,10 +3,18 @@ package selenium.tasks;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
+import java.time.Duration;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Task2 {
     WebDriver driver;
@@ -26,6 +34,35 @@ public class Task2 {
 
     @Test
     public void initialFeedbackPage() throws Exception {
+        assertEquals("", driver.findElement(By.id("fb_name")).getAttribute("value"));
+        assertEquals("", driver.findElement(By.id("fb_age")).getAttribute("value"));
+
+        List<WebElement> languages = driver.findElements(By.name("language"));
+        for (WebElement lang:languages){
+            assertFalse(lang.isSelected());
+        }
+
+        List<WebElement> genders = driver.findElements(By.name("gender"));
+        boolean selected = false;
+        for (WebElement gend:genders){
+            if (gend.isSelected() && gend.getAttribute("value").isEmpty()){
+                selected = true;
+            }
+        }
+        assertTrue(selected);
+
+        WebElement select = driver.findElement(By.id("like_us"));
+        WebElement selectedOption = select.findElement(By.cssSelector("option:checked"));
+        assertEquals("Choose your option", selectedOption.getText());
+
+        WebElement sendBtn = driver.findElement(By.cssSelector("button[type='submit']"));
+        String backgroundColor = sendBtn.getCssValue("background-color");
+        String textColor = sendBtn.getCssValue("color");
+
+        assertTrue(backgroundColor.contains("33, 150, 243") || backgroundColor.contains("blue")); // blue
+        assertTrue(textColor.contains("255, 255, 255") || textColor.contains("white")); // white
+
+
 //         TODO:
 //         check that all field are empty and no ticks are clicked
 //         "Don't know" is selected in "Genre"
@@ -35,6 +72,25 @@ public class Task2 {
 
     @Test
     public void emptyFeedbackPage() throws Exception {
+        WebElement sendBtn = driver.findElement(By.cssSelector("button[type='submit']"));
+        sendBtn.click();
+
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("fb_thx")));
+
+        assertEquals("", driver.findElement(By.id("name")).getText());
+        assertEquals("", driver.findElement(By.id("age")).getText());
+        assertEquals("", driver.findElement(By.id("language")).getText());
+        assertEquals("null", driver.findElement(By.id("gender")).getText());
+        assertEquals("null", driver.findElement(By.id("option")).getText());
+        assertEquals("", driver.findElement(By.id("comment")).getText());
+
+        WebElement yesBtn = driver.findElement(By.xpath("//button[text()='Yes']"));
+        WebElement noBtn = driver.findElement(By.xpath("//button[text()='No']"));
+
+        assertTrue(yesBtn.getAttribute("class").contains("w3-green"));
+        assertTrue(noBtn.getAttribute("class").contains("w3-red"));
+
 //         TODO:
 //         click "Send" without entering any data
 //         check fields are empty or "null"
