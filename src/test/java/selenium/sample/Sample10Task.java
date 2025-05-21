@@ -4,6 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
 import selenium.pages.ColorSamplePage;
 import selenium.utility.BootcampUtils;
@@ -17,7 +18,7 @@ public class Sample10Task {
     @BeforeEach
     public void openPage() {
         // Initialize driver
-        driver = BootcampUtils.initializeChromeDriver();
+        driver = new ChromeDriver();
 
         // Set timeout and open page
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
@@ -40,6 +41,9 @@ public class Sample10Task {
 //         * 3) check that both button
 //         * and loading text is not seen,
 //         * success is seen instead "Green Loaded"
+    colorPage.clickStartLoadingGreen();
+    colorPage.assertLoadingGreenButton();
+    colorPage.assertFinishGreenComplited();
     }
 
 }

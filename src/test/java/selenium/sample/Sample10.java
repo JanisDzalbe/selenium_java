@@ -4,6 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
 import selenium.pages.AgeSamplePage;
 import selenium.pages.AgeSubmittedSamplePage;
@@ -19,7 +20,7 @@ public class Sample10 {
     @BeforeEach
     public void openPage() throws InterruptedException {
         // Initialize driver
-        driver = BootcampUtils.initializeChromeDriver();
+        driver = new ChromeDriver();
 
         // Set an implicity wait
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));

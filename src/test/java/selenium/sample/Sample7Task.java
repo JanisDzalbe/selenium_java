@@ -128,6 +128,7 @@ public class Sample7Task {
 //         TODO:
 //        enter date '4 of July 2007' using calendar widget
 //        check that correct date is added
+
     }
 
     @Test

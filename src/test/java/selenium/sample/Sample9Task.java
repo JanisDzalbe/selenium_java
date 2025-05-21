@@ -3,17 +3,30 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.decorators.WebDriverDecorator;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import selenium.utility.BootcampUtils;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import java.time.Duration;
+import java.util.concurrent.TimeUnit;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Sample9Task {
     WebDriver driver;
+    private static WebDriverWait wait;
+    static long startTime;
 
     @BeforeEach
     public void openPage() {
         // Initialize driver
-        driver = BootcampUtils.initializeChromeDriver();
-
+        driver = new ChromeDriver();
         // load web page
         driver.get("https://acctabootcamp.github.io/site/examples/loading_color");
     }
@@ -32,6 +45,23 @@ public class Sample9Task {
 //         * 3) check that both button
 //         * and loading text is not seen,
 //         * success is seen instead "Green Loaded"
+        WebElement greenButton = driver.findElement(By.id("start_green"));
+        greenButton.click();
+
+        assertFalse(greenButton.isDisplayed());
+
+        WebElement loadingGreen = driver.findElement(By.id("loading_green"));
+        assertTrue(loadingGreen.isDisplayed());
+        assertEquals("Loading green...", loadingGreen.getText());
+
+        Thread.sleep(5000);
+
+        assertFalse(greenButton.isDisplayed());
+        assertFalse(loadingGreen.isDisplayed());
+
+        WebElement finishGreen = driver.findElement(By.id("finish_green"));
+        assertTrue(finishGreen.isDisplayed());
+        assertEquals("Green Loaded", finishGreen.getText());
     }
 
     @Test
@@ -43,6 +73,25 @@ public class Sample9Task {
 //         * 3) check that both button
 //         * and loading text is not seen,
 //         * success is seen instead "Green Loaded"
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+
+        WebElement greenButton = driver.findElement(By.id("start_green"));
+        greenButton.click();
+
+        assertFalse(greenButton.isDisplayed());
+
+        WebElement loadingGreen = driver.findElement(By.id("loading_green"));
+        assertTrue(loadingGreen.isDisplayed());
+        assertEquals("Loading green...", loadingGreen.getText());
+
+        WebElement finishGreen = driver.findElement(By.id("finish_green"));
+        assertTrue(finishGreen.isDisplayed());
+
+        assertFalse(greenButton.isDisplayed());
+        assertFalse(loadingGreen.isDisplayed());
+
+        assertEquals("Green Loaded", finishGreen.getText());
+
     }
 
     @Test
@@ -54,6 +103,26 @@ public class Sample9Task {
 //         * 3) check that both button
 //         * and loading text is not seen,
 //         * success is seen instead "Green Loaded"
+        WebDriverWait wait = (WebDriverWait) new WebDriverWait(driver, Duration.ofSeconds(10)).ignoring(StaleElementReferenceException.class);
+
+        WebElement greenButton = driver.findElement(By.id("start_green"));
+        greenButton.click();
+
+        assertFalse(greenButton.isDisplayed());
+
+        WebElement loadingGreen = driver.findElement(By.id("loading_green"));
+        assertTrue(loadingGreen.isDisplayed());
+        assertEquals("Loading green...", loadingGreen.getText());
+
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("finish_green")));
+
+        WebElement finishGreen = driver.findElement(By.id("finish_green"));
+        assertTrue(finishGreen.isDisplayed());
+
+        assertFalse(greenButton.isDisplayed());
+        assertFalse(loadingGreen.isDisplayed());
+
+        assertEquals("Green Loaded", finishGreen.getText());
     }
 
     @Test
