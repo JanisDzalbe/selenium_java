@@ -40,6 +40,14 @@ public class Sample10Task {
 //         * 3) check that both button
 //         * and loading text is not seen,
 //         * success is seen instead "Green Loaded"
+        colorPage.clickStartLoadingGreen();
+
+        colorPage.checkStartLoadingGreenButtonIsNotVisible();
+        colorPage.checkLoadingGreenTextIsVisible();
+
+        colorPage.checkGreenLoadedTextIsVisible();
+        colorPage.checkStartLoadingGreenButtonIsNotVisible();
+        colorPage.checkLoadingGreenTextIsNotVisible();
     }
 
 }
