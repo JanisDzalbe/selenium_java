@@ -180,7 +180,6 @@ public class Task2 {
         String expectedMessage = "Thank you, " + testName + ", for your feedback!";
         assertEquals(expectedMessage, thankYouMessage.getText());
 
-        // Check color of text is white with green background
         String messageBackgroundColor = thankYouMessage.getCssValue("background-color");
         String messageTextColor = thankYouMessage.getCssValue("color");
 
