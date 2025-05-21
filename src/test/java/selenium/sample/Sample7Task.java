@@ -10,6 +10,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 import selenium.utility.BootcampUtils;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -128,7 +130,20 @@ public class Sample7Task {
 //         TODO:
 //        enter date '4 of July 2007' using calendar widget
 //        check that correct date is added
-
+            String expectedData = "07/04/2007";
+            WebElement dateBox = driver.findElement(By.id("vfb-8"));
+            assertEquals("", dateBox.getAttribute("value"));
+            dateBox.click();
+            WebElement dateWidget = driver.findElement(By.id("ui-datepicker-div"));
+//    go back 214 month in calendar on page
+            for (int i = 0; i < 214; i++) {
+                dateWidget.findElement(By.className("ui-datepicker-prev")).click();
+            }
+//    select date 4
+            dateWidget.findElement(By.xpath("//a[text()='4']")).click();
+            assertEquals(expectedData, dateBox.getAttribute("value"));
+            System.out.println(dateBox.getAttribute("value"));
+            dateBox.clear();
     }
 
     @Test
@@ -136,5 +151,13 @@ public class Sample7Task {
 //         TODO:
 //        enter date '2 of May 1959' using text
 //        check that correct date is added
+        String dateToEnter = "02/05/1959";
+
+        WebElement dateBox = driver.findElement(By.id("vfb-8"));
+        assertEquals("", dateBox.getAttribute("value"));
+
+        dateBox.clear();
+        dateBox.sendKeys(dateToEnter);
+        assertEquals(dateToEnter, dateBox.getAttribute("value"));
     }
 }
