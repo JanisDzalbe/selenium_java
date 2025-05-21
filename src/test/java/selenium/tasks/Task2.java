@@ -8,7 +8,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.File;
 
-public class Task2 {
+public class  Task2 {
     WebDriver driver;
 
     @BeforeEach
