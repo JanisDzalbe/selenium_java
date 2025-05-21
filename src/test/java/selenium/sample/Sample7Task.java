@@ -3,8 +3,15 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import selenium.utility.BootcampUtils;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Sample7Task {
     WebDriver driver;
@@ -35,6 +42,32 @@ public class Sample7Task {
 //        tick  "Option 3"
 //        click result
 //        check that text 'You selected value(s): Option 2, Option 3' is being displayed
+/*
+        assertFalse(driver.findElement(By.id("vfb-6-0")).isSelected());
+        assertFalse(driver.findElement(By.id("vfb-6-1")).isSelected());
+        assertFalse(driver.findElement(By.id("vfb-6-2")).isSelected());
+        driver.findElement(By.id("vfb-6-1")).click();
+        assertFalse(driver.findElement(By.id("vfb-6-0")).isSelected());
+        assertTrue(driver.findElement(By.id("vfb-6-1")).isSelected());
+        assertFalse(driver.findElement(By.id("vfb-6-2")).isSelected());
+        driver.findElement(By.id("vfb-6-2")).click();
+        driver.findElement(By.id("result_button_checkbox")).click();
+        assertTrue(driver.findElement(By.id("result_checkbox")).isDisplayed());
+        assertEquals("You selected value(s): Option 2, Option 3", driver.findElement(By.id("result_checkbox")).getText());
+*/
+        //System.out.println("\n--- Home work ---");
+        assertFalse(driver.findElement(By.xpath("//input[@id='vfb-6-0']")).isSelected());
+        assertFalse(driver.findElement(By.xpath("//input[@id='vfb-6-1']")).isSelected());
+        assertFalse(driver.findElement(By.xpath("//input[@id='vfb-6-2']")).isSelected());
+        driver.findElement(By.xpath("//input[@id='vfb-6-1']")).click();
+        assertFalse(driver.findElement(By.xpath("//input[@id='vfb-6-0']")).isSelected());
+        assertTrue(driver.findElement(By.xpath("//input[@id='vfb-6-1']")).isSelected());
+        assertFalse(driver.findElement(By.xpath("//input[@id='vfb-6-2']")).isSelected());
+        driver.findElement(By.xpath("//input[@id='vfb-6-2']")).click();
+        driver.findElement(By.cssSelector("button[onclick='actShowResult(\"checkbox\")']")).click();
+
+        assertTrue(driver.findElement(By.id("result_checkbox")).isDisplayed());
+        assertEquals("You selected value(s): Option 2, Option 3", driver.findElement(By.id("result_checkbox")).getText());
     }
 
 
@@ -48,16 +81,61 @@ public class Sample7Task {
 //        check that "Option 2" and "Option 3' are not select, but "Option 1" is selected
 //        click result
 //        check that 'You selected option: Option 1' text is being displayed
+/*
+        List<WebElement> radioList = driver.findElements(By.cssSelector("[name=\"vfb-7\"]"));
+        for (WebElement radioButton: radioList) {
+            assertFalse(radioButton.isSelected());
+        }
+        radioList.get(2).click();
+        assertFalse(radioList.get(0).isSelected());
+        assertFalse(radioList.get(1).isSelected());
+        assertTrue(radioList.get(2).isSelected());
+        radioList.get(0).click();
+        assertTrue(radioList.get(0).isSelected());
+        assertFalse(radioList.get(1).isSelected());
+        assertFalse(radioList.get(2).isSelected());
+        driver.findElement(By.id("result_button_ratio")).click();
+        assertTrue(driver.findElement(By.id("result_radio")).isDisplayed());
+        assertEquals("You selected option: Option 1", driver.findElement(By.id("result_radio")).getText());
+*/
+        //System.out.println("\n--- Home work ---");
+        WebElement radioButton1 = driver.findElement(By.xpath("//input[@id='vfb-7-1']"));
+        WebElement radioButton2 = driver.findElement(By.xpath("//input[@id='vfb-7-2']"));
+        WebElement radioButton3 = driver.findElement(By.xpath("//input[@id='vfb-7-3']"));
+        assertFalse(radioButton1.isSelected());
+        assertFalse(radioButton2.isSelected());
+        assertFalse(radioButton3.isSelected());
+        radioButton3.click();
+        assertFalse(radioButton1.isSelected());
+        assertFalse(radioButton2.isSelected());
+        assertTrue(radioButton3.isSelected());
+        radioButton1.click();
+        assertTrue(radioButton1.isSelected());
+        assertFalse(radioButton2.isSelected());
+        assertFalse(radioButton3.isSelected());
+        driver.findElement(By.id("result_button_ratio")).click();
+        assertTrue(driver.findElement(By.id("result_radio")).isDisplayed());
+        assertEquals("You selected option: Option 1", driver.findElement(By.id("result_radio")).getText());
     }
 
     @Test
     public void selectOption() throws Exception {
+//         TODO:
 //        select "Option 3" in Select
 //        check that selected option is "Option 3"
 //        select "Option 2" in Select
 //        check that selected option is "Option 2"
 //        click result
 //        check that 'You selected option: Option 2' text is being displayed
+
+        Select dropdownMenu = new Select(driver.findElement(By.id("vfb-12")));
+        dropdownMenu.selectByVisibleText("Option 3");
+        assertEquals("Option 3", dropdownMenu.getFirstSelectedOption().getText());
+        dropdownMenu.selectByVisibleText("Option 2");
+        assertEquals("Option 2", dropdownMenu.getFirstSelectedOption().getText());
+        driver.findElement(By.id("result_button_select")).click();
+        assertTrue(driver.findElement(By.id("result_button_select")).isDisplayed());
+        assertEquals("You selected option: Option 2", driver.findElement(By.id("result_select")).getText());
     }
 
     @Test
@@ -65,6 +143,35 @@ public class Sample7Task {
 //         TODO:
 //        enter date '4 of July 2007' using calendar widget
 //        check that correct date is added
+            WebElement dateInputField = driver.findElement(By.id("vfb-8"));
+            dateInputField.click();
+
+            WebElement calendarPopup = driver.findElement(By.id("ui-datepicker-div"));
+
+            boolean targetMonthReached = false;
+            while (!targetMonthReached) {
+                WebElement titleContainer = calendarPopup.findElement(By.className("ui-datepicker-title"));
+                String currentMonth = titleContainer.findElement(By.className("ui-datepicker-month")).getText();
+                String currentYear = titleContainer.findElement(By.className("ui-datepicker-year")).getText();
+
+                if (currentMonth.equals("July") && currentYear.equals("2007")) {
+                    targetMonthReached = true;
+                } else {
+                    WebElement previousMonthButton = calendarPopup.findElement(By.className("ui-datepicker-prev"));
+                    previousMonthButton.click();
+                }
+            }
+
+            List<WebElement> dateCells = calendarPopup.findElements(By.className("ui-state-default"));
+            for (WebElement cell : dateCells) {
+                if (cell.getText().equals("4")) {
+                    cell.click();
+                    break;
+                }
+            }
+
+            String actualDate = dateInputField.getAttribute("value");
+            assertEquals("07/04/2007", actualDate);
     }
 
     @Test
@@ -72,5 +179,9 @@ public class Sample7Task {
 //         TODO:
 //        enter date '2 of May 1959' using text
 //        check that correct date is added
+        String date = "05/02/1959";
+        WebElement dateInputField = driver.findElement(By.id("vfb-8"));
+        dateInputField.sendKeys(date);
+        assertEquals(date, dateInputField.getAttribute("value"));
     }
 }
