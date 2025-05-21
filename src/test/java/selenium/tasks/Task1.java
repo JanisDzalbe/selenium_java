@@ -48,9 +48,14 @@ public class Task1 {
 
     @Test
     public void correctSquareRoot() {
+        int inputVal = 55;
 //        TODO
 //        enter a number between 50 and 100 digit in the input, then press submit
 //        and check that no error is seen and that square root is calculated correctly
 //        NOTE: input value is hardcoded, but square root used in assertions should be calculated in code
+        double sqrt = Math.sqrt(inputVal);
+        double result = Math.round(sqrt * 100d) / 100d;
+        String message = "Square root of " + inputVal + " is " + result;
+        System.out.println(message);
     }
 }
