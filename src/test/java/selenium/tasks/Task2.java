@@ -113,16 +113,20 @@ public class Task2 {
         WebElement maleRadio = driver.findElement(By.cssSelector("input[value='male']"));
         WebElement sendButton = driver.findElement(By.xpath("//*[@type='submit']"));
         WebElement comment = driver.findElement(By.cssSelector("#fb_form > form > div:nth-child(6) > textarea"));
+        String nameKey = "Tory";
+        String ageKey = "21";
+        String commentKey = "Hi";
+
 
         nameField.clear();
-        nameField.sendKeys("Tory");
+        nameField.sendKeys(nameKey);
         ageField.clear();
-        ageField.sendKeys("21");
+        ageField.sendKeys(ageKey);
         languageF.click();
         maleRadio.click();
         Select dropdown = new Select(driver.findElement(By.id("like_us")));
         dropdown.selectByVisibleText("Good");
-        comment.sendKeys("Hi");
+        comment.sendKeys(commentKey);
         sendButton.click();
 
 
@@ -137,12 +141,12 @@ public class Task2 {
 
 
 
-        assertTrue(name.getText().equals("Tory"));
-        assertTrue(age.getText().equals("21"));
+        assertTrue(name.getText().equals(nameKey));
+        assertTrue(age.getText().equals(ageKey));
         assertTrue(language.getText().equals("French"));
         assertTrue(gender.getText().equals("male"));
         assertTrue(option.getText().equals("Good"));
-        assertTrue(commentCheck.getText().equals("Hi"));
+        assertTrue(commentCheck.getText().equals(commentKey));
 
         assertEquals("rgba(76, 175, 80, 1)", yesButton.getCssValue("background-color"));
         assertEquals("rgb(255, 255, 255)", yesButton.getCssValue("text-decoration-color"));
@@ -160,17 +164,18 @@ public class Task2 {
 //         color of text is white with green on the background
         WebElement nameField = driver.findElement(By.id("fb_name"));
         WebElement sendButton = driver.findElement(By.xpath("//*[@type='submit']"));
+        String nameKey = "Harry";
 
 
         nameField.clear();
-        nameField.sendKeys("Harry");
+        nameField.sendKeys(nameKey);
         sendButton.click();
 
         WebElement yesButton = driver.findElement(By.xpath("//*[@id='fb_thx']//button[1]"));
         yesButton.click();
 
         WebElement pageMessage = driver.findElement(By.id("message"));
-        assertEquals("Thank you, Harry, for your feedback!", pageMessage.getText());
+        assertEquals("Thank you, " + nameKey + ", for your feedback!", pageMessage.getText());
     }
 
     @Test
@@ -193,9 +198,6 @@ public class Task2 {
 //        assertEquals("rgba(76, 175, 80, 1)", pageMessage.getCssValue("background-color"));
 
 //      found at the page background-color as #4CAF50 or rgba (76, 175, 80,1), but didn't get how to check it, especially if system says "Actual : rgba(0,0,0,0)"
-
-
-
     }
 
     @Test
@@ -211,27 +213,29 @@ public class Task2 {
         WebElement femaleRadio = driver.findElement(By.cssSelector("input[value='female']"));
         WebElement sendButton = driver.findElement(By.xpath("//*[@type='submit']"));
         WebElement comment = driver.findElement(By.cssSelector("#fb_form > form > div:nth-child(6) > textarea"));
+        String nameKey = "Jany";
+        String ageKey = "34";
+        String commentKey = "Good morning";
 
         nameField.clear();
-        nameField.sendKeys("Jany");
+        nameField.sendKeys(nameKey);
         ageField.clear();
-        ageField.sendKeys("34");
+        ageField.sendKeys(ageKey);
         languageC.click();
         femaleRadio.click();
         Select dropdown = new Select(driver.findElement(By.id("like_us")));
         dropdown.selectByVisibleText("Why me?");
-        comment.sendKeys("Good morning!");
+        comment.sendKeys(commentKey);
         sendButton.click();
 
         WebElement noButton = driver.findElement(By.xpath("//*[@id='fb_thx']//button[2]"));
         noButton.click();
 
-        assertEquals("Jany", nameField.getAttribute("value"));
-        assertEquals("34", ageField.getAttribute("value"));
+        assertEquals(nameKey, nameField.getAttribute("value"));
+        assertEquals(ageKey, ageField.getAttribute("value"));
         assertTrue(languageC.isSelected());
         assertTrue(femaleRadio.isSelected());
         assertEquals("Why me?", dropdown.getFirstSelectedOption().getText());
-        assertEquals("Good morning!", comment.getAttribute("value"));
-
+        assertEquals(commentKey, comment.getAttribute("value"));
     }
 }
