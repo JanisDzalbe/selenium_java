@@ -1,14 +1,21 @@
 package selenium.pages;
 
 
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
+
 public class ColorSamplePage extends GenericSamplePage {
+    @FindBy(how = How.ID, using = "name")
+    private WebElement nameInput;
 //         TODO:
 //         Define elements in page
 //         see https://www.selenium.dev/selenium/docs/api/java/org/openqa/selenium/support/FindBy.html
 
-    public void clickStartLoadingGreen() {
+    public void clickStartLoadingGreen () {
 //         TODO:
 //         implement clicking on "Start loading green" button
+
     }
 
 //         TODO
