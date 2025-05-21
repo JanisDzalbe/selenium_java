@@ -45,12 +45,11 @@ public class Sample9Task {
 
         assertFalse(driver.findElement(By.id("start_green")).isDisplayed());
         assertTrue(driver.findElement(By.id("loading_green")).isDisplayed());
+        assertEquals("Loading green...", driver.findElement(By.id("loading_green")).getText());
 
+        Thread.sleep(5000);
         assertFalse(driver.findElement(By.id("start_green")).isDisplayed());
-        assertTrue(driver.findElement(By.id("loading_green")).isDisplayed());
-
-        Thread.sleep(10000);
-
+        assertFalse(driver.findElement(By.id("loading_green")).isDisplayed());
         assertTrue(driver.findElement(By.id("finish_green")).isDisplayed());
         assertEquals("Green Loaded", driver.findElement(By.id("finish_green")).getText());
     }
@@ -69,12 +68,12 @@ public class Sample9Task {
 
         assertFalse(driver.findElement(By.id("start_green")).isDisplayed());
         assertTrue(driver.findElement(By.id("loading_green")).isDisplayed());
-
-        assertFalse(driver.findElement(By.id("start_green")).isDisplayed());
-        assertTrue(driver.findElement(By.id("loading_green")).isDisplayed());
+        assertEquals("Loading green...", driver.findElement(By.id("loading_green")).getText());
 
         assertTrue(driver.findElement(By.id("finish_green")).isDisplayed());
         assertEquals("Green Loaded", driver.findElement(By.id("finish_green")).getText());
+        assertFalse(driver.findElement(By.id("start_green")).isDisplayed());
+        assertFalse(driver.findElement(By.id("loading_green")).isDisplayed());
     }
 
     @Test
@@ -91,12 +90,12 @@ public class Sample9Task {
 
         assertFalse(driver.findElement(By.id("start_green")).isDisplayed());
         assertTrue(driver.findElement(By.id("loading_green")).isDisplayed());
-
-        assertFalse(driver.findElement(By.id("start_green")).isDisplayed());
-        assertTrue(driver.findElement(By.id("loading_green")).isDisplayed());
+        assertEquals("Loading green...", driver.findElement(By.id("loading_green")).getText());
 
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("finish_green")));
 
+        assertFalse(driver.findElement(By.id("start_green")).isDisplayed());
+        assertFalse(driver.findElement(By.id("loading_green")).isDisplayed());
         assertTrue(driver.findElement(By.id("finish_green")).isDisplayed());
         assertEquals("Green Loaded", driver.findElement(By.id("finish_green")).getText());
     }
