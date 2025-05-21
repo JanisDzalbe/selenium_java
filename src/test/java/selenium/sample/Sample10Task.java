@@ -34,6 +34,9 @@ public class Sample10Task {
     public void loadGreenSleep() throws Exception {
 //         TODO:
 //         Use page object ColorSamplePage
+        colorPage.clickStartLoadingGreen();
+        colorPage.isLoadingTextVisible();
+        colorPage.isFinishGreenVisible();
 //         * 1) click on start loading green button
 //         * 2) check that button does not appear,
 //         * but loading text is seen instead   "Loading green..."
