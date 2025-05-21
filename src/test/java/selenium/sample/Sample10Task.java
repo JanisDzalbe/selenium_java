@@ -32,7 +32,7 @@ public class Sample10Task {
 
     @Test
     public void loadGreenSleep() throws Exception {
-//         TODO:
+//        TODO:
 //         Use page object ColorSamplePage
 //         * 1) click on start loading green button
 //         * 2) check that button does not appear,
@@ -40,6 +40,14 @@ public class Sample10Task {
 //         * 3) check that both button
 //         * and loading text is not seen,
 //         * success is seen instead "Green Loaded"
+        colorPage.clickStartLoadingGreen();
+
+        colorPage.checkStartLoadingGreenInvisible();
+        colorPage.checkLoadingGreen();
+
+        colorPage.checkFinishGreen();
+        colorPage.checkStartLoadingGreenInvisible();
+        colorPage.checkLoadingGreenInvisible();
     }
 
 }
