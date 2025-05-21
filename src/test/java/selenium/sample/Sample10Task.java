@@ -32,6 +32,9 @@ public class Sample10Task {
 
     @Test
     public void loadGreenSleep() throws Exception {
+        colorPage.clickStartLoadingGreen();
+        colorPage.assertLoadingGreen();
+        colorPage.assertFinishGreen();
 //         TODO:
 //         Use page object ColorSamplePage
 //         * 1) click on start loading green button
