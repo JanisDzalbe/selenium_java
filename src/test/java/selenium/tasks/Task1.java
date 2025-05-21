@@ -11,8 +11,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.File;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Task1 {
     WebDriver driver;
@@ -56,14 +55,22 @@ public class Task1 {
 
         WebElement input = driver.findElement(By.id("numb"));
         WebElement submit = driver.findElement(By.className("w3-btn"));
+        WebElement error = driver.findElement(By.id("ch1_error"));
 
         input.clear();
         input.sendKeys("42");
         submit.click();
 
-        WebElement error = driver.findElement(By.id("ch1_error"));
+        Alert alert = driver.switchTo().alert();
+        assertEquals("Sorry you have asked the wrong answer", alert.getText());
+        alert.accept();
+
+        input.clear();
+        input.sendKeys("14");
+        submit.click();
+
         assertTrue(error.isDisplayed());
-        assertEquals("Number must be between 50 and 100", error.getText().trim());
+        assertEquals("Number is too small", error.getText().trim());
     }
 
     @Test
@@ -75,14 +82,19 @@ public class Task1 {
 
         WebElement input = driver.findElement(By.id("numb"));
         WebElement submit = driver.findElement(By.className("w3-btn"));
+        WebElement error = driver.findElement(By.id("ch1_error"));
 
         input.clear();
         input.sendKeys("666");
         submit.click();
 
-        WebElement error = driver.findElement(By.id("ch1_error"));
-        assertTrue(error.isDisplayed());
-        assertEquals("Number must be between 50 and 100", error.getText().trim());
+        assertFalse(error.isDisplayed());
+
+        input.clear();
+        input.sendKeys("1000");
+        submit.click();
+
+        assertEquals("Number is too big", error.getText().trim());
     }
 
     @Test
@@ -95,18 +107,15 @@ public class Task1 {
         int inputValue = 81;
         WebElement input = driver.findElement(By.id("numb"));
         WebElement submit = driver.findElement(By.className("w3-btn"));
+        WebElement error = driver.findElement(By.id("ch1_error"));
 
         input.clear();
         input.sendKeys(String.valueOf(inputValue));
         submit.click();
 
-
         Alert alert = driver.switchTo().alert();
 
-        double sqrtValue = Math.sqrt(inputValue);
-
-        String expectedAlertText = String.format("Square root of %d is %.2f", inputValue, sqrtValue);
-        assertEquals(expectedAlertText, alert.getText());
+        assertEquals(String.format("Square root of %d is %.2f", inputValue, Math.sqrt(inputValue)), alert.getText());
         alert.accept();
 
     }
