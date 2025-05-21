@@ -35,11 +35,18 @@ public class Sample10Task {
 //         TODO:
 //         Use page object ColorSamplePage
 //         * 1) click on start loading green button
+    colorPage.clickStartLoadingGreen();
 //         * 2) check that button does not appear,
+        colorPage.assertStartGreenButtonNotVisible();
 //         * but loading text is seen instead   "Loading green..."
+        colorPage.assertLoadingGreenTextVisible();
 //         * 3) check that both button
 //         * and loading text is not seen,
+        Thread.sleep(5000);
+        colorPage.assertStartGreenButtonNotVisible();
+        colorPage.assertLoadingGreenTextNotVisible();
 //         * success is seen instead "Green Loaded"
+        colorPage.assertFinishGreenTextVisible();
     }
 
 }
