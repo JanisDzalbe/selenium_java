@@ -17,6 +17,7 @@ import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.openqa.selenium.support.ui.ExpectedConditions.not;
 
 public class Sample9Task {
     WebDriver driver;
@@ -136,6 +137,30 @@ public class Sample9Task {
          * 		but loading text is seen instead for blue and success for green is seen
          * 5) check that both button and loading text is not seen, success is seen instead
          */
+        WebDriverWait wait = (WebDriverWait) new WebDriverWait(driver, Duration.ofSeconds(30)).ignoring(StaleElementReferenceException.class);
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("start_green_and_blue"))); //0
+
+        driver.findElement(By.id("start_green_and_blue")).click(); //1
+
+        assertFalse(driver.findElement(By.id("start_green_and_blue")).isDisplayed()); //2
+        assertTrue(driver.findElement(By.id("loading_green_without_blue")).isDisplayed());
+        assertEquals("Loading green...", driver.findElement(By.id("loading_green_without_blue")).getText());
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("loading_green_with_blue"))); //3
+        assertFalse(driver.findElement(By.id("start_green_and_blue")).isDisplayed());
+        assertTrue(driver.findElement(By.id("loading_green_with_blue")).isDisplayed());
+        assertEquals("Loading blue...", driver.findElement(By.id("loading_green_with_blue")).getText());
+
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("loading_green_without_blue")));//4
+        assertFalse(driver.findElement(By.id("start_green_and_blue")).isDisplayed());
+        assertFalse(driver.findElement(By.id("loading_green_without_blue")).isDisplayed());
+
+        wait.until(ExpectedConditions.presenceOfElementLocated((By.id("finish_green_and_blue"))));
+        assertFalse(driver.findElement(By.id("start_green_and_blue")).isDisplayed());
+        assertFalse(driver.findElement(By.id("loading_green_without_blue")).isDisplayed());
+        assertFalse(driver.findElement(By.id("loading_green_with_blue")).isDisplayed());
+        assertTrue(driver.findElement(By.id("finish_green_and_blue")).isDisplayed());
+        assertEquals("Green and Blue Loaded",driver.findElement(By.id("finish_green_and_blue")).getText());
     }
 
 }
