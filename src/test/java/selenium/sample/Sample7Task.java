@@ -50,7 +50,6 @@ public class Sample7Task {
         List<WebElement> checkBoxes = driver.findElements(By.cssSelector(".w3-check[type='checkbox']"));
 
         for (WebElement checkBox: checkBoxes) {
-            System.out.println("asd");
             assertFalse(checkBox.isSelected());
         }
 

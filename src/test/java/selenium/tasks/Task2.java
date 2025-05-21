@@ -4,12 +4,17 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
+import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -58,18 +63,30 @@ public class Task2 {
     @Test
     public void emptyFeedbackPage() throws Exception {
 
+        WebDriverWait wait = (WebDriverWait) new WebDriverWait(driver, Duration.ofSeconds(10)).ignoring(StaleElementReferenceException.class);
+
         driver.findElement(By.className("w3-btn-block")).click();
-        Thread.sleep(1000);
+        wait.until(ExpectedConditions.urlContains("https://acctabootcamp.github.io/site/tasks/check_feedback.html"));
+
         List<WebElement> descriptions = driver.findElements(By.cssSelector(".w3-card-4 .description"));
-        int i = 0;
-        System.out.println("Size: " + descriptions.size());
+
         for (WebElement description : descriptions) {
-            System.out.println(i);
-            // System.out.println(description.getText());
-            // assertFalse(description.getText().isEmpty());
-            i++;
+            String[] parts = description.getText().split(":\\s*", 2);
+            String fieldValue = parts.length > 1 ? parts[1] : "";
+            if (fieldValue.equals("")) {
+                assertEquals("", fieldValue);
+            } else if (fieldValue.equals("null")) {
+                assertEquals("null", fieldValue);
+            } else {
+                throw new IllegalArgumentException("Unexpected field value: " + fieldValue);
+            }
         }
-        System.out.println("Total: " + i);
+
+        assertEquals("rgba(76, 175, 80, 1)", driver.findElement(By.className("w3-green")).getCssValue("background-color"));
+        assertEquals("rgba(255, 255, 255, 1)", driver.findElement(By.className("w3-green")).getCssValue("border-bottom-color"));
+
+        assertEquals("rgba(244, 67, 54, 1)", driver.findElement(By.className("w3-red")).getCssValue("background-color"));
+        assertEquals("rgba(255, 255, 255, 1)", driver.findElement(By.className("w3-red")).getCssValue("border-bottom-color"));
 
 //         TODO:
 //         click "Send" without entering any data
@@ -80,6 +97,50 @@ public class Task2 {
 
     @Test
     public void notEmptyFeedbackPage() throws Exception {
+
+        WebDriverWait wait = (WebDriverWait) new WebDriverWait(driver, Duration.ofSeconds(10)).ignoring(StaleElementReferenceException.class);
+
+        String name = "Tomas";
+        String age = "18";
+        String comment = "Thank you for service!";
+
+        List<String> expectedResults = new ArrayList<>();
+        expectedResults.add("Your name: " + name);
+        expectedResults.add("Your age: " + age);
+        expectedResults.add("Your language: English,French,Spanish,Chinese");
+        expectedResults.add("Your genre: male");
+        expectedResults.add("Your option of us: Good");
+        expectedResults.add("Your comment: " + comment);
+
+        driver.findElement(By.id("fb_name")).sendKeys(name);
+        driver.findElement(By.id("fb_age")).sendKeys(age);
+
+        List <WebElement> languages = driver.findElements(By.cssSelector(".w3-check[type='checkbox']"));
+        for (WebElement language: languages) {
+            language.click();
+        }
+
+        driver.findElement(By.cssSelector(".w3-radio[type='radio'")).click();
+
+        Select dropdown = new Select(driver.findElement(By.className("w3-select")));
+        dropdown.selectByValue("Good");
+
+        driver.findElement(By.cssSelector(".w3-input.w3-border[name='comment']")).sendKeys(comment);
+
+        driver.findElement(By.className("w3-btn-block")).click();
+        wait.until(ExpectedConditions.urlContains("https://acctabootcamp.github.io/site/tasks/check_feedback.html"));
+
+        List<WebElement> descriptions = driver.findElements(By.cssSelector(".w3-card-4 .description"));
+
+        for (int i = 0; i < descriptions.size(); i++) {
+            assertEquals(descriptions.get(i).getText(), expectedResults.get(i));
+        }
+
+        assertEquals("rgba(76, 175, 80, 1)", driver.findElement(By.className("w3-green")).getCssValue("background-color"));
+        assertEquals("rgba(255, 255, 255, 1)", driver.findElement(By.className("w3-green")).getCssValue("border-bottom-color"));
+
+        assertEquals("rgba(244, 67, 54, 1)", driver.findElement(By.className("w3-red")).getCssValue("background-color"));
+        assertEquals("rgba(255, 255, 255, 1)", driver.findElement(By.className("w3-red")).getCssValue("border-bottom-color"));
 //         TODO:
 //         fill the whole form, click "Send"
 //         check fields are filled correctly
@@ -89,6 +150,24 @@ public class Task2 {
 
     @Test
     public void yesOnWithNameFeedbackPage() throws Exception {
+
+        WebDriverWait wait = (WebDriverWait) new WebDriverWait(driver, Duration.ofSeconds(10)).ignoring(StaleElementReferenceException.class);
+        String name = "Tomas";
+        String expectedFeedbackMessage= "Thank you, " + name +", for your feedback!";
+
+        driver.findElement(By.id("fb_name")).sendKeys("Tomas");
+
+        driver.findElement(By.className("w3-btn-block")).click();
+        wait.until(ExpectedConditions.urlContains("https://acctabootcamp.github.io/site/tasks/check_feedback.html"));
+
+        driver.findElement(By.className("w3-green")).click();
+
+        wait.until(ExpectedConditions.urlContains("https://acctabootcamp.github.io/site/tasks/thank_you_for_feedback.html"));
+
+        assertEquals(expectedFeedbackMessage, driver.findElement(By.id("message")).getText());
+
+        assertEquals("rgba(76, 175, 80, 1)", driver.findElement(By.cssSelector(".w3-panel.w3-green")).getCssValue("background-color"));
+        assertEquals("rgba(255, 255, 255, 1)", driver.findElement(By.cssSelector(".w3-panel.w3-green")).getCssValue("color"));
 //         TODO:
 //         enter only name
 //         click "Send"
@@ -99,6 +178,21 @@ public class Task2 {
 
     @Test
     public void yesOnWithoutNameFeedbackPage() throws Exception {
+
+        WebDriverWait wait = (WebDriverWait) new WebDriverWait(driver, Duration.ofSeconds(10)).ignoring(StaleElementReferenceException.class);
+        String expectedFeedbackMessage= "Thank you for your feedback!";
+
+        driver.findElement(By.className("w3-btn-block")).click();
+        wait.until(ExpectedConditions.urlContains("https://acctabootcamp.github.io/site/tasks/check_feedback.html"));
+
+        driver.findElement(By.className("w3-green")).click();
+
+        wait.until(ExpectedConditions.urlContains("https://acctabootcamp.github.io/site/tasks/thank_you_for_feedback.html"));
+
+        assertEquals(expectedFeedbackMessage, driver.findElement(By.id("message")).getText());
+        assertEquals("rgba(76, 175, 80, 1)", driver.findElement(By.cssSelector(".w3-panel.w3-green")).getCssValue("background-color"));
+        assertEquals("rgba(255, 255, 255, 1)", driver.findElement(By.cssSelector(".w3-panel.w3-green")).getCssValue("color"));
+
 //         TODO:
 //         click "Send" (without entering anything
 //         click "Yes"
@@ -108,6 +202,43 @@ public class Task2 {
 
     @Test
     public void noOnFeedbackPage() throws Exception {
+
+        WebDriverWait wait = (WebDriverWait) new WebDriverWait(driver, Duration.ofSeconds(10)).ignoring(StaleElementReferenceException.class);
+
+        String name = "Tomas";
+        String age = "18";
+        String comment = "Thank you for service!";
+        String dropDownValue = "Good";
+
+        driver.findElement(By.id("fb_name")).sendKeys(name);
+        driver.findElement(By.id("fb_age")).sendKeys(age);
+
+        List <WebElement> languages = driver.findElements(By.cssSelector(".w3-check[type='checkbox']"));
+        for (WebElement language: languages) {
+            language.click();
+        }
+
+        driver.findElement(By.cssSelector(".w3-radio[type='radio'")).click();
+
+        Select dropdown = new Select(driver.findElement(By.className("w3-select")));
+        dropdown.selectByValue(dropDownValue);
+
+        driver.findElement(By.cssSelector(".w3-input.w3-border[name='comment']")).sendKeys(comment);
+
+        driver.findElement(By.className("w3-btn-block")).click();
+        wait.until(ExpectedConditions.urlContains("https://acctabootcamp.github.io/site/tasks/check_feedback.html"));
+
+        driver.findElement(By.className("w3-red")).click();
+        wait.until(ExpectedConditions.urlContains("https://acctabootcamp.github.io/site/tasks/provide_feedback"));
+
+        assertEquals(name, driver.findElement(By.id("fb_name")).getAttribute("value"));
+        assertEquals(age, driver.findElement(By.id("fb_age")).getAttribute("value"));
+        for (WebElement language: languages) {
+            assertTrue(language.isSelected());
+        }
+        assertTrue(driver.findElement(By.cssSelector(".w3-radio[type='radio'][value='male'")).isSelected());
+        assertEquals(dropDownValue, driver.findElement(By.id("like_us")).getAttribute("value"));
+        assertEquals(comment, driver.findElement(By.cssSelector(".w3-input.w3-border[name='comment']")).getAttribute("value"));
 //         TODO:
 //         fill the whole form
 //         click "Send"
