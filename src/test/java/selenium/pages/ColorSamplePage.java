@@ -1,21 +1,42 @@
 package selenium.pages;
 
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class ColorSamplePage extends GenericSamplePage {
-    @FindBy(how = How.ID, using = "name")
-    private WebElement nameInput;
+    @FindBy(how = How.ID, using = "start_green")
+    private WebElement startGreenButton;
+    @FindBy(how = How.ID, using = "loading_green")
+    private WebElement loadingGreenText;
+    @FindBy(how = How.ID, using = "finish_green")
+    private WebElement finishGreenText;
 //         TODO:
 //         Define elements in page
 //         see https://www.selenium.dev/selenium/docs/api/java/org/openqa/selenium/support/FindBy.html
 
-    public void clickStartLoadingGreen () {
+    public void clickStartLoadingGreen() {
+        startGreenButton.click();
 //         TODO:
 //         implement clicking on "Start loading green" button
 
+    }
+
+    public void assetLoadingGreen() {
+        assertFalse(startGreenButton.isDisplayed());
+        assertTrue(loadingGreenText.isDisplayed());
+        assertEquals("Loading green...", loadingGreenText.getText());
+    }
+
+    public void assetFinishGreen() {
+        assertTrue(finishGreenText.isDisplayed());
+        assertFalse(startGreenButton.isDisplayed());
+        assertFalse(loadingGreenText.isDisplayed());
+        assertEquals("Green Loaded", finishGreenText.getText());
     }
 
 //         TODO
