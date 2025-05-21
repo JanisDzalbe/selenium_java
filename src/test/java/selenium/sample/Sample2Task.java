@@ -33,31 +33,33 @@ public class Sample2Task {
 
     @Test
     public void findElementByID() throws Exception {
-        // TODO:
-        // get text "Heading 2 text" using id
+//         TODO:
+//         get text "Heading 2 text" using id
         System.out.println(driver.findElement(By.id("heading_2")).getText());
     }
 
     @Test
     public void findElementByName() throws Exception {
-        // TODO:
-        // get attribute "id" and "value" of button "This is also a button" using name
-        System.out.println(driver.findElement(By.name("button2")).getAttribute("id"));
-        System.out.println(driver.findElement(By.name("button2")).getAttribute("value"));
+//         TODO:
+//         get attribute "id" and "value" of button "This is also a button" using name
+        System.out.println(driver.findElement(By.name("randomButton2")).getAttribute("id"));
+        System.out.println(driver.findElement(By.name("randomButton2")).getAttribute("value"));
     }
 
     @Test
     public void findElementByClassFirst() throws Exception {
-        // TODO:
-        // get first text of class "test" (should be "Test Text 1")
+//         TODO:
+//         get first text of class "test" (should be "Test Text 1")
         System.out.println(driver.findElement(By.className("test")).getText());
 
     }
 
     @Test
     public void findElementByClassAll() throws Exception {
-        // TODO:
-        // get size text of class "test" (should be 5)
+//         TODO:
+//         get size text of class "test" (should be 5)
+//         get text of class "test"
+//         get third text of class "test" (should be "Test Text 4")
         List<WebElement> testElements = driver.findElements(By.className("test"));
         int size = testElements.size();
         System.out.println(size);
@@ -66,7 +68,6 @@ public class Sample2Task {
         for (WebElement element : testElements) {
             System.out.println(element.getText());
         }
-        // Get third text of class "test" (should be "Test Text 4")
         System.out.println(testElements.get(2).getText());
     }
 }
