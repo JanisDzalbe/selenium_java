@@ -35,7 +35,6 @@ public class Sample3Task {
     public void assertEqualsTask() throws Exception {
 //         TODO:
 //         check how many element with class "test" there are on page (5)
-        int numOfClasses = 0;
         List<WebElement> testElementsWithClass = driver.findElements(By.className("test"));
         assertEquals(5, testElementsWithClass.size());
 //         check that value of second button is "This is also a button"
