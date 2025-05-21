@@ -8,19 +8,23 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import selenium.pages.FeedbackPage;
 
 import java.io.File;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class Task2 {
     WebDriver driver;
+    static FeedbackPage feedbackPage;
 
     @BeforeEach
     public void openPage() {
@@ -28,6 +32,7 @@ public class Task2 {
         System.setProperty("webdriver.chrome.driver", libWithDriversLocation + "chromedriver" + new selenium.ChangeToFileExtension().extension());
         driver = new ChromeDriver();
         driver.get("https://acctabootcamp.github.io/site/tasks/provide_feedback");
+        feedbackPage = PageFactory.initElements(driver, FeedbackPage.class);
     }
 
     @AfterEach
@@ -38,16 +43,16 @@ public class Task2 {
     @Test
     public void initialFeedbackPage() throws Exception {
 
-        Select dropdown = new Select(driver.findElement(By.id("like_us")));
-
         assertTrue(driver.findElement(By.id("fb_name")).getText().isEmpty());
-        assertTrue(driver.findElement(By.id("fb_name")).getText().isEmpty());
+        assertTrue(driver.findElement(By.id("fb_age")).getText().isEmpty());
 
         List<WebElement> checkBoxes = driver.findElements(By.cssSelector(".w3-check[type='checkbox']"));
         for (WebElement checkBox: checkBoxes) {
             assertFalse(checkBox.isSelected());
+
         }
 
+        Select dropdown = new Select(driver.findElement(By.id("like_us")));
         assertEquals("Choose your option", dropdown.getFirstSelectedOption().getText());
 
         assertEquals("rgba(33, 150, 243, 1)", driver.findElement(By.className("w3-btn-block")).getCssValue("background-color"));
@@ -64,8 +69,7 @@ public class Task2 {
     public void emptyFeedbackPage() throws Exception {
 
         WebDriverWait wait = (WebDriverWait) new WebDriverWait(driver, Duration.ofSeconds(10)).ignoring(StaleElementReferenceException.class);
-
-        driver.findElement(By.className("w3-btn-block")).click();
+        feedbackPage.submitButton();
         wait.until(ExpectedConditions.urlContains("https://acctabootcamp.github.io/site/tasks/check_feedback.html"));
 
         List<WebElement> descriptions = driver.findElements(By.cssSelector(".w3-card-4 .description"));
@@ -102,6 +106,9 @@ public class Task2 {
 
         String name = "Tomas";
         String age = "18";
+        List<String> languageValues = Arrays.asList("English", "French", "Spanish", "Chinese");
+        String genre = "male";
+        String option = "Good";
         String comment = "Thank you for service!";
 
         List<String> expectedResults = new ArrayList<>();
@@ -112,22 +119,9 @@ public class Task2 {
         expectedResults.add("Your option of us: Good");
         expectedResults.add("Your comment: " + comment);
 
-        driver.findElement(By.id("fb_name")).sendKeys(name);
-        driver.findElement(By.id("fb_age")).sendKeys(age);
+        feedbackPage.fillForm(name, age, languageValues, genre, option, comment);
 
-        List <WebElement> languages = driver.findElements(By.cssSelector(".w3-check[type='checkbox']"));
-        for (WebElement language: languages) {
-            language.click();
-        }
-
-        driver.findElement(By.cssSelector(".w3-radio[type='radio'")).click();
-
-        Select dropdown = new Select(driver.findElement(By.className("w3-select")));
-        dropdown.selectByValue("Good");
-
-        driver.findElement(By.cssSelector(".w3-input.w3-border[name='comment']")).sendKeys(comment);
-
-        driver.findElement(By.className("w3-btn-block")).click();
+        feedbackPage.submitButton();
         wait.until(ExpectedConditions.urlContains("https://acctabootcamp.github.io/site/tasks/check_feedback.html"));
 
         List<WebElement> descriptions = driver.findElements(By.cssSelector(".w3-card-4 .description"));
@@ -157,7 +151,7 @@ public class Task2 {
 
         driver.findElement(By.id("fb_name")).sendKeys("Tomas");
 
-        driver.findElement(By.className("w3-btn-block")).click();
+        feedbackPage.submitButton();
         wait.until(ExpectedConditions.urlContains("https://acctabootcamp.github.io/site/tasks/check_feedback.html"));
 
         driver.findElement(By.className("w3-green")).click();
@@ -182,7 +176,7 @@ public class Task2 {
         WebDriverWait wait = (WebDriverWait) new WebDriverWait(driver, Duration.ofSeconds(10)).ignoring(StaleElementReferenceException.class);
         String expectedFeedbackMessage= "Thank you for your feedback!";
 
-        driver.findElement(By.className("w3-btn-block")).click();
+        feedbackPage.submitButton();
         wait.until(ExpectedConditions.urlContains("https://acctabootcamp.github.io/site/tasks/check_feedback.html"));
 
         driver.findElement(By.className("w3-green")).click();
@@ -204,28 +198,18 @@ public class Task2 {
     public void noOnFeedbackPage() throws Exception {
 
         WebDriverWait wait = (WebDriverWait) new WebDriverWait(driver, Duration.ofSeconds(10)).ignoring(StaleElementReferenceException.class);
+        List <WebElement> languages = driver.findElements(By.cssSelector(".w3-check[type='checkbox']"));
 
         String name = "Tomas";
         String age = "18";
+        List<String> languageValues = Arrays.asList("English", "French", "Spanish", "Chinese");
+        String genre = "male";
+        String option = "Good";
         String comment = "Thank you for service!";
-        String dropDownValue = "Good";
 
-        driver.findElement(By.id("fb_name")).sendKeys(name);
-        driver.findElement(By.id("fb_age")).sendKeys(age);
+        feedbackPage.fillForm(name, age, languageValues, genre, option, comment);
 
-        List <WebElement> languages = driver.findElements(By.cssSelector(".w3-check[type='checkbox']"));
-        for (WebElement language: languages) {
-            language.click();
-        }
-
-        driver.findElement(By.cssSelector(".w3-radio[type='radio'")).click();
-
-        Select dropdown = new Select(driver.findElement(By.className("w3-select")));
-        dropdown.selectByValue(dropDownValue);
-
-        driver.findElement(By.cssSelector(".w3-input.w3-border[name='comment']")).sendKeys(comment);
-
-        driver.findElement(By.className("w3-btn-block")).click();
+        feedbackPage.submitButton();
         wait.until(ExpectedConditions.urlContains("https://acctabootcamp.github.io/site/tasks/check_feedback.html"));
 
         driver.findElement(By.className("w3-red")).click();
@@ -236,8 +220,8 @@ public class Task2 {
         for (WebElement language: languages) {
             assertTrue(language.isSelected());
         }
-        assertTrue(driver.findElement(By.cssSelector(".w3-radio[type='radio'][value='male'")).isSelected());
-        assertEquals(dropDownValue, driver.findElement(By.id("like_us")).getAttribute("value"));
+        assertTrue(driver.findElement(By.cssSelector(".w3-radio[type='radio'][value='male']")).isSelected());
+        assertEquals(option, driver.findElement(By.id("like_us")).getAttribute("value"));
         assertEquals(comment, driver.findElement(By.cssSelector(".w3-input.w3-border[name='comment']")).getAttribute("value"));
 //         TODO:
 //         fill the whole form
