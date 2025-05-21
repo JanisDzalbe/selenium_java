@@ -45,8 +45,6 @@ public class Sample9Task {
 //         * and loading text is not seen,
 //         * success is seen instead "Green Loaded"
 
-        //driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
         WebElement loadGreenButton = driver.findElement(By.id("start_green"));
         loadGreenButton.click();
 
@@ -54,7 +52,7 @@ public class Sample9Task {
         WebElement loadingGreenText = driver.findElement(By.id("loading_green"));
         assertTrue(loadingGreenText.isDisplayed());
 
-        Thread.sleep(10000);
+        Thread.sleep(5000);
 
         WebElement greenLoaded = driver.findElement(By.id("finish_green"));
         assertFalse(loadGreenButton.isDisplayed());
@@ -73,7 +71,7 @@ public class Sample9Task {
 //         * 3) check that both button
 //         * and loading text is not seen,
 //         * success is seen instead "Green Loaded"
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
         WebElement loadGreenButton = driver.findElement(By.id("start_green"));
         loadGreenButton.click();
@@ -128,6 +126,39 @@ public class Sample9Task {
          * 		but loading text is seen instead for blue and success for green is seen
          * 5) check that both button and loading text is not seen, success is seen instead
          */
+
+        WebDriverWait wait = (WebDriverWait) new WebDriverWait(driver, Duration.ofSeconds(10)).ignoring(StaleElementReferenceException.class);
+        WebElement loadGreenAndBlueButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("start_green_and_blue")));
+
+        WebElement loadGreenButton = driver.findElement(By.id("start_green"));
+        loadGreenButton.click();
+        loadGreenAndBlueButton.click();
+
+
+        assertFalse(loadGreenButton.isDisplayed());
+        WebElement loadingGreenText = driver.findElement(By.id("loading_green"));
+        assertTrue(loadingGreenText.isDisplayed());
+
+        assertFalse(loadGreenAndBlueButton.isDisplayed());
+        WebElement loadingGreenAndBlueText = driver.findElement(By.id("loading_green_without_blue"));
+        assertTrue(loadingGreenAndBlueText.isDisplayed());
+
+        WebElement greenLoadedBlueWaiting = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("loading_blue_without_green")));
+
+        assertFalse(loadGreenAndBlueButton.isDisplayed());
+        assertFalse(loadingGreenAndBlueText.isDisplayed());
+        assertTrue(greenLoadedBlueWaiting.isDisplayed());
+
+        WebElement greenLoaded = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("finish_green")));
+        assertFalse(loadGreenButton.isDisplayed());
+        assertFalse(loadingGreenText.isDisplayed());
+        assertTrue(greenLoaded.isDisplayed());
+
+        WebElement greenAndBleuLoaded = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("finish_green_and_blue")));
+
+        assertFalse(loadGreenAndBlueButton.isDisplayed());
+        assertFalse(loadingGreenAndBlueText.isDisplayed());
+        assertTrue(greenAndBleuLoaded.isDisplayed());
     }
 
 }
