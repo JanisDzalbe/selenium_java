@@ -114,14 +114,14 @@ public class Task2 {
         WebElement sendButton = driver.findElement(By.xpath("//*[@type='submit']"));
         WebElement comment = driver.findElement(By.cssSelector("#fb_form > form > div:nth-child(6) > textarea"));
         String nameKey = "Tory";
-        String ageKey = "21";
+        int ageKey = 21;
         String commentKey = "Hi";
 
 
         nameField.clear();
         nameField.sendKeys(nameKey);
         ageField.clear();
-        ageField.sendKeys(ageKey);
+        ageField.sendKeys(String.valueOf(ageKey));
         languageF.click();
         maleRadio.click();
         Select dropdown = new Select(driver.findElement(By.id("like_us")));
@@ -142,7 +142,7 @@ public class Task2 {
 
 
         assertTrue(name.getText().equals(nameKey));
-        assertTrue(age.getText().equals(ageKey));
+        assertTrue(age.getText().equals(String.valueOf(ageKey)));
         assertTrue(language.getText().equals("French"));
         assertTrue(gender.getText().equals("male"));
         assertTrue(option.getText().equals("Good"));
@@ -214,13 +214,13 @@ public class Task2 {
         WebElement sendButton = driver.findElement(By.xpath("//*[@type='submit']"));
         WebElement comment = driver.findElement(By.cssSelector("#fb_form > form > div:nth-child(6) > textarea"));
         String nameKey = "Jany";
-        String ageKey = "34";
+        int ageKey = 34;
         String commentKey = "Good morning";
 
         nameField.clear();
         nameField.sendKeys(nameKey);
         ageField.clear();
-        ageField.sendKeys(ageKey);
+        ageField.sendKeys(String.valueOf(ageKey));
         languageC.click();
         femaleRadio.click();
         Select dropdown = new Select(driver.findElement(By.id("like_us")));
@@ -232,7 +232,7 @@ public class Task2 {
         noButton.click();
 
         assertEquals(nameKey, nameField.getAttribute("value"));
-        assertEquals(ageKey, ageField.getAttribute("value"));
+        assertEquals(String.valueOf(ageKey), ageField.getAttribute("value"));
         assertTrue(languageC.isSelected());
         assertTrue(femaleRadio.isSelected());
         assertEquals("Why me?", dropdown.getFirstSelectedOption().getText());
