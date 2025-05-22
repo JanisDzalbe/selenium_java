@@ -51,7 +51,7 @@ public class Sample9 {
 
     @Test
     public void sleepExample() throws Exception {
-        Thread.sleep(10000);
+        Thread.sleep(10000);                // hard-coded explicit wait
         magicTextCheck();
     }
 
@@ -68,6 +68,7 @@ public class Sample9 {
     public void explicitWaitExample1() throws Exception {
 //        check that the element is present on page
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='magic_text']/*[text()=\"What is this magic? It's dev magic~\"]")));
+        // id remains the same, but what is changing - it's the text (need to search for both id and text)
 //        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("asd")));
 //        driver.findElement(By.xpath("//*[@id='magic_text']/*[text()=\"What is this magic? It's dev magic~\"]"));
         magicTextCheck();
