@@ -121,7 +121,14 @@ public class Task2 {
         comment_field.sendKeys(comment);
 
         driver.findElement(By.className("w3-blue")).click();
-        Thread.sleep(5000);
+
+        WebElement yes_button = driver.findElement(By.className("w3-green"));
+        assertEquals("rgba(76, 175, 80, 1)", yes_button.getCssValue("background-color"));
+        assertEquals("rgba(255, 255, 255, 1)", yes_button.getCssValue("color"));
+
+        WebElement no_button = driver.findElement(By.className("w3-red"));
+        assertEquals("rgba(244, 67, 54, 1)", no_button.getCssValue("background-color"));
+        assertEquals("rgba(255, 255, 255, 1)", no_button.getCssValue("color"));
 
     }
 
@@ -133,6 +140,21 @@ public class Task2 {
 //         click "Yes"
 //         check message text: "Thank you, NAME, for your feedback!"
 //         color of text is white with green on the background
+
+        WebElement name_field = driver.findElement(By.id("fb_name"));
+        name_field.sendKeys("German");
+
+        driver.findElement(By.className("w3-blue")).click();
+
+
+        driver.findElement(By.className("w3-green")).click();
+
+        WebElement result_text = driver.findElement(By.className("w3-panel"));
+
+        assertEquals("Thank you, German, for your feedback!", result_text.getText());
+
+        assertEquals("rgba(76, 175, 80, 1)", result_text.getCssValue("background-color"));
+        assertEquals("rgba(255, 255, 255, 1)", result_text.getCssValue("color"));
     }
 
     @Test
@@ -142,6 +164,17 @@ public class Task2 {
 //         click "Yes"
 //         check message text: "Thank you for your feedback!"
 //         color of text is white with green on the background
+
+        driver.findElement(By.className("w3-blue")).click();
+
+        driver.findElement(By.className("w3-green")).click();
+
+        WebElement result_text = driver.findElement(By.className("w3-panel"));
+
+        assertEquals("Thank you for your feedback!", result_text.getText());
+
+        assertEquals("rgba(76, 175, 80, 1)", result_text.getCssValue("background-color"));
+        assertEquals("rgba(255, 255, 255, 1)", result_text.getCssValue("color"));
     }
 
     @Test
@@ -151,5 +184,39 @@ public class Task2 {
 //         click "Send"
 //         click "No"
 //         check fields are filled correctly
+
+        String name = "German";
+        String age = "21";
+        String comment = "Hello world!";
+
+        WebElement name_field = driver.findElement(By.id("fb_name"));
+        name_field.sendKeys(name);
+
+        WebElement age_field = driver.findElement(By.id("fb_age"));
+        age_field.sendKeys(age);
+
+        WebElement lang_option = driver.findElement(By.cssSelector(".w3-check[value='English'][type='checkbox']"));
+        lang_option.click();
+        assertTrue(lang_option.isSelected());
+
+        WebElement genre_option = driver.findElement(By.xpath("(//input[@type='radio'])[1]"));
+        genre_option.click();
+        assertTrue(genre_option.isSelected());
+
+        Select likeUs = new Select(driver.findElement(By.id("like_us")));
+        likeUs.selectByVisibleText("Good");
+
+        WebElement comment_field = driver.findElement(By.name("comment"));
+        comment_field.sendKeys(comment);
+
+        driver.findElement(By.className("w3-blue")).click();
+
+        driver.findElement(By.className("w3-red")).click();
+
+        assertEquals(name, name_field.getAttribute("value"));
+        assertEquals(age, age_field.getAttribute("value"));
+        assertTrue(lang_option.isSelected());
+        assertTrue(genre_option.isSelected());
+        assertEquals(comment, comment_field.getAttribute("value"));
     }
 }
