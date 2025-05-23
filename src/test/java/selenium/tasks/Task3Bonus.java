@@ -4,15 +4,19 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.File;
+import java.util.List;
+import java.util.stream.Collectors;
 
 //import pages.FormPage;
 //import pages.ListPage;
 
 public class Task3Bonus {
     WebDriver driver;
+    //  ListPage listPage;
 //	ListPage listPage = PageFactory.initElements(driver, ListPage.class);
 //     should contain what you see when you just open the page (the table with names/jobs)
 //	FormPage formPage = PageFactory.initElements(driver, FormPage.class);
@@ -36,6 +40,7 @@ public class Task3Bonus {
 
     @Test
     public void addPerson() {
+
         /* TODO:
          * implement adding new person using page object
          *
