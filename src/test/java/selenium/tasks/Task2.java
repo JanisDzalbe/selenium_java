@@ -152,6 +152,20 @@ public class Task2 {
 
     @Test
     public void yesOnWithoutNameFeedbackPage() throws Exception {
+        WebElement sendButton = driver.findElement(By.cssSelector("button[type='submit']"));
+        sendButton.click();
+
+        WebElement yesButton = driver.findElement(By.xpath("//button[text()='Yes']"));
+        yesButton.click();
+
+        WebElement messageText = driver.findElement(By.id("message"));
+        String expectedMessage = "Thank you for your feedback!";
+        assertEquals(expectedMessage, messageText.getText());
+
+        WebElement messagePanel = messageText.findElement(By.xpath("./ancestor::div[contains(@class, 'w3-panel')]"));
+
+        assertEquals("rgba(76, 175, 80, 1)", messagePanel.getCssValue("background-color"));
+        assertEquals("rgba(255, 255, 255, 1)", messageText.getCssValue("color"));
 //         TODO:
 //         click "Send" (without entering anything
 //         click "Yes"
@@ -161,6 +175,31 @@ public class Task2 {
 
     @Test
     public void noOnFeedbackPage() throws Exception {
+        driver.findElement(By.id("fb_name")).sendKeys("Ruslan");
+        driver.findElement(By.id("fb_age")).sendKeys("20");
+
+        driver.findElement(By.cssSelector("input[type='checkbox'][value='English']")).click();
+        driver.findElement(By.cssSelector("input[type='checkbox'][value='Spanish']")).click();
+        driver.findElement(By.cssSelector("input[type='radio'][value='male']")).click();
+
+        new Select(driver.findElement(By.id("like_us"))).selectByVisibleText("Why me?");
+
+        driver.findElement(By.name("comment")).sendKeys("Fullfilled form)");
+        driver.findElement(By.cssSelector("button[type='submit']")).click();
+
+        driver.findElement(By.xpath("//button[text()='No']")).click();
+
+        assertEquals("Ruslan", driver.findElement(By.id("fb_name")).getAttribute("value"));
+        assertEquals("20", driver.findElement(By.id("fb_age")).getAttribute("value"));
+
+        assertTrue(driver.findElement(By.cssSelector("input[type='checkbox'][value='English']")).isSelected());
+        assertTrue(driver.findElement(By.cssSelector("input[type='checkbox'][value='Spanish']")).isSelected());
+        assertTrue(driver.findElement(By.cssSelector("input[type='radio'][value='male']")).isSelected());
+
+        Select select = new Select(driver.findElement(By.id("like_us")));
+        assertEquals("Why me?", select.getFirstSelectedOption().getText());
+        assertEquals("Fullfilled form)", driver.findElement(By.name("comment")).getAttribute("value"));
+
 //         TODO:
 //         fill the whole form
 //         click "Send"
