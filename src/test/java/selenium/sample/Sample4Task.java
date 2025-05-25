@@ -29,7 +29,7 @@ public class Sample4Task {
     // method which is being run after each test
     @AfterEach
     public void endingTests() throws Exception {
-        //driver.quit();
+        driver.quit();
     }
 
     @Test
