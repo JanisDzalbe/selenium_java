@@ -22,17 +22,17 @@ public class Sample1 {
         driver = BootcampUtils.initializeChromeDriver();
          */
 
-        //open test homepage
-        driver.get("https://acctabootcamp.github.io/site/");
+        // open test homepage
+        driver.get("https://janisdzalbe.github.io/example-site/");
         System.out.println(driver.findElement(By.id("h1")).getText());
-        //get title of page
+        // get title of page
         System.out.println(driver.getTitle());
-        //get URL of current page
+        // get URL of current page
         System.out.println(driver.getCurrentUrl());
-        //Sleep for 10 seconds
+        // Sleep for 10 seconds
         Thread.sleep(10000);
 
-        //Close browser
+        // Close browser
         driver.quit();
     }
 }

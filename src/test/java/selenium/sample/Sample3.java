@@ -19,7 +19,7 @@ public class Sample3 {
         driver = BootcampUtils.initializeChromeDriver();
 
         //open page:
-        driver.get("https://acctabootcamp.github.io/site/examples/locators");
+        driver.get("https://janisdzalbe.github.io/example-site/examples/locators");
     }
 
     // method which is being run after each test
@@ -41,9 +41,9 @@ public class Sample3 {
         String actual = driver.findElement(By.id("heading_1")).getText();
 
         // fails:
-//        org.junit.ComparisonFailure:
-//        Expected :Not base page
-//        Actual   :Base page
+        // org.junit.ComparisonFailure:
+        // Expected :Not base page
+        // Actual   :Heading 1
         assertEquals(expected, actual);
     }
 
@@ -58,12 +58,12 @@ public class Sample3 {
     public void assertTrueExamples() throws Exception {
         String elementTextOnPage = driver.findElement(By.cssSelector(".unbelievable")).getText();
         assertTrue(elementTextOnPage.equals("unbelievable sample text"));
-//        assertTrue("Expecting the element with class 'unbelievable' to have text 'ajshdka'", elementTextOnPage.contains("ajshdka"));
+        // assertTrue("Expecting the element with class 'unbelievable' to have text 'ajshdka'", elementTextOnPage.contains("ajshdka"));
         assertTrue(elementTextOnPage.equalsIgnoreCase("unBELIEVable sAMPle Text"));
         // pass:
         assertTrue(true);
         // fail:
-//        assertTrue(false);
+        // assertTrue(false);
     }
 
     @Test
@@ -73,7 +73,7 @@ public class Sample3 {
         assertFalse(elementTextOnPage.equals("wrong text"));
         assertFalse(elementTextOnPage.contains("wrong text"));
         // fail:
-//        assertFalse(true);
+        // assertFalse(true);
         // pass:
         assertFalse(false);
     }
@@ -97,8 +97,8 @@ public class Sample3 {
         } catch (AssertionError e) {
             System.err.println("We failed ");
             e.printStackTrace();
-//            We failed
-//            java.lang.AssertionError: expected:<3> but was:<4>
+            // We failed
+            // java.lang.AssertionError: expected:<3> but was:<4>
         }
     }
 
@@ -110,7 +110,7 @@ public class Sample3 {
             System.err.println("We failed with custom message”");
             e.printStackTrace();
         }
-//        We failed with custom message”
-//        java.lang.AssertionError: custom message expected:<3> but was:<4>
+        // We failed with custom message”
+        // java.lang.AssertionError: custom message expected:<3> but was:<4>
     }
 }

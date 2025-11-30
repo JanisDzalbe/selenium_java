@@ -17,7 +17,7 @@ public class Task1 {
         String libWithDriversLocation = System.getProperty("user.dir") + File.separator + "lib" + File.separator;
         System.setProperty("webdriver.chrome.driver", libWithDriversLocation + "chromedriver" + new selenium.ChangeToFileExtension().extension());
         driver = new ChromeDriver();
-        driver.get("https://acctabootcamp.github.io/site/tasks/enter_a_number");
+        driver.get("https://janisdzalbe.github.io/example-site/tasks/enter_a_number");
     }
 
     @AfterEach
@@ -28,29 +28,26 @@ public class Task1 {
     @Test
     public void errorOnText() {
 //        TODO
-//        enter a text instead of a number, check that correct error is seen
+//         enter a text instead of a number, check that correct error is shown
     }
 
     @Test
     public void errorOnNumberTooSmall() {
-//        BUG: if I enter number 49 or 42 no errors where seen
 //        TODO
-//        enter number which is too small (positive number below 50), check that correct error is seen
+//         enter number which is too small (positive number below 50), check that correct error is shown
     }
 
     @Test
     public void errorOnNumberTooBig() {
-
-//        BUG: if I enter number 666 no errors where seen
 //        TODO
-//        enter number which is too big (above 100), check that correct error is seen
+//         enter number which is too big (above 100), check that correct error is shown
     }
 
     @Test
     public void correctSquareRoot() {
 //        TODO
-//        enter a number between 50 and 100 digit in the input, then press submit
-//        and check that no error is seen and that square root is calculated correctly
-//        NOTE: input value is hardcoded, but square root used in assertions should be calculated in code
+//         enter a number between 50 and 100 digit in the input, then press submit
+//         and check that no error is shown and that square root is calculated correctly
+//         NOTE: input and assertion values have to be defined as variables
     }
 }

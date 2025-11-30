@@ -1,4 +1,4 @@
-package selenium.sample;
+package selenium.sample.extra;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,7 +11,7 @@ import selenium.utility.BootcampUtils;
 
 import java.time.Duration;
 
-public class Sample10 {
+public class extra4 {
     static WebDriver driver;
     static AgeSamplePage agePage;
     static AgeSubmittedSamplePage ageSubmittedPage;
@@ -25,7 +25,7 @@ public class Sample10 {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
         // Open page and create Page Objects via Selenium's PageFactory
-        driver.get("https://acctabootcamp.github.io/site/examples/age");
+        driver.get("https://janisdzalbe.github.io/example-site/examples/age");
         agePage = PageFactory.initElements(driver, AgeSamplePage.class);
         ageSubmittedPage = PageFactory.initElements(driver, AgeSubmittedSamplePage.class);
     }

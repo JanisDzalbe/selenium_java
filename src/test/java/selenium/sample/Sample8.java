@@ -8,7 +8,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import selenium.utility.BootcampUtils;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class Sample8 {
     WebDriver driver;
@@ -20,7 +23,7 @@ public class Sample8 {
         driver = BootcampUtils.initializeChromeDriver();
 
         //open page:
-        driver.get("https://acctabootcamp.github.io/site/examples/styles");
+        driver.get("https://janisdzalbe.github.io/example-site/examples/randomized_list");
     }
 
     // method which is being run after each test
@@ -30,14 +33,47 @@ public class Sample8 {
     }
 
     @Test
-    public void styleChecks() throws Exception {
-        WebElement h1 = driver.findElement(By.xpath("//h1"));
-        assertEquals("block", h1.getCssValue("display"));
-        assertEquals("rgba(0, 0, 0, 1)", h1.getCssValue("color"));
-        assertEquals("64px", h1.getCssValue("font-size"));
-        assertEquals("rgba(0, 0, 0, 0)", h1.getCssValue("background-color"));
+    public void dynamicLocators() throws Exception {
+        String elementTitle = "Second Element";
+        String elementIndex = "2";
+        WebElement xpathElement = driver.findElement(By.xpath("//h3[contains(text(),'" + elementTitle + "')]"));
+        WebElement cssElement = driver.findElement(By.cssSelector("input[id*='" + elementIndex + "']"));
+        assertEquals("Second Element", xpathElement.getText());
+        assertEquals("yellow", cssElement.getDomProperty("value"));
+    }
 
-        WebElement div_h1 = driver.findElement(By.xpath("//div[h1]"));
-        assertEquals("rgba(241, 241, 241, 1)", div_h1.getCssValue("background-color"));
+    @Test
+    public void conditionalLocators() throws Exception {
+        WebElement firstElem = driver.findElement(By.xpath("//div[@id='element' and .//label[@for='input_element_1']]"));
+        WebElement secondElem = driver.findElement(By.cssSelector("div#element:has(label[for='input_element_2'])"));
+        assertTrue(firstElem.getText().contains("First Element"));
+        assertTrue(secondElem.getText().contains("Second Element"));
+    }
+
+    @Test
+    public void elementChaining() throws Exception {
+        String thirdElemTitle = "Third Element";
+        String fourthElemTitle = "Fourth Element";
+        WebElement thirdElem = driver.findElement(By.xpath("//div[@id='element' and .//*[text()='" + thirdElemTitle + "']]"));
+        WebElement fourthElem = driver.findElement(By.xpath("//div[@id='element' and .//*[text()='" + fourthElemTitle + "']]"));
+
+        assertEquals("Element number three has its own unique characteristics and testing purposes.",
+                thirdElem.findElement(By.tagName("p")).getText());
+        assertEquals("This is the fourth element, positioned in the middle of our collection.",
+                fourthElem.findElement(By.className("element-paragraph")).getText());
+    }
+
+    @Test
+    public void findWithLoop() throws Exception {
+        List<WebElement> allElements = driver.findElements(By.id("element"));
+        WebElement greenElement = null;
+        for (WebElement element : allElements) {
+            String inputVal = element.findElement(By.tagName("input")).getDomProperty("value");
+            if (inputVal.equals("green")) {
+                greenElement = element;
+                break;
+            }
+        }
+        assertEquals("Fifth Element", greenElement.findElement(By.tagName("h3")).getText());
     }
 }

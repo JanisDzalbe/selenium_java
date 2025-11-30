@@ -16,7 +16,7 @@ public class Sample8Task {
         driver = BootcampUtils.initializeChromeDriver();
 
         //open page:
-        driver.get("https://acctabootcamp.github.io/site/examples/po");
+        driver.get("https://janisdzalbe.github.io/example-site/tasks/list_of_people_random");
     }
 
     // method which is being run after each test
@@ -26,10 +26,25 @@ public class Sample8Task {
     }
 
     @Test
-    public void styleChecks() throws Exception {
-//         TODO:
-//        check the background of top 2 sections
-//        rgba(255, 221, 221, 1);
-//        check h1 element font-size 64px
+    public void findPersonByXPath() throws Exception {
+//  TODO:
+//   Click “Reset List”
+//   Using xPath, find “John” and asset that he is “Software Engineer”
+    }
+
+    @Test
+    public void findPersonWithLoop() throws Exception {
+//  TODO:
+//   Click “Shuffle Order”
+//   Using a loop, Find “Jane” and assert that she is “Accountant”
+    }
+
+    @Test
+    public void findEmployeesBonus() throws Exception {
+//  TODO:
+//   Click “Reset List”
+//   Assert that there are 5 employees
+//   Click “Shuffle Order”
+//   Assert that there still are 5 employees
     }
 }

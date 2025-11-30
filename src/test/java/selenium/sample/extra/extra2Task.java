@@ -24,7 +24,7 @@ public class extra2Task {
         System.setProperty("webdriver.gecko.driver", libWithDriversLocation + "geckodriver.exe");
         driver = new FirefoxDriver();
 //        TODO
-//        go to page https://acctabootcamp.github.io/site/examples/po
+//        go to page https://janisdzalbe.github.io/example-site/examples/po
 //        check the background color of h1 element
     }
 
@@ -33,7 +33,7 @@ public class extra2Task {
         System.setProperty("webdriver.chrome.driver", libWithDriversLocation + "chromedriver" + new selenium.ChangeToFileExtension().extension());
         driver = new ChromeDriver();
 //        TODO
-//        go to page https://acctabootcamp.github.io/site/examples/po
+//        go to page https://janisdzalbe.github.io/example-site/examples/po
 //        check the background color of h1 element
     }
 
@@ -42,7 +42,7 @@ public class extra2Task {
         System.setProperty("webdriver.ie.driver", libWithDriversLocation + "IEDriverServer.exe");
         driver = new InternetExplorerDriver();
 //        TODO
-//        go to page https://acctabootcamp.github.io/site/examples/po
+//        go to page https://janisdzalbe.github.io/example-site/examples/po
 //        check the background color of h1 element
     }
 }

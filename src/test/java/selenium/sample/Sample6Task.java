@@ -16,7 +16,7 @@ public class Sample6Task {
         driver = BootcampUtils.initializeChromeDriver();
 
         //open page:
-        driver.get("https://acctabootcamp.github.io/site/examples/locators");
+        driver.get("https://janisdzalbe.github.io/example-site/examples/locators");
     }
 
     // method which is being run after each test
@@ -28,22 +28,22 @@ public class Sample6Task {
     @Test
     public void findElementByXPath() throws Exception {
 //         TODO:
-//        1-2 ways to find text: "Heading 2 text":
-//        1-2 ways to find text: "Test Text 1"
-//        1-2 ways to find text: "Test Text 2"
-//        1-2 ways to find text: "Test Text 3"
-//        1-2 ways to find text: "Test Text 4"
-//        1-2 ways to find text: "Test Text 5"
-//        1-2 ways to find text: "This is also a button"
+//          1-2 ways to find text: "Heading 2 text":
+//          1-2 ways to find text: "Test Text 1"
+//          1-2 ways to find text: "Test Text 2"
+//          1-2 ways to find text: "Test Text 3"
+//          1-2 ways to find text: "Test Text 4"
+//          1-2 ways to find text: "Test Text 5"
+//          1-2 ways to find text: "This is also a button"
     }
 
     @Test
     public void findElementByCssName() throws Exception {
 //         TODO:
-//        1-2 ways to find text: "Heading 2 text"
-//        1-2 ways to find text: "Test Text 1"
-//        1-2 ways to find text: "Test Text 2"
-//        1-2 ways to find text: "Test Text 3"
-//        1-2 ways to find text: "This is also a button"
+//          1-2 ways to find text: "Heading 2 text"
+//          1-2 ways to find text: "Test Text 1"
+//          1-2 ways to find text: "Test Text 2"
+//          1-2 ways to find text: "Test Text 3"
+//          1-2 ways to find text: "This is also a button"
     }
 }

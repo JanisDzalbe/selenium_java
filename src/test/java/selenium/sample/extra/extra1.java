@@ -12,8 +12,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class extra1 {
     WebDriver driver;
-    String base_url = "https://acctabootcamp.github.io/site/examples/actions";
-    String new_url = "https://acctabootcamp.github.io/site/examples/link1";
+    String base_url = "https://janisdzalbe.github.io/example-site/examples/actions";
+    String new_url = "https://janisdzalbe.github.io/example-site/examples/link1";
 
     // method which is being run before each test
     @BeforeEach
@@ -59,9 +59,9 @@ public class extra1 {
     }
 
     //3. refresh (which will check the url,
-// get value of text box, send some keys to the text box,
-// check that the text box value was changed, do a refresh,
-// check the url and that the text box is now again with default value)
+    // get value of text box, send some keys to the text box,
+    // check that the text box value was changed, do a refresh,
+    // check the url and that the text box is now again with default value)
     @Test
     public void refresh() throws Exception {
         String originalText = "This is a text box";

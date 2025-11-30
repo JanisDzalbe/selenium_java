@@ -9,7 +9,7 @@ public class Sample1Task {
     public void goToHomepage() throws Exception {
 //        TODO:
 //         define driver
-//         go to https://acctabootcamp.github.io/site/index2.html
+//         go to https://janisdzalbe.github.io/example-site/index2.html
 //         get title of page
 //         get URL of current page
 //         close browser

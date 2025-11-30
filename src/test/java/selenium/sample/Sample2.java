@@ -20,7 +20,7 @@ public class Sample2 {
         driver = BootcampUtils.initializeChromeDriver();
 
         //open page:
-        driver.get("https://acctabootcamp.github.io/site/examples/locators");
+        driver.get("https://janisdzalbe.github.io/example-site/examples/locators");
     }
 
     // method which is being run after each test
@@ -36,7 +36,7 @@ public class Sample2 {
         // will fail with error NoSuchElementException
         // no such element:
         // Unable to locate element: {"method":"id","selector":"headingasdga"}
-//        System.out.println(driver.findElement(By.id("headingasdga")).getText());
+        // System.out.println(driver.findElement(By.id("headingasdga")).getText());
     }
 
     @Test
@@ -48,7 +48,7 @@ public class Sample2 {
         System.out.println(driver.findElement(By.name("randomButton1")).getAttribute("name")); // "randomButton"
         System.out.println(driver.findElement(By.name("randomButton1")).getAttribute("id")); // empty
         // Unable to locate element: {"method":"name","selector":"randomButton123"}:
-//        System.out.println(driver.findElement(By.name("randomButton123")).getAttribute("value"));
+        // System.out.println(driver.findElement(By.name("randomButton123")).getAttribute("value"));
     }
 
     @Test
@@ -61,7 +61,7 @@ public class Sample2 {
         System.out.println(driver.findElements(By.id("headingasdga")).size()); // 0
         System.out.println(driver.findElements(By.className("text")).size()); // 5
         List<WebElement> allElementsWithClass = driver.findElements(By.className("text"));
-//
+
         for (WebElement elementWithClass : allElementsWithClass) {
             System.out.println(elementWithClass.getText());
             //            sample text 1

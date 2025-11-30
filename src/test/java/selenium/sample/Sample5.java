@@ -21,7 +21,7 @@ public class Sample5 {
         driver = BootcampUtils.initializeChromeDriver();
 
         //open page:
-        driver.get("https://acctabootcamp.github.io/site/examples/alerts_popups");
+        driver.get("https://janisdzalbe.github.io/example-site/examples/alerts_popups");
     }
 
     // method which is being run after each test
@@ -32,9 +32,9 @@ public class Sample5 {
 
     @Test
     public void alertOnOpeningPage() throws Exception {
-        driver.get("https://acctabootcamp.github.io/site/examples/al_p");
-//        org.openqa.selenium.UnhandledAlertException: unexpected alert open:
-//        driver.findElement(By.id("heading")).getText();
+        driver.get("https://janisdzalbe.github.io/example-site/examples/al_p");
+        // org.openqa.selenium.UnhandledAlertException: unexpected alert open:
+        // driver.findElement(By.id("heading")).getText();
         Alert alert = driver.switchTo().alert();
         assertEquals("Booooooooo!", alert.getText());
 

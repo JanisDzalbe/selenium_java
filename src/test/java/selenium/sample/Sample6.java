@@ -17,7 +17,7 @@ public class Sample6 {
         driver = BootcampUtils.initializeChromeDriver();
 
         //open page:
-        driver.get("https://acctabootcamp.github.io/site/examples/locators");
+        driver.get("https://janisdzalbe.github.io/example-site/examples/locators");
     }
 
     // method which is being run after each test
@@ -28,7 +28,7 @@ public class Sample6 {
 
     @Test
     public void findElementById() throws Exception {
-//        find element by id using xPath
+        // find element by id using xPath
         System.out.println("Find element by id using xPath:");
         System.out.println("\t text of element with id 'heading_1' is '" +
                 driver.findElement(By.xpath("//*[@id='heading_1']")).getText() + "'");
@@ -37,7 +37,7 @@ public class Sample6 {
         System.out.println("\t text of element with id 'nonStandartText' is '" +
                 driver.findElement(By.xpath("//*[@id='nonStandartText']")).getText() + "'");
 
-//        find element by id using CSS
+        // find element by id using CSS
         System.out.println("Find element by id using CSS:");
         System.out.println("\t text of element with id 'heading_1' is '" +
                 driver.findElement(By.cssSelector("#heading_1")).getText() + "'");
@@ -49,14 +49,14 @@ public class Sample6 {
 
     @Test
     public void findElementByAllClasses() throws Exception {
-//        find element by all classes using xPath
+        // find element by all classes using xPath
         System.out.println("Find element by all classes using xPath:");
         System.out.println("\t text of element with class 'text' is '" +
                 driver.findElement(By.xpath("//*[@class='text']")).getText() + "'");
         System.out.println("\t text of element with class 'text' and 'unbelievable' is '" +
                 driver.findElement(By.xpath("//*[@class=\"text unbelievable\"]")).getText() + "'");
 
-//        find element by all classes using CSS
+        // find element by all classes using CSS
         System.out.println("Find element by all classes using CSS:");
         System.out.println("\t text of element with class 'text' is '" +
                 driver.findElement(By.cssSelector(".text")).getText() + "'");
@@ -68,12 +68,12 @@ public class Sample6 {
 
     @Test
     public void findElementBy1stClass() throws Exception {
-//        find element by 1 of nth class using CSS
+        // find element by 1 of nth class using CSS
         System.out.println("Find element by 1 of nth class using xPath:");
         System.out.println("\t text of element with class 'unbelievable' is '" +
                 driver.findElement(By.xpath("//*[contains(@class, 'unbelievable')]")).getText() + "'");
 
-//        find element by 1 of nth class using CSS
+        // find element by 1 of nth class using CSS
         System.out.println("Find element by 1 of nth class using CSS:");
         System.out.println("\t text of element with class 'unbelievable' is '" +
                 driver.findElement(By.cssSelector(".unbelievable")).getText() + "'");
@@ -81,14 +81,14 @@ public class Sample6 {
 
     @Test
     public void findElementByIdAndClass() throws Exception {
-//        find element by id and class using xPath
+        // find element by id and class using xPath
         System.out.println("Find element by id and classes using xPath:");
         System.out.println("\t text of element with class 'text' and id 'dummy' is '" +
                 driver.findElement(By.xpath("//*[contains(@class, 'text') and @id='dummy']")).getText() + "'");
         System.out.println("\t text of element with class 'text' and id 'dummy' v2 is '" +
                 driver.findElement(By.xpath("//*[@class='text' and @id='dummy']")).getText() + "'");
 
-//        find element by id and class using CSS
+        // find element by id and class using CSS
         System.out.println("Find element by id and classes using CSS:");
         System.out.println("\t text of element with class 'text' and id 'dummy' is '" +
                 driver.findElement(By.cssSelector(".text#dummy")).getText() + "'");
@@ -98,41 +98,41 @@ public class Sample6 {
 
     @Test
     public void findElementByText() throws Exception {
-//        find element by Text using xPath
+        // find element by Text using xPath
         System.out.println("Find element by Text using xPath:");
         System.out.println("\t class of element with text 'sample text 1' is '" +
-                driver.findElement(By.xpath("//*[text()='sample text 1']")).getAttribute("class") + "'");
+                driver.findElement(By.xpath("//*[text()='sample text 1']")).getDomAttribute("class") + "'");
         System.out.println("\t text of element which contains text 'dummy' is '" +
                 driver.findElement(By.xpath("//*[contains(text(), 'dummy')]")).getText() + "'");
     }
 
     @Test
     public void findElementByTagName() throws Exception {
-//        find element by tag name using xPath
+        // find element by tag name using xPath
         System.out.println("Find element by tag name using xPath:");
         System.out.println("\t text of element with tag name 'h2' is '" +
                 driver.findElement(By.xpath("//h2")).getText() + "'");
         System.out.println("\t value of element with tag name 'input' is '" +
-                driver.findElement(By.xpath("//input")).getAttribute("value") + "'");
+                driver.findElement(By.xpath("//input")).getDomProperty("value") + "'");
 
-//        find element by tag name using CSS
+        // find element by tag name using CSS
         System.out.println("Find element by tag name using CSS:");
         System.out.println("\t text of element with tag name 'h2' is '" +
                 driver.findElement(By.cssSelector("h2")).getText() + "'");
         System.out.println("\t value of element with tag name 'input' is '" +
-                driver.findElement(By.cssSelector("input")).getAttribute("value") + "'");
+                driver.findElement(By.cssSelector("input")).getDomProperty("value") + "'");
     }
 
     @Test
     public void findNthElement() throws Exception {
-//        find nth element using xPath
+        // find nth element using xPath
         System.out.println("Find element nth using xPath:");
         System.out.println("\t text of 1-st element with tag name 'p' is '" +
                 driver.findElement(By.xpath("//p[1]")).getText() + "'");
         System.out.println("\t text of 3-rd element with tag name 'p' is '" +
                 driver.findElement(By.xpath("//p[3]")).getText() + "'");
 
-//        find nth element using CSS
+        // find nth element using CSS
         System.out.println("Find element nth using CSS:");
         System.out.println("\t text of 1-st element with tag name 'p' is '" +
                 driver.findElement(By.cssSelector("p:nth-of-type(1)")).getText() + "'");
@@ -142,28 +142,28 @@ public class Sample6 {
 
     @Test
     public void findElementByOtherAttributes() throws Exception {
-//        find element by other attributes using xPath (e.g. name)
+        // find element by other attributes using xPath (e.g. name)
         System.out.println("Find element by other attributes using xPath:");
         System.out.println("\t value of element with name 'randomButton1' is '" +
-                driver.findElement(By.xpath("//*[@name='randomButton1']")).getAttribute("value") + "'");
+                driver.findElement(By.xpath("//*[@name='randomButton1']")).getDomProperty("value") + "'");
         System.out.println("\t name of element with value 'This is a button' is '" +
-                driver.findElement(By.xpath("//*[@value='This is a button']")).getAttribute("name") + "'");
+                driver.findElement(By.xpath("//*[@value='This is a button']")).getDomAttribute("name") + "'");
         System.out.println("\t value of element with type 'button' is '" +
-                driver.findElement(By.xpath("//*[@type='button']")).getAttribute("value") + "'");
+                driver.findElement(By.xpath("//*[@type='button']")).getDomProperty("value") + "'");
 
-//        find child element using CSS
+        // find child element using CSS
         System.out.println("Find element by other attributes using CSS:");
         System.out.println("\t value of element with name 'randomButton1' is '" +
-                driver.findElement(By.cssSelector("[name='randomButton1']")).getAttribute("value") + "'");
+                driver.findElement(By.cssSelector("[name='randomButton1']")).getDomProperty("value") + "'");
         System.out.println("\t name of element with value 'This is a button' is '" +
-                driver.findElement(By.cssSelector("[value='This is also a button']")).getAttribute("name") + "'");
+                driver.findElement(By.cssSelector("[value='This is also a button']")).getDomAttribute("name") + "'");
         System.out.println("\t value of element with type 'button' is '" +
-                driver.findElement(By.cssSelector("[type='button']")).getAttribute("value") + "'");
+                driver.findElement(By.cssSelector("[type='button']")).getDomProperty("value") + "'");
     }
 
     @Test
     public void findChildOrDescendantElement() throws Exception {
-//        find child element using xPath
+        // find child element using xPath
         System.out.println("Find child element using xPath:");
         System.out.println("\t text of element with tag name 'p' which is a direct child of element with tag name 'div' is '" +
                 driver.findElement(By.xpath("//div/p")).getText() + "'");
@@ -174,7 +174,7 @@ public class Sample6 {
         System.out.println("\t text of element with class 'amazing' which is a direct child of element with id 'nonStandartText' is '" +
                 driver.findElement(By.xpath("//*[@id='nonStandartText']/p[contains(@class, 'amazing')]")).getText() + "'");
 
-//        find element by other attributes using CSS (e.g. name)
+        // find element by other attributes using CSS (e.g. name)
         System.out.println("Find child element using CSS:");
         System.out.println("\t text of element with tag name 'p' which is a direct child of element with tag name 'div' is '" +
                 driver.findElement(By.cssSelector("div > p")).getText() + "'");

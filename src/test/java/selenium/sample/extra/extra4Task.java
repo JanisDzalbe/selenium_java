@@ -1,4 +1,4 @@
-package selenium.sample;
+package selenium.sample.extra;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,7 +10,7 @@ import selenium.utility.BootcampUtils;
 
 import java.time.Duration;
 
-public class Sample10Task {
+public class extra4Task {
     static WebDriver driver;
     static ColorSamplePage colorPage;
 
@@ -21,7 +21,7 @@ public class Sample10Task {
 
         // Set timeout and open page
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.get("https://acctabootcamp.github.io/site/examples/loading_color");
+        driver.get("https://janisdzalbe.github.io/example-site/examples/loading_color");
         colorPage = PageFactory.initElements(driver, ColorSamplePage.class);
     }
 
@@ -33,13 +33,13 @@ public class Sample10Task {
     @Test
     public void loadGreenSleep() throws Exception {
 //         TODO:
-//         Use page object ColorSamplePage
-//         * 1) click on start loading green button
-//         * 2) check that button does not appear,
-//         * but loading text is seen instead   "Loading green..."
-//         * 3) check that both button
-//         * and loading text is not seen,
-//         * success is seen instead "Green Loaded"
+//          Use page object ColorSamplePage
+//          * 1) click on start loading green button
+//          * 2) check that button does not appear,
+//          * but loading text is seen instead   "Loading green..."
+//          * 3) check that both button
+//          * and loading text is not seen,
+//          * success is seen instead "Green Loaded"
     }
 
 }

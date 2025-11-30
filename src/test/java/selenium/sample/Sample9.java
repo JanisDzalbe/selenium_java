@@ -29,7 +29,7 @@ public class Sample9 {
         // Create a wait - so that we can wait up to this many seconds for page to update
         wait = (WebDriverWait) new WebDriverWait(driver, Duration.ofSeconds(10)).ignoring(StaleElementReferenceException.class);
 
-        driver.get("https://acctabootcamp.github.io/site/examples/sync");
+        driver.get("https://janisdzalbe.github.io/example-site/examples/sync");
 
         System.out.println(driver.findElement(By.id("magic_text")).getText());
         assertEquals("This text magicly changes color", driver.findElement(By.id("magic_text")).getText());
@@ -60,29 +60,29 @@ public class Sample9 {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         driver.findElement(By.xpath("//*[@id='magic_text']/*[text()=\"What is this magic? It's dev magic~\"]"));
-//        driver.findElement(By.id("asd"));
+        // driver.findElement(By.id("asd"));
         magicTextCheck();
     }
 
     @Test
     public void explicitWaitExample1() throws Exception {
-//        check that the element is present on page
+        // check that the element is present on page
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='magic_text']/*[text()=\"What is this magic? It's dev magic~\"]")));
-//        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("asd")));
-//        driver.findElement(By.xpath("//*[@id='magic_text']/*[text()=\"What is this magic? It's dev magic~\"]"));
+        // wait.until(ExpectedConditions.presenceOfElementLocated(By.id("asd")));
+        // driver.findElement(By.xpath("//*[@id='magic_text']/*[text()=\"What is this magic? It's dev magic~\"]"));
         magicTextCheck();
     }
 
     @Test
     public void explicitWaitExample2() throws Exception {
-//        check that the element is not visible on page
+        // check that the element is not visible on page
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//*[@id='magic_text']/*[text()=\"What is this magic? It's dev magic~\"]")));
         magicTextCheck();
     }
 
     @Test
     public void explicitWaitExample3() throws Exception {
-        driver.get("https://acctabootcamp.github.io/site/examples/alerted_page");
+        driver.get("https://janisdzalbe.github.io/example-site/examples/alerted_page");
         wait.until(ExpectedConditions.alertIsPresent());
         driver.switchTo().alert().accept();
     }
@@ -99,5 +99,3 @@ public class Sample9 {
         magicTextCheck();
     }
 }
-
-

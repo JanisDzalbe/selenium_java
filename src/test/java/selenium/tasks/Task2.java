@@ -16,7 +16,7 @@ public class Task2 {
         String libWithDriversLocation = System.getProperty("user.dir") + File.separator + "lib" + File.separator;
         System.setProperty("webdriver.chrome.driver", libWithDriversLocation + "chromedriver" + new selenium.ChangeToFileExtension().extension());
         driver = new ChromeDriver();
-        driver.get("https://acctabootcamp.github.io/site/tasks/provide_feedback");
+        driver.get("https://janisdzalbe.github.io/example-site/tasks/list_of_people_with_jobs");
     }
 
     @AfterEach
@@ -25,57 +25,53 @@ public class Task2 {
     }
 
     @Test
-    public void initialFeedbackPage() throws Exception {
+    public void initialPeopleList() throws Exception {
 //         TODO:
-//         check that all field are empty and no ticks are clicked
-//         "Don't know" is selected in "Genre"
-//         "Choose your option" in "How do you like us?"
-//         check that the button send is blue with white letters
+//          check that "Add person" and "Reset List" buttons are displayed and enabled
+//          check list of people contains 10 entries with correct names and jobs
+//        Mike, Web Designer
+//        Jill, Support
+//        Jane, Accountant
+//        John, Software Engineer
+//        Sarah, Product Manager
+//        Carlos, Data Analyst
+//        Emily, UX Designer
+//        David, Project Manager
+//        Maria, QA Engineer
+//        Alex, DevOps Engineer
     }
 
     @Test
-    public void emptyFeedbackPage() throws Exception {
+    public void addNewPerson() throws Exception {
 //         TODO:
-//         click "Send" without entering any data
-//         check fields are empty or "null"
-//         check button colors
-//         (green with white letter and red with white letters)
+//          click "Add person"
+//          fill "Name" and "Job" fields
+//          click "Add"
+//          check that new person is added to the list with correct name and job
     }
 
     @Test
-    public void notEmptyFeedbackPage() throws Exception {
+    public void editExistingPerson() throws Exception {
 //         TODO:
-//         fill the whole form, click "Send"
-//         check fields are filled correctly
-//         check button colors
-//         (green with white letter and red with white letters)
+//          click pencil icon for an existing person
+//          change "Job" field
+//          click "Edit"
+//          check that the person is updated in the list with new job
     }
 
     @Test
-    public void yesOnWithNameFeedbackPage() throws Exception {
+    public void removeExistingPerson() throws Exception {
 //         TODO:
-//         enter only name
-//         click "Send"
-//         click "Yes"
-//         check message text: "Thank you, NAME, for your feedback!"
-//         color of text is white with green on the background
+//          click cross (x) icon for an existing person
+//          check that the person is removed from the list
     }
 
     @Test
-    public void yesOnWithoutNameFeedbackPage() throws Exception {
+    public void resetList() throws Exception {
 //         TODO:
-//         click "Send" (without entering anything
-//         click "Yes"
-//         check message text: "Thank you for your feedback!"
-//         color of text is white with green on the background
-    }
-
-    @Test
-    public void noOnFeedbackPage() throws Exception {
-//         TODO:
-//         fill the whole form
-//         click "Send"
-//         click "No"
-//         check fields are filled correctly
+//          modify the list in any way (add, edit or remove a person)
+//          check that the list is modified
+//          click "Reset List"
+//          check that the list is back to initial state with 10 original entries
     }
 }

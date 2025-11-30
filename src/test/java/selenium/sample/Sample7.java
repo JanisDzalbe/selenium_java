@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class Sample7 {
     WebDriver driver;
-    String base_url = "https://acctabootcamp.github.io/site/examples/actions";
+    String base_url = "https://janisdzalbe.github.io/example-site/examples/actions";
 
     // method which is being run before each test
     @BeforeEach
@@ -95,33 +95,26 @@ public class Sample7 {
     }
 
     @Test
-    public void testDragAndDrop() throws Exception {
-        String dragElement = "#black_box";
-        String toTarget = "#drag_box2";
-        Sample7DragAndDropMagic.dragAndDropMagic(driver, dragElement, toTarget);
-    }
-
-    @Test
     public void chooseDateViaCalendar() throws Exception {
-//    get today date
+        // get today date
         Calendar cal = Calendar.getInstance();
-//    go back 10 month
+        // go back 10 month
         cal.add(Calendar.MONTH, -10);
         String result = new SimpleDateFormat("MM/15/yyyy").format(cal.getTime());
 
         WebElement dateBox = driver.findElement(By.id("vfb-8"));
-        assertEquals("", dateBox.getAttribute("value"));
+        assertEquals("", dateBox.getDomProperty("value"));
 
         dateBox.click();
         WebElement dateWidget = driver.findElement(By.id("ui-datepicker-div"));
-//    go back 10 month in calendar on page
+        // go back 10 month in calendar on page
         for (int i = 0; i < 10; i++) {
             dateWidget.findElement(By.className("ui-datepicker-prev")).click();
         }
-//    select date 15
+        // select date 15
         dateWidget.findElement(By.xpath("//a[text()='15']")).click();
 
-        assertEquals(result, dateBox.getAttribute("value"));
+        assertEquals(result, dateBox.getDomProperty("value"));
         dateBox.clear();
     }
 
@@ -130,10 +123,10 @@ public class Sample7 {
         String dateToEnter = "12/15/2014";
 
         WebElement dateBox = driver.findElement(By.id("vfb-8"));
-        assertEquals("", dateBox.getAttribute("value"));
+        assertEquals("", dateBox.getDomProperty("value"));
 
         dateBox.clear();
         dateBox.sendKeys(dateToEnter);
-        assertEquals(dateToEnter, dateBox.getAttribute("value"));
+        assertEquals(dateToEnter, dateBox.getDomProperty("value"));
     }
 }
