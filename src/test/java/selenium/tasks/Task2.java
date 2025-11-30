@@ -54,6 +54,7 @@ public class Task2 {
     public void editExistingPerson() throws Exception {
 //         TODO:
 //          click pencil icon for an existing person
+//          check values in "Name" and "Job" fields
 //          change "Job" field
 //          click "Edit"
 //          check that the person is updated in the list with new job
