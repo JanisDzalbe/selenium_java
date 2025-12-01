@@ -51,6 +51,7 @@ public class Sample2Task {
 //         TODO:
 //          get first text of class "test" (should be "Test Text 1")
       System.out.println(driver.findElement(By.className("test")).getText());
+      System.out.println(driver.findElements(By.className("test")).get(0).getText());
     }
 
     @Test
@@ -63,7 +64,9 @@ public class Sample2Task {
       System.out.println(driver.findElements(By.className("test")).size());
 
       List<WebElement> allElementsWithClass = driver.findElements(By.className("test"));
-
+      for (WebElement elem:allElementsWithClass){
+        System.out.println(elem.getText());
+      }
       System.out.println(allElementsWithClass.get(2).getText());
 
     }
