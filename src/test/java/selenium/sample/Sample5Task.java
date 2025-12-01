@@ -3,23 +3,27 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import selenium.utility.BootcampUtils;
 
-public class Sample5Task {
-    WebDriver driver;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-    // method which is being run before each test
+public class Sample5Task {
+
+    WebDriver driver;
+    String baseUrl = "https://janisdzalbe.github.io/example-site/examples/alerts_popups";
+    String alertedPageUrl = "https://janisdzalbe.github.io/example-site/examples/alerted_page";
+
     @BeforeEach
     public void startingTests() throws Exception {
-        // Initialize driver
         driver = BootcampUtils.initializeChromeDriver();
-
-        //open page:
-        driver.get("https://janisdzalbe.github.io/example-site/examples/alerts_popups");
+        driver.get(baseUrl);
     }
 
-    // method which is being run after each test
     @AfterEach
     public void endingTests() throws Exception {
         driver.quit();
@@ -27,22 +31,52 @@ public class Sample5Task {
 
     @Test
     public void goToAlertedPageViaButton() throws Exception {
-//         TODO:
-//          click on "To go to alerted page press Ok. Or stay here" button
-//          switch to alert
-//          click ok
-//          switch to second alert
-//          verify alert text
-//          click ok on second alert
-//          verify that the correct page is opened
+        // verify starting page
+        assertEquals(baseUrl, driver.getCurrentUrl());
+
+        // click button "To go to alerted page press Ok. Or stay here"
+        WebElement goToAlertedPageButton =
+                driver.findElement(By.xpath("//button[contains(@onclick,'goToAlertedPage')]"));
+        goToAlertedPageButton.click();
+
+        // first alert
+        Alert firstAlert = driver.switchTo().alert();
+        assertEquals("Want to see an alerted page?!", firstAlert.getText());
+        firstAlert.accept();
+
+        // second alert
+        Alert secondAlert = driver.switchTo().alert();
+        assertEquals("Booooooooo!", secondAlert.getText());
+        secondAlert.accept();
+
+        // verify alerted page
+        assertEquals("This page is alerted", driver.findElement(By.id("heading")).getText());
+        assertEquals(alertedPageUrl, driver.getCurrentUrl());
     }
 
     @Test
     public void doNotGoToAlertedPageViaButton() throws Exception {
-//         TODO:
-//          click on "To go to alerted page press Ok. Or stay here" button
-//          switch to alert
-//          click cancel
-//          verify the text on page
+        // still on alerts_popups page
+        assertEquals(baseUrl, driver.getCurrentUrl());
+
+        // click "To go to alerted page press Ok. Or stay here" button
+        WebElement goToAlertedPageButton =
+                driver.findElement(By.xpath("//button[contains(@onclick,'goToAlertedPage')]"));
+        goToAlertedPageButton.click();
+
+        // alert: ask if we want alerted page
+        Alert alert = driver.switchTo().alert();
+        assertEquals("Want to see an alerted page?!", alert.getText());
+
+        // stay on the same page
+        alert.dismiss();
+
+        // URL must remain alerts_popups
+        assertEquals(baseUrl, driver.getCurrentUrl());
+
+        // check message text (без привязки к скрытым пробелам/опечаткам)
+        String message = driver.findElement(By.id("textForAlerts")).getText().trim();
+        assertTrue(message.startsWith("So you"));
+        assertTrue(message.endsWith("Good!"));
     }
 }
