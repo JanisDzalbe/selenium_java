@@ -6,13 +6,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.awt.*;
+
 public class Sample1Task {
 
     @Test
     public void goToHomepage() throws Exception {
 //        TODO:
 //         define driver
-        System.setProperty("webdriver.chrome.driver", lib.chromedriver.exe + "chromedriver" + new selenium.ChangeToFileExtension().extension());
+        System.setProperty("webdriver.chrome.driver", lib\put_drivers_here.txt + "chromedriver" + new selenium.ChangeToFileExtension().extension());
 
         WebDriver driver = new ChromeDriver();
 
