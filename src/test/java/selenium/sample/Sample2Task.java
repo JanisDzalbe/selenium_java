@@ -41,7 +41,7 @@ public class Sample2Task {
 //         TODO:
 //          get attribute "id" and "value" of button "This is also a button" using name
         System.out.println(driver.findElement(By.name("randomButton2")).getAttribute("id"));
-        System.out.println(driver.findElement(By.name("randomButton2")).getAttribute("value")); // "This is a button"
+        System.out.println(driver.findElement(By.name("randomButton2")).getAttribute("value"));
     }
 
     @Test
