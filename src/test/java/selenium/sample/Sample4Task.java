@@ -3,8 +3,14 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import selenium.utility.BootcampUtils;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Sample4Task {
     WebDriver driver;
@@ -38,6 +44,26 @@ public class Sample4Task {
 //          check that the button "Clear Result" is clickable now
 //          click on "Clear Result"
 //          check that the text is now (""), but it is not displayed
+        WebElement numberInput = driver.findElement(By.id("number"));
+        WebElement resultButton = driver.findElement(By.id("result_button_number"));
+        WebElement clearButton = driver.findElement(By.id("clear_result_button_number"));
+        WebElement resultText = driver.findElement(By.id("result_number"));
+
+        numberInput.clear();
+        numberInput.sendKeys("1");
+
+        assertFalse(clearButton.isEnabled());
+        assertFalse(resultText.isDisplayed());
+
+        resultButton.click();
+
+        assertTrue(resultText.isDisplayed());
+        assertEquals("You entered number: \"1\"", resultText.getText());
+        assertTrue(clearButton.isEnabled());
+
+        clearButton.click();
+        assertEquals("", resultText.getText());
+        assertFalse(resultText.isDisplayed());
     }
 
     @Test
@@ -47,5 +73,9 @@ public class Sample4Task {
 //          click on "This is a link to Homepage"
 //          check that current url is not base_url
 //          verify that current url is homepage
+        assertEquals(base_url, driver.getCurrentUrl());
+        driver.findElement(By.id("homepage_link")).click();
+        assertFalse(driver.getCurrentUrl().equals(base_url));
+        assertEquals("https://janisdzalbe.github.io/example-site/", driver.getCurrentUrl());
     }
 }
