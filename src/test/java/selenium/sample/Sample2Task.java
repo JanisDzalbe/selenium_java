@@ -54,11 +54,11 @@ public class Sample2Task {
 
     @Test
     public void findElementByClassAll() throws Exception {
-        List<WebElement> elemList = driver.findElements(By.className("test"));
-        System.out.println(elemList.size());
-        for(WebElement elem : elemList){
-        }
-        System.out.println(elemList.get(2).getText());
+        //List<WebElement> elemList = driver.findElements(By.className("test"));
+        //System.out.println(elemList.size());
+        //for(WebElement elem : elemList){
+        //}
+        //System.out.println(elemList.get(2).getText());
 //         TODO:
 //          get size text of class "test" (should be 5)
 //          get text of class "test"
