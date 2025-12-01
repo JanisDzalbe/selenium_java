@@ -48,6 +48,7 @@ public class Sample5Task {
         alert.accept();
 
         assertEquals("This page is alerted", driver.findElement(By.id("heading")).getText());
+        assertEquals("https://janisdzalbe.github.io/example-site/examples/alerted_page", driver.getCurrentUrl());
     }
 
     @Test
@@ -62,5 +63,7 @@ public class Sample5Task {
         alert.dismiss();
 
         assertEquals("So you desided to say? Good!", driver.findElement(By.id("textForAlerts")).getText());
+        assertEquals("https://janisdzalbe.github.io/example-site/examples/alerts_popups", driver.getCurrentUrl());
+
     }
 }
