@@ -3,8 +3,13 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import selenium.utility.BootcampUtils;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 
 public class Sample5Task {
     WebDriver driver;
@@ -35,6 +40,26 @@ public class Sample5Task {
 //          verify alert text
 //          click ok on second alert
 //          verify that the correct page is opened
+        String alertsPageUrl = "https://janisdzalbe.github.io/example-site/examples/alerts_popups";
+        String alertedPageUrl = "https://janisdzalbe.github.io/example-site/examples/alerted_page";
+
+        assertEquals(alertsPageUrl, driver.getCurrentUrl());
+
+        driver.findElement(By.xpath("//*[text()='To go to alerted page press Ok. Or stay here']")).click();
+
+        Alert firstAlert = driver.switchTo().alert();
+        String firstText = firstAlert.getText();
+        assertTrue(firstText.contains("alerted page"));
+        firstAlert.accept();
+
+        Alert secondAlert = driver.switchTo().alert();
+        String secondText = secondAlert.getText();
+        assertFalse(secondText.isEmpty());
+        secondAlert.accept();
+
+        assertEquals(alertedPageUrl, driver.getCurrentUrl());
+        assertEquals("This page is alerted",
+                driver.findElement(By.id("heading")).getText());
     }
 
     @Test
@@ -44,5 +69,18 @@ public class Sample5Task {
 //          switch to alert
 //          click cancel
 //          verify the text on page
+        String alertsPageUrl = "https://janisdzalbe.github.io/example-site/examples/alerts_popups";
+
+        assertEquals(alertsPageUrl, driver.getCurrentUrl());
+
+        driver.findElement(By.xpath("//*[text()='To go to alerted page press Ok. Or stay here']")).click();
+
+        Alert alert = driver.switchTo().alert();
+        String alertText = alert.getText();
+        assertTrue(alertText.contains("alerted page"));
+
+        alert.dismiss();
+
+        assertEquals(alertsPageUrl, driver.getCurrentUrl());
     }
 }
