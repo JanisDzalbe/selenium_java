@@ -31,15 +31,14 @@ public class Sample5Task {
 
     @Test
     public void goToAlertedPageViaButton() throws Exception {
-        WebDriver blueButton = driver.findElement(By.className("w3-blue"));
-        blueButton.click();
+        driver.findElement(By.className("w3-blue")).click();
 
         driver.switchTo().alert().accept();
 
         Alert secondAlert = driver.switchTo().alert();
         assertEquals("Boooooooo", secondAlert.getText());
 
-        swcondAlert.accept();
+        secondAlert.accept();
 
         assertEquals("https://janisdzalbe.github.io/example-site/examples/alerted_page", driver.getCurrentUrl());
 
