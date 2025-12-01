@@ -7,7 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class Sample1Task {
-
 //    @Test
 //    public void goToHomepage() throws Exception {
 //        TODO:
