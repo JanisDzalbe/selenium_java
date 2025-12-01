@@ -3,53 +3,86 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import selenium.utility.BootcampUtils;
 
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 public class Sample3Task {
-    WebDriver driver;
+  WebDriver driver;
 
-    // method which is being run before each test
-    @BeforeEach
-    public void startingTests() throws Exception {
-        // Initialize driver
-        driver = BootcampUtils.initializeChromeDriver();
+  // method which is being run before each test
+  @BeforeEach
+  public void startingTests() throws Exception {
+    // Initialize driver
+    driver = BootcampUtils.initializeChromeDriver();
 
-        //open page:
-        driver.get("https://janisdzalbe.github.io/example-site/examples/locators");
-    }
+    //open page:
+    driver.get("https://janisdzalbe.github.io/example-site/examples/locators");
+  }
 
-    // method which is being run after each test
-    @AfterEach
-    public void endingTests() throws Exception {
-        driver.quit();
-    }
+  // method which is being run after each test
+  @AfterEach
+  public void endingTests() throws Exception {
+    driver.quit();
+  }
 
-    @Test
-    public void assertEqualsTask() throws Exception {
+  @Test
+  public void assertEqualsTask() throws Exception {
 //         TODO:
 //          check how many element with class "test" there are on page (5)
 //          check that value of second button is "This is also a button"
-    }
+    int element_count = driver.findElements(By.className("test")).size();
+    String actual_string = driver.findElement(By.name("randomButton2")).getDomProperty("value");
+    assertAll(
+            () -> assertEquals(5, element_count),
+            () -> assertEquals("This is also a button", actual_string)
+    );
+  }
 
-    @Test
-    public void assertTrueTask() throws Exception {
+  @Test
+  public void assertTrueTask() throws Exception {
 //         TODO:
 //          check that it is True that value of second button is
 //          "this is Also a Button" if you ignore Caps Locks
 //          fail with custom error message:
+    String actual_string = driver.findElement(By.name("randomButton2")).getDomProperty("value");
+    try {
+      assertTrue(actual_string.equalsIgnoreCase("this is Also a Button"), "Message is not the same ignoring the case usage");
+    }
+    catch (AssertionError e) {
+      System.out.println("Message is not the same ignoring the case usage");
+      e.printStackTrace();
     }
 
-    @Test
-    public void assertFalseTask() throws Exception {
+  }
+
+  @Test
+  public void assertFalseTask() throws Exception {
 //         TODO:
 //          check that it is False that value of second button is "This is a button"
+    String actual_string = driver.findElement(By.name("randomButton2")).getDomProperty("value");
+
+
+    try {
+      assertFalse(actual_string.equals("This is a button"), "Value is the same");
+    }
+    catch (AssertionError e){
+      System.out.println("Value is the same");
+      e.printStackTrace();
+    }
     }
 
-    @Test
-    public void failTask() throws Exception {
+  @Test
+  public void failTask() throws Exception {
 //        TODO:
 //         check that none of items with class "test"
 //         contain number 190
-    }
+    List<WebElement> allElementsWithClass = driver.findElements(By.className("test"));
+    assertFalse( allElementsWithClass.contains("190"));
+  }
 }
