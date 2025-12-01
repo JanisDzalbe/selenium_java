@@ -23,7 +23,7 @@ public class Sample1Task {
         System.out.println(driver.getTitle());
 
 //         get URL of current page
-        System.out.println(driver.findElement(By.id("h1")).getText());
+        System.out.println(driver.getCurrentUrl());
 
 //         close browser
         driver.quit();
