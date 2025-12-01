@@ -60,8 +60,17 @@ public class Task1 {
 
         numberEnterArea.sendKeys("5");
         buttonSubmit.click();
-
         assertEquals("Number is too small", errorMessage.getText() );
+
+//        numberEnterArea.clear();
+//        numberEnterArea.sendKeys("-1");
+//        buttonSubmit.click();
+//        assertEquals("Number is too small", errorMessage.getText() );
+//
+//        numberEnterArea.clear();
+//        numberEnterArea.sendKeys("49");
+//        buttonSubmit.click();
+//        assertEquals("Number is too small", errorMessage.getText() );
 
         //  assertTrue(errorMessage.getText().equals("Number is too small"));
 
@@ -86,21 +95,25 @@ public class Task1 {
     @Test
     public void correctSquareRoot() {
 //        TODO
-//         enter a number between 50 and 100 digit in the input, then press submit
-//         and check that no error is shown and that square root is calculated correctly
+//         enter a number between 50 and 100 digit in the input,
+//         then press submit
+//         and check that no error is shown
+//         and that square root is calculated correctly
 //         NOTE: input and assertion values have to be defined as variables
 
         WebElement numberEnterArea = driver.findElement(By.id("numb"));
-        WebElement errorMessage = driver.findElement(By.id("ch1_error"));
         WebElement buttonSubmit = driver.findElement(By.cssSelector("button"));
+        WebElement errorMessage = driver.findElement(By.id("ch1_error"));
+        String textMessage = "Square root of 60 is 7.75";
+        String inputKeys = "60";
 
-
-        numberEnterArea.sendKeys("60");
+        numberEnterArea.clear();
+        numberEnterArea.sendKeys(inputKeys);
         buttonSubmit.click();
+
 
         Alert alert1 = driver.switchTo().alert();
 
-        assertEquals("Square root of 60 is 7.75", alert1.getText());
-
+        assertEquals(textMessage, alert1.getText());
     }
 }
