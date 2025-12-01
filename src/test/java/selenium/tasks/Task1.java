@@ -83,28 +83,28 @@ public class Task1 {
 //         NOTE: input and assertion values have to be defined as variables
 
     // input number
-    String numberStringg = "50";
+    String numberString = "50";
 
     //Elements inputField "numb" and submit button "w3-orange"
     WebElement inputField = driver.findElement(By.id("numb"));
     WebElement submitButton = driver.findElement(By.className("w3-orange"));
 
     //send input to inputField
-    inputField.sendKeys(numberStringg);
+    inputField.sendKeys(numberString);
     submitButton.click();
 
-    double SqRoot = Math.sqrt(Integer.parseInt(numberStringg));  //Calculate Square root
+    double SqRoot = Math.sqrt(Integer.parseInt(numberString));  //Calculate Square root
 
     Alert alert1 = driver.switchTo().alert(); //Alert itself
     String alertText = alert1.getText();  //Alert msg text
 
-    //Formated expected field with numberStrign and squareroot
-    String ExpectedString = String.format("Square root of %s is %.2f", numberStringg, SqRoot);
+    //Formated expected field with numberString and squareroot
+    String ExpectedString = String.format("Square root of %s is %.2f", numberString, SqRoot);
 
     //check result in alert
     assertEquals(ExpectedString, alertText);
     alert1.accept();
-    //check if element is nto displayed
+    //check if element is not displayed
     assertFalse(driver.findElement(By.id("ch1_error")).isDisplayed());
 
   }
