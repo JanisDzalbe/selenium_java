@@ -3,8 +3,11 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import selenium.utility.BootcampUtils;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Sample5Task {
     WebDriver driver;
@@ -27,22 +30,45 @@ public class Sample5Task {
 
     @Test
     public void goToAlertedPageViaButton() throws Exception {
-//         TODO:
-//          click on "To go to alerted page press Ok. Or stay here" button
-//          switch to alert
-//          click ok
-//          switch to second alert
-//          verify alert text
-//          click ok on second alert
-//          verify that the correct page is opened
+        // click on "To go to alerted page press Ok. Or stay here" button
+        driver.findElement(By.id("textForAlerts")).click();
+
+        // first alert
+        Alert firstAlert = driver.switchTo().alert();
+        // (you can assert text if needed)
+        firstAlert.accept();  // click OK
+
+        // second alert
+        Alert secondAlert = driver.switchTo().alert();
+        String secondText = secondAlert.getText();
+        // verify alert text (expected text may differ slightly, adjust if needed)
+        assertEquals("You will be redirected to alerted page", secondText);
+        secondAlert.accept(); // click OK
+
+        // verify that the correct page is opened
+        assertEquals(
+                "https://janisdzalbe.github.io/example-site/examples/alerted_page",
+                driver.getCurrentUrl()
+        );
     }
 
     @Test
     public void doNotGoToAlertedPageViaButton() throws Exception {
-//         TODO:
-//          click on "To go to alerted page press Ok. Or stay here" button
-//          switch to alert
-//          click cancel
-//          verify the text on page
+        // click on "To go to alerted page press Ok. Or stay here" button
+        driver.findElement(By.id("textForAlerts")).click();
+
+        // first alert
+        Alert alert = driver.switchTo().alert();
+        alert.dismiss();  // click Cancel
+
+        // verify we stayed on the same page
+        assertEquals(
+                "https://janisdzalbe.github.io/example-site/examples/alerts_popups",
+                driver.getCurrentUrl()
+        );
+
+        // optionally check some text on the page (heading)
+        String heading = driver.findElement(By.id("h1")).getText();
+        assertEquals("Alert and pop-ups", heading);
     }
 }

@@ -3,8 +3,11 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import selenium.utility.BootcampUtils;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Sample4Task {
     WebDriver driver;
@@ -28,24 +31,42 @@ public class Sample4Task {
 
     @Test
     public void enterNumber() throws Exception {
-//         TODO:
-//          enter a number under "Number"
-//          check that button is not clickable "Clear Result"
-//          check that text is not displayed
-//          click on "Result" button
-//          check that text is displayed
-//          check that the correct Text appears ("You entered number: "NUMBER YOU ENTERED"")
-//          check that the button "Clear Result" is clickable now
-//          click on "Clear Result"
-//          check that the text is now (""), but it is not displayed
+        // Elements based on REAL PAGE
+        WebElement numberInput = driver.findElement(By.id("number"));
+        WebElement resultButton = driver.findElement(By.id("result_number"));
+        WebElement clearButton = driver.findElement(By.id("clear_number"));
+        WebElement resultText = driver.findElement(By.id("number_result"));
+
+        // 1. Enter a number
+        numberInput.sendKeys("5");
+        // 2. Clear button should be disabled
+        assertFalse(clearButton.isEnabled());
+        // 3. Text should not be displayed yet
+        assertFalse(resultText.isDisplayed());
+        // 4. Click "Result"
+        resultButton.click();
+        // 5. Text should now be displayed
+        assertTrue(resultText.isDisplayed());
+        // 6. Text should be correct
+        assertEquals("You entered number: 5", resultText.getText());
+        // 7. Clear button should now be enabled
+        assertTrue(clearButton.isEnabled());
+        // 8. Click "Clear Result"
+        clearButton.click();
+        // 9. Text should be empty AND hidden
+        assertEquals("", resultText.getText());
+        assertFalse(resultText.isDisplayed());
     }
 
     @Test
     public void clickOnLink() throws Exception {
-//         TODO:
-//          check current url is base_url
-//          click on "This is a link to Homepage"
-//          check that current url is not base_url
-//          verify that current url is homepage
+        // 1. Check we are on base_url
+        assertEquals(base_url, driver.getCurrentUrl());
+        // 2. Click link to homepage
+        driver.findElement(By.linkText("This is a link to Homepage")).click();
+        // 3. URL must change
+        assertNotEquals(base_url, driver.getCurrentUrl());
+        // 4. URL must now be homepage
+        assertEquals("https://janisdzalbe.github.io/example-site/", driver.getCurrentUrl());
     }
 }
