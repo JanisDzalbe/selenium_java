@@ -3,21 +3,41 @@ package selenium.tasks;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.File;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.time.Duration;
 
 public class Task1 {
+
     WebDriver driver;
+    WebDriverWait wait;
+
+    private WebElement inputField() {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("numb")));
+    }
+
+    private WebElement submitButton() {
+        return wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[type='button']")));
+    }
+
+    private WebElement errorMessage() {
+        return driver.findElement(By.id("ch1_error"));
+    }
 
     @BeforeEach
     public void openPage() {
-
-        String libWithDriversLocation = System.getProperty("user.dir") + File.separator + "lib" + File.separator;
-        System.setProperty("webdriver.chrome.driver", libWithDriversLocation + "chromedriver" + new selenium.ChangeToFileExtension().extension());
+        System.setProperty("webdriver.chrome.driver", "lib/chromedriver.exe");
         driver = new ChromeDriver();
-        driver.get("https://janisdzalbe.github.io/example-site/tasks/enter_a_number");
+        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        driver.get("https://janisdzalbe.github.io/example-site/tasks/enter_a_number"); // <-- correct URL
     }
 
     @AfterEach
@@ -27,27 +47,49 @@ public class Task1 {
 
     @Test
     public void errorOnText() {
-//        TODO
-//         enter a text instead of a number, check that correct error is shown
+        inputField().sendKeys("gg");
+        submitButton().click();
+
+        assertEquals("Please enter a number", errorMessage().getText());
+        assertTrue(errorMessage().isDisplayed());
     }
 
     @Test
     public void errorOnNumberTooSmall() {
-//        TODO
-//         enter number which is too small (positive number below 50), check that correct error is shown
+        inputField().sendKeys("1");
+        submitButton().click();
+
+        assertEquals("Number is too small", errorMessage().getText());
+        assertTrue(errorMessage().isDisplayed());
     }
 
     @Test
     public void errorOnNumberTooBig() {
-//        TODO
-//         enter number which is too big (above 100), check that correct error is shown
+        inputField().sendKeys("10000");
+        submitButton().click();
+
+        assertEquals("Number is too big", errorMessage().getText());
+        assertTrue(errorMessage().isDisplayed());
     }
 
     @Test
     public void correctSquareRoot() {
-//        TODO
-//         enter a number between 50 and 100 digit in the input, then press submit
-//         and check that no error is shown and that square root is calculated correctly
-//         NOTE: input and assertion values have to be defined as variables
+        int value = 64;
+        double expected = Math.sqrt(value);
+
+        inputField().sendKeys(String.valueOf(value));
+        submitButton().click();
+
+        Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+        String alertText = alert.getText();   // "Square root of 64 is 8"
+
+        String[] parts = alertText.split(" is ");
+        double actual = Double.parseDouble(parts[1]);
+
+        assertEquals(expected, actual, 0.01);
+
+        alert.accept();
+
+        assertFalse(errorMessage().isDisplayed());
     }
 }
