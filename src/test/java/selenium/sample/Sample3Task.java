@@ -30,6 +30,7 @@ public class Sample3Task {
 //         TODO:
 //          check how many element with class "test" there are on page (5)
 //          check that value of second button is "This is also a button"
+
     }
 
     @Test
