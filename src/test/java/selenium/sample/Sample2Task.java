@@ -71,6 +71,5 @@ public class Sample2Task {
          }
 
         System.out.println(elementList.get(2));
-
     }
 }
