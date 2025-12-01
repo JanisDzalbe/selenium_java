@@ -4,32 +4,27 @@ package selenium.sample;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+
+import static selenium.sample.Sample1.libWithDriversLocation;
 
 public class Sample1Task {
 
     @Test
     public void goToHomepage() throws Exception {
-        // Set system property - we will have a method to do this from now on
-        System.setProperty("webdriver.chrome.driver", libWithDriversLocation + "chromedriver" + new selenium.ChangeToFileExtension().extension());
-        // initialize driver
-        WebDriver driver = new ChromeDriver();
 
-        /* From now on, we will use this initialization utility method to not have repeated code:
-        driver = BootcampUtils.initializeChromeDriver();
-         */
+        System.setProperty(
+                "webdriver.edge.driver",
+                libWithDriversLocation + "msedgedriver" + new selenium.ChangeToFileExtension().extension()
+        );
 
-        // open test homepage
+        WebDriver driver = new EdgeDriver();
+
         driver.get("https://janisdzalbe.github.io/example-site/index2.html");
-        System.out.println(driver.findElement(By.id("h1")).getText());
-        // get title of page
-        System.out.println(driver.getTitle());
-        // get URL of current page
-        System.out.println(driver.getCurrentUrl());
-        // Sleep for 10 seconds
-        Thread.sleep(10000);
 
-        // Close browser
+        System.out.println(driver.getTitle());
+        System.out.println(driver.getCurrentUrl());
+        Thread.sleep(10000);
         driver.quit();
 //        TODO:
 //         define driver

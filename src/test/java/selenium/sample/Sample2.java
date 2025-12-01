@@ -17,7 +17,7 @@ public class Sample2 {
     @BeforeEach
     public void startingTests() throws Exception {
         // initialize Chrome Driver
-        driver = BootcampUtils.initializeChromeDriver();
+        driver = BootcampUtils.initializeDriver();
 
         //open page:
         driver.get("https://janisdzalbe.github.io/example-site/examples/locators");

@@ -10,7 +10,7 @@ public class Playground {
     Feel free to commit this (to not have to unselect this from Git commit window - this will not be looked at too much.
      */
     public static void main(String[] args) {
-        WebDriver driver = BootcampUtils.initializeChromeDriver();
+        WebDriver driver = BootcampUtils.initializeDriver();
 
     }
 }

@@ -12,7 +12,7 @@ public class Sample9Task {
     @BeforeEach
     public void openPage() {
         // Initialize driver
-        driver = BootcampUtils.initializeChromeDriver();
+        driver = BootcampUtils.initializeDriver();
 
         // load web page
         driver.get("https://janisdzalbe.github.io/example-site/examples/loading_color");

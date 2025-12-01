@@ -3,8 +3,12 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import selenium.utility.BootcampUtils;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Sample5Task {
     WebDriver driver;
@@ -13,7 +17,7 @@ public class Sample5Task {
     @BeforeEach
     public void startingTests() throws Exception {
         // Initialize driver
-        driver = BootcampUtils.initializeChromeDriver();
+        driver = BootcampUtils.initializeDriver();
 
         //open page:
         driver.get("https://janisdzalbe.github.io/example-site/examples/alerts_popups");
@@ -35,6 +39,17 @@ public class Sample5Task {
 //          verify alert text
 //          click ok on second alert
 //          verify that the correct page is opened
+
+        WebElement button = driver.findElement(By.cssSelector("button.w3-btn.w3-blue"));
+        button.click();
+        Alert alert1 = driver.switchTo().alert();
+        alert1.accept();
+        Alert alert2 = driver.switchTo().alert();
+        String expectedText = "Booooooooo!";
+        assertEquals(expectedText, alert2.getText());
+        alert2.accept();
+        String actualUrl = driver.getCurrentUrl();
+        assertEquals("https://janisdzalbe.github.io/example-site/examples/alerted_page", actualUrl);
     }
 
     @Test
@@ -44,5 +59,15 @@ public class Sample5Task {
 //          switch to alert
 //          click cancel
 //          verify the text on page
+        WebElement button = driver.findElement(By.cssSelector("button.w3-btn.w3-blue"));
+        button.click();
+
+        Alert alert1 = driver.switchTo().alert();
+
+
+        alert1.dismiss();
+
+        WebElement heading = driver.findElement(By.cssSelector("ul.w3-navbar"));
+
     }
 }

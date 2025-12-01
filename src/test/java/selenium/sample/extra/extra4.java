@@ -19,7 +19,7 @@ public class extra4 {
     @BeforeEach
     public void openPage() throws InterruptedException {
         // Initialize driver
-        driver = BootcampUtils.initializeChromeDriver();
+        driver = BootcampUtils.initializeDriver();
 
         // Set an implicity wait
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));

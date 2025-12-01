@@ -15,7 +15,7 @@ public class extra1Task {
     @BeforeEach
     public void startingTests() throws Exception {
         // Initialize driver
-        driver = BootcampUtils.initializeChromeDriver();
+        driver = BootcampUtils.initializeDriver();
 
         //open page:
         driver.get(base_url);
