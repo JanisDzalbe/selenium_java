@@ -104,6 +104,7 @@ public class Task1 {
         WebElement numberEnterArea = driver.findElement(By.id("numb"));
         WebElement buttonSubmit = driver.findElement(By.cssSelector("button"));
         WebElement errorMessage = driver.findElement(By.id("ch1_error"));
+
         String textMessage = "Square root of 60 is 7.75";
         String inputKeys = "60";
 
@@ -115,5 +116,9 @@ public class Task1 {
         Alert alert1 = driver.switchTo().alert();
 
         assertEquals(textMessage, alert1.getText());
+
+        alert1.accept();
+
+        assertFalse(errorMessage.isDisplayed());
     }
 }
