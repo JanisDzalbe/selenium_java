@@ -46,7 +46,7 @@ public class Sample3Task {
         if (secondButtonText == null || secondButtonText.isEmpty()) {
             secondButtonText = secondButton.getDomAttribute("value");
         }
-        assertEquals("This is a also a button", secondButtonText);
+        assertEquals("This is also a button", secondButtonText);
     }
 
     @Test
