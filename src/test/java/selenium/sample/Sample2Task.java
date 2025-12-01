@@ -26,7 +26,8 @@ public class Sample2Task {
 
     @Test
     public void findElementByID() throws Exception {
-        System.out.println(driver.findElement((By.id("heading_2")).getText()));
+        System.out.println(driver.findElement(By.id("heading_2")).getText());
+
     }
 
     @Test
