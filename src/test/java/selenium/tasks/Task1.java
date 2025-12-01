@@ -83,7 +83,7 @@ public class Task1 {
 //         NOTE: input and assertion values have to be defined as variables
 
     // input number
-    String numberString = "50";
+    String numberString = "50.1";
 
     //Elements inputField "numb" and submit button "w3-orange"
     WebElement inputField = driver.findElement(By.id("numb"));
@@ -93,7 +93,7 @@ public class Task1 {
     inputField.sendKeys(numberString);
     submitButton.click();
 
-    double SqRoot = Math.sqrt(Integer.parseInt(numberString));  //Calculate Square root
+    double SqRoot = Math.sqrt(Double.parseDouble(numberString));  //Calculate Square root
 
     Alert alert1 = driver.switchTo().alert(); //Alert itself
     String alertText = alert1.getText();  //Alert msg text
