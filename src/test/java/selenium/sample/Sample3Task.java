@@ -51,13 +51,7 @@ public class Sample3Task {
 //          "this is Also a Button" if you ignore Caps Locks
 //          fail with custom error message:
     String actual_string = driver.findElement(By.name("randomButton2")).getDomProperty("value");
-    try {
       assertTrue(actual_string.equalsIgnoreCase("this is Also a Button"), "Message is not the same ignoring the case usage");
-    }
-    catch (AssertionError e) {
-      System.out.println("Message is not the same ignoring the case usage");
-      e.printStackTrace();
-    }
 
   }
 
@@ -68,13 +62,9 @@ public class Sample3Task {
     String actual_string = driver.findElement(By.name("randomButton2")).getDomProperty("value");
 
 
-    try {
+
       assertFalse(actual_string.equals("This is a button"), "Value is the same");
-    }
-    catch (AssertionError e){
-      System.out.println("Value is the same");
-      e.printStackTrace();
-    }
+
     }
 
   @Test
@@ -84,5 +74,9 @@ public class Sample3Task {
 //         contain number 190
     List<WebElement> allElementsWithClass = driver.findElements(By.className("test"));
     assertFalse( allElementsWithClass.contains("190"));
+      for(WebElement elem: allElementsWithClass){
+        assertFalse(elem.getText().contains("190"));
+      }
+
   }
 }
