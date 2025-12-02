@@ -3,8 +3,19 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import selenium.utility.BootcampUtils;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class Sample7Task {
     WebDriver driver;
@@ -28,6 +39,24 @@ public class Sample7Task {
 
     @Test
     public void selectCheckBox() throws Exception {
+        public void selectCheckBox() throws Exception {
+            List<WebElement> checkboxes = driver.findElements(By.cssSelector("[type='checkbox']"));
+            assertFalse(checkboxes.get(0).isSelected());
+            assertFalse(checkboxes.get(1).isSelected());
+            assertFalse(checkboxes.get(2).isSelected());
+
+            checkboxes.get(1).click();
+            assertFalse(checkboxes.get(0).isSelected());
+            assertTrue(checkboxes.get(1).isSelected());
+            assertFalse(checkboxes.get(2).isSelected());
+
+            driver.findElement(By.cssSelector("[type=\"checkbox\"][value=\"Option 3\"]")).click();
+            driver.findElement(By.id("result_button_checkbox")).click();
+
+            assertTrue(driver.findElement(By.id("result_checkbox")).isDisplayed());
+            assertEquals("You selected value(s): Option 2, Option 3",
+                    driver.findElement(By.id("result_checkbox")).getText());
+        }
 //         TODO:
 //          check that none of the checkboxes are ticked
 //          tick  "Option 2"
@@ -40,6 +69,32 @@ public class Sample7Task {
 
     @Test
     public void selectRadioButton() throws Exception {
+        @Test
+        public void selectRadioButton() throws Exception {
+            WebElement radio1 = driver.findElement(By.cssSelector("[type='radio'][value='Option 1']"));
+            WebElement radio2 = driver.findElement(By.cssSelector("[type='radio'][value='Option 2']"));
+            WebElement radio3 = driver.findElement(By.cssSelector("[type='radio'][value='Option 3']"));
+
+            assertFalse(radio1.isSelected());
+            assertFalse(radio2.isSelected());
+            assertFalse(radio3.isSelected());
+
+            radio3.click();
+            assertFalse(radio1.isSelected());
+            assertFalse(radio2.isSelected());
+            assertTrue(radio3.isSelected());
+
+            radio1.click();
+            assertTrue(radio1.isSelected());
+            assertFalse(radio2.isSelected());
+            assertFalse(radio3.isSelected());
+
+            driver.findElement(By.id("result_button_ratio")).click();
+
+            WebElement radioResult = driver.findElement(By.id("result_radio"));
+            assertTrue(radioResult.isDisplayed());
+            assertEquals("You selected option: Option 1", radioResult.getText());
+        }
 //         TODO:
 //          check that none of the radio are selected
 //          select  "Option 3"
@@ -52,6 +107,21 @@ public class Sample7Task {
 
     @Test
     public void selectOption() throws Exception {
+        @Test
+        public void selectOption() throws Exception {
+            Select dropdown = new Select(driver.findElement(By.tagName("select")));
+            dropdown.selectByVisibleText("Option 3");
+            assertEquals("Option 3", dropdown.getFirstSelectedOption().getText());
+
+            dropdown.selectByValue("value2");
+            assertEquals("Option 2", dropdown.getFirstSelectedOption().getText());
+
+            driver.findElement(By.id("result_button_select")).click();
+
+            WebElement dropdownResult = driver.findElement(By.id("result_select"));
+            assertTrue(dropdownResult.isDisplayed());
+            assertEquals("You selected option: Option 2", dropdownResult.getText());
+        }
 //         TODO:
 //          select "Option 3" in Select
 //          check that selected option is "Option 3"
