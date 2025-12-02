@@ -93,7 +93,7 @@ public class Task1 {
     }
 
     @Test
-    public void correctSquareRoot() {
+    public void correctSquareRoot() throws Exception {
 //        TODO
 //         enter a number between 50 and 100 digit in the input,
 //         then press submit
@@ -112,13 +112,13 @@ public class Task1 {
         numberEnterArea.sendKeys(inputKeys);
         buttonSubmit.click();
 
+      //  assertFalse(errorMessage.isDisplayed());
 
         Alert alert1 = driver.switchTo().alert();
-
         assertEquals(textMessage, alert1.getText());
-
         alert1.accept();
 
         assertFalse(errorMessage.isDisplayed());
+
     }
 }
