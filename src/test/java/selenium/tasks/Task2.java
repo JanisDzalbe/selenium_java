@@ -3,10 +3,18 @@ package selenium.tasks;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
+import java.time.Duration;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Task2 {
     WebDriver driver;
@@ -39,6 +47,46 @@ public class Task2 {
 //        David, Project Manager
 //        Maria, QA Engineer
 //        Alex, DevOps Engineer
+        WebElement addPersonBtn = driver.findElement(By.xpath("//button[text()='Add person']"));
+        WebElement resetListBtn = driver.findElement(By.xpath("//button[text()='Reset List']"));
+        List<WebElement> people = driver.findElements(By.className("w3-padding-16"));
+
+        assertTrue(addPersonBtn.isDisplayed());
+        assertTrue(addPersonBtn.isEnabled());
+        assertTrue(resetListBtn.isDisplayed());
+        assertTrue(resetListBtn.isEnabled());
+
+        assertTrue(people.size() == 10);
+
+        assertEquals("Mike", people.get(0).findElement(By.className("name")).getText());
+        assertEquals("Web Designer", people.get(0).findElement(By.className("job")).getText());
+
+        assertEquals("Jill", people.get(1).findElement(By.className("name")).getText());
+        assertEquals("Support", people.get(1).findElement(By.className("job")).getText());
+
+        assertEquals("Jane", people.get(2).findElement(By.className("name")).getText());
+        assertEquals("Accountant", people.get(2).findElement(By.className("job")).getText());
+
+        assertEquals("John", people.get(3).findElement(By.className("name")).getText());
+        assertEquals("Software Engineer", people.get(3).findElement(By.className("job")).getText());
+
+        assertEquals("Sarah", people.get(4).findElement(By.className("name")).getText());
+        assertEquals("Product Manager", people.get(4).findElement(By.className("job")).getText());
+
+        assertEquals("Carlos", people.get(5).findElement(By.className("name")).getText());
+        assertEquals("Data Analyst", people.get(5).findElement(By.className("job")).getText());
+
+        assertEquals("Emily", people.get(6).findElement(By.className("name")).getText());
+        assertEquals("UX Designer", people.get(6).findElement(By.className("job")).getText());
+
+        assertEquals("David", people.get(7).findElement(By.className("name")).getText());
+        assertEquals("Project Manager", people.get(7).findElement(By.className("job")).getText());
+
+        assertEquals("Maria", people.get(8).findElement(By.className("name")).getText());
+        assertEquals("QA Engineer", people.get(8).findElement(By.className("job")).getText());
+
+        assertEquals("Alex", people.get(9).findElement(By.className("name")).getText());
+        assertEquals("DevOps Engineer", people.get(9).findElement(By.className("job")).getText());
     }
 
     @Test
@@ -48,6 +96,32 @@ public class Task2 {
 //          fill "Name" and "Job" fields
 //          click "Add"
 //          check that new person is added to the list with correct name and job
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        WebElement addPersonBtn = driver.findElement(By.xpath("//button[text()='Add person']"));
+
+        addPersonBtn.click();
+
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("name")));
+
+        String name = "John Pork";
+        String job = "CEO";
+
+        WebElement nameField = driver.findElement(By.id("name"));
+        WebElement jobField = driver.findElement(By.id("job"));
+        WebElement addBtn = driver.findElement(By.xpath("//button[text()='Add']"));
+
+
+        nameField.sendKeys(name);
+        jobField.sendKeys(job);
+        addBtn.click();
+
+        List<WebElement> people = driver.findElements(By.className("w3-padding-16"));
+        for (WebElement person : people) {
+            if (person.findElement(By.className("name")).getText().equals(name)) {
+                assertEquals(job, person.findElement(By.className("job")).getText());
+            }
+        }
     }
 
     @Test
@@ -58,6 +132,29 @@ public class Task2 {
 //          change "Job" field
 //          click "Edit"
 //          check that the person is updated in the list with new job
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        driver.findElement(By.cssSelector("#person0 .fa-pencil")).click();
+
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("name")));
+
+        WebElement nameField = driver.findElement(By.id("name"));
+        WebElement jobField = driver.findElement(By.id("job"));
+        WebElement editBtn = driver.findElement(By.xpath("//button[text()='Edit']"));
+
+        assertEquals("Mike", nameField.getAttribute("value"));
+        assertEquals("Web Designer", jobField.getAttribute("value"));
+
+        String newJob = "Our lord saviour";
+        String name = "Mike";
+
+        jobField.clear();
+        jobField.sendKeys(newJob);
+        editBtn.click();
+
+        WebElement mike = driver.findElement(By.id("person0"));
+        assertEquals(newJob, mike.findElement(By.className("job")).getText());
+        assertEquals(name, mike.findElement(By.className("name")).getText());
     }
 
     @Test
@@ -65,6 +162,15 @@ public class Task2 {
 //         TODO:
 //          click cross (x) icon for an existing person
 //          check that the person is removed from the list
+        WebElement deleteEmilyBtn =  driver.findElement(By.cssSelector("#person1 .closebtn"));
+        deleteEmilyBtn.click();
+
+        List<WebElement> people = driver.findElements(By.className("w3-padding-16"));
+        for (WebElement person : people) {
+            if (person.findElement(By.className("name")).getText().equals("Jill")) {
+                fail();
+            }
+        }
     }
 
     @Test
@@ -74,5 +180,50 @@ public class Task2 {
 //          check that the list is modified
 //          click "Reset List"
 //          check that the list is back to initial state with 10 original entries
+        WebElement deleteEmilyBtn =  driver.findElement(By.cssSelector("#person1 .closebtn"));
+        deleteEmilyBtn.click();
+
+        List<WebElement> people = driver.findElements(By.className("w3-padding-16"));
+        for (WebElement person : people) {
+            if (person.findElement(By.className("name")).getText().equals("Jill")) {
+                fail();
+            }
+        }
+        WebElement resetListBtn = driver.findElement(By.xpath("//button[text()='Reset List']"));
+        resetListBtn.click();
+
+        people = driver.findElements(By.className("w3-padding-16"));
+
+        assertTrue(people.size() == 10);
+
+        assertEquals("Mike", people.get(0).findElement(By.className("name")).getText());
+        assertEquals("Web Designer", people.get(0).findElement(By.className("job")).getText());
+
+        assertEquals("Jill", people.get(1).findElement(By.className("name")).getText());
+        assertEquals("Support", people.get(1).findElement(By.className("job")).getText());
+
+        assertEquals("Jane", people.get(2).findElement(By.className("name")).getText());
+        assertEquals("Accountant", people.get(2).findElement(By.className("job")).getText());
+
+        assertEquals("John", people.get(3).findElement(By.className("name")).getText());
+        assertEquals("Software Engineer", people.get(3).findElement(By.className("job")).getText());
+
+        assertEquals("Sarah", people.get(4).findElement(By.className("name")).getText());
+        assertEquals("Product Manager", people.get(4).findElement(By.className("job")).getText());
+
+        assertEquals("Carlos", people.get(5).findElement(By.className("name")).getText());
+        assertEquals("Data Analyst", people.get(5).findElement(By.className("job")).getText());
+
+        assertEquals("Emily", people.get(6).findElement(By.className("name")).getText());
+        assertEquals("UX Designer", people.get(6).findElement(By.className("job")).getText());
+
+        assertEquals("David", people.get(7).findElement(By.className("name")).getText());
+        assertEquals("Project Manager", people.get(7).findElement(By.className("job")).getText());
+
+        assertEquals("Maria", people.get(8).findElement(By.className("name")).getText());
+        assertEquals("QA Engineer", people.get(8).findElement(By.className("job")).getText());
+
+        assertEquals("Alex", people.get(9).findElement(By.className("name")).getText());
+        assertEquals("DevOps Engineer", people.get(9).findElement(By.className("job")).getText());
     }
 }
