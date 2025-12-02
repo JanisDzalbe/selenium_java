@@ -89,9 +89,12 @@ public class Sample7Task {
         assertFalse(option2.isSelected());
         assertFalse(option3.isSelected());
 
-        driver.findElement(By.id("result_button_radio")).click();
+        WebElement resultButton = driver.findElement(
+                By.xpath("//h2[text()='Radio']/following::button[1]"));
+        resultButton.click();
 
-        WebElement result = driver.findElement(By.id("result_radio"));
+        WebElement result = driver.findElement(
+                By.xpath("//h2[text()='Radio']/following::p[1]"));
         assertEquals("You selected option: Option 1", result.getText());
     }
 }
