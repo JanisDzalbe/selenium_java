@@ -12,7 +12,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.time.Duration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -47,6 +49,10 @@ public class Task2 {
 //        David, Project Manager
 //        Maria, QA Engineer
 //        Alex, DevOps Engineer
+        String[][] peopleMap = {{"Mike", "Web Designer"}, {"Jill", "Support"}, {"Jane", "Accountant"}, {"John", "Software Engineer"},
+                {"Sarah", "Product Manager"}, {"Carlos", "Data Analyst"}, {"Emily", "UX Designer"}, {"David", "Project Manager"},
+                {"Maria", "QA Engineer"}, {"Alex", "DevOps Engineer"}};
+
         WebElement addPersonBtn = driver.findElement(By.xpath("//button[text()='Add person']"));
         WebElement resetListBtn = driver.findElement(By.xpath("//button[text()='Reset List']"));
         List<WebElement> people = driver.findElements(By.className("w3-padding-16"));
@@ -58,35 +64,11 @@ public class Task2 {
 
         assertTrue(people.size() == 10);
 
-        assertEquals("Mike", people.get(0).findElement(By.className("name")).getText());
-        assertEquals("Web Designer", people.get(0).findElement(By.className("job")).getText());
-
-        assertEquals("Jill", people.get(1).findElement(By.className("name")).getText());
-        assertEquals("Support", people.get(1).findElement(By.className("job")).getText());
-
-        assertEquals("Jane", people.get(2).findElement(By.className("name")).getText());
-        assertEquals("Accountant", people.get(2).findElement(By.className("job")).getText());
-
-        assertEquals("John", people.get(3).findElement(By.className("name")).getText());
-        assertEquals("Software Engineer", people.get(3).findElement(By.className("job")).getText());
-
-        assertEquals("Sarah", people.get(4).findElement(By.className("name")).getText());
-        assertEquals("Product Manager", people.get(4).findElement(By.className("job")).getText());
-
-        assertEquals("Carlos", people.get(5).findElement(By.className("name")).getText());
-        assertEquals("Data Analyst", people.get(5).findElement(By.className("job")).getText());
-
-        assertEquals("Emily", people.get(6).findElement(By.className("name")).getText());
-        assertEquals("UX Designer", people.get(6).findElement(By.className("job")).getText());
-
-        assertEquals("David", people.get(7).findElement(By.className("name")).getText());
-        assertEquals("Project Manager", people.get(7).findElement(By.className("job")).getText());
-
-        assertEquals("Maria", people.get(8).findElement(By.className("name")).getText());
-        assertEquals("QA Engineer", people.get(8).findElement(By.className("job")).getText());
-
-        assertEquals("Alex", people.get(9).findElement(By.className("name")).getText());
-        assertEquals("DevOps Engineer", people.get(9).findElement(By.className("job")).getText());
+        for (int i=0; i<peopleMap[2].length; i++) {
+            assertEquals(peopleMap[i][0], people.get(i).findElement(By.className("name")).getText());
+            assertEquals(peopleMap[i][1], people.get(i).findElement(By.className("job")).getText());
+            i++;
+        }
     }
 
     @Test
@@ -162,12 +144,13 @@ public class Task2 {
 //         TODO:
 //          click cross (x) icon for an existing person
 //          check that the person is removed from the list
-        WebElement deleteEmilyBtn =  driver.findElement(By.cssSelector("#person1 .closebtn"));
-        deleteEmilyBtn.click();
+        String name = "Jill";
+        WebElement deleteJillBtn =  driver.findElement(By.cssSelector("#person1 .closebtn"));
+        deleteJillBtn.click();
 
         List<WebElement> people = driver.findElements(By.className("w3-padding-16"));
         for (WebElement person : people) {
-            if (person.findElement(By.className("name")).getText().equals("Jill")) {
+            if (person.findElement(By.className("name")).getText().equals(name)) {
                 fail();
             }
         }
@@ -180,6 +163,10 @@ public class Task2 {
 //          check that the list is modified
 //          click "Reset List"
 //          check that the list is back to initial state with 10 original entries
+        String[][] peopleMap = {{"Mike", "Web Designer"}, {"Jill", "Support"}, {"Jane", "Accountant"}, {"John", "Software Engineer"},
+                {"Sarah", "Product Manager"}, {"Carlos", "Data Analyst"}, {"Emily", "UX Designer"}, {"David", "Project Manager"},
+                {"Maria", "QA Engineer"}, {"Alex", "DevOps Engineer"}};
+
         WebElement deleteEmilyBtn =  driver.findElement(By.cssSelector("#person1 .closebtn"));
         deleteEmilyBtn.click();
 
@@ -189,41 +176,16 @@ public class Task2 {
                 fail();
             }
         }
+
         WebElement resetListBtn = driver.findElement(By.xpath("//button[text()='Reset List']"));
         resetListBtn.click();
 
         people = driver.findElements(By.className("w3-padding-16"));
-
         assertTrue(people.size() == 10);
-
-        assertEquals("Mike", people.get(0).findElement(By.className("name")).getText());
-        assertEquals("Web Designer", people.get(0).findElement(By.className("job")).getText());
-
-        assertEquals("Jill", people.get(1).findElement(By.className("name")).getText());
-        assertEquals("Support", people.get(1).findElement(By.className("job")).getText());
-
-        assertEquals("Jane", people.get(2).findElement(By.className("name")).getText());
-        assertEquals("Accountant", people.get(2).findElement(By.className("job")).getText());
-
-        assertEquals("John", people.get(3).findElement(By.className("name")).getText());
-        assertEquals("Software Engineer", people.get(3).findElement(By.className("job")).getText());
-
-        assertEquals("Sarah", people.get(4).findElement(By.className("name")).getText());
-        assertEquals("Product Manager", people.get(4).findElement(By.className("job")).getText());
-
-        assertEquals("Carlos", people.get(5).findElement(By.className("name")).getText());
-        assertEquals("Data Analyst", people.get(5).findElement(By.className("job")).getText());
-
-        assertEquals("Emily", people.get(6).findElement(By.className("name")).getText());
-        assertEquals("UX Designer", people.get(6).findElement(By.className("job")).getText());
-
-        assertEquals("David", people.get(7).findElement(By.className("name")).getText());
-        assertEquals("Project Manager", people.get(7).findElement(By.className("job")).getText());
-
-        assertEquals("Maria", people.get(8).findElement(By.className("name")).getText());
-        assertEquals("QA Engineer", people.get(8).findElement(By.className("job")).getText());
-
-        assertEquals("Alex", people.get(9).findElement(By.className("name")).getText());
-        assertEquals("DevOps Engineer", people.get(9).findElement(By.className("job")).getText());
+        for (int i=0; i<peopleMap[2].length; i++) {
+            assertEquals(peopleMap[i][0], people.get(i).findElement(By.className("name")).getText());
+            assertEquals(peopleMap[i][1], people.get(i).findElement(By.className("job")).getText());
+            i++;
+        }
     }
 }
