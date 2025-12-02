@@ -86,7 +86,7 @@ public class Task1 {
         submitButton.click();
 
         Alert alert = driver.switchTo().alert();
-        double sqrt = Math.sqrt(Integer.parseInt(input));
+        double sqrt = Math.sqrt(Double.parseDouble(input));
         System.out.printf("Calculated: %s, Rounded: %.2f", sqrt, sqrt);
 
         String alertAssertion = String.format("Square root of %s is %.2f", input, sqrt);
