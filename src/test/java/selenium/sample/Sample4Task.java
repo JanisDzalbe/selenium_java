@@ -27,35 +27,36 @@ public class Sample4Task {
 
     @Test
     public void enterNumber() throws Exception {
-        String number = "42";
 
-        WebElement numberInput = driver.findElement(By.id("inputNumber")); // FIXED ID
-        numberInput.sendKeys(number);
 
-        WebElement resultButton = driver.findElement(By.id("resultButton"));
-        WebElement clearButton = driver.findElement(By.id("clearResult"));
-        WebElement resultText = driver.findElement(By.id("result"));
+        WebElement numberInput = driver.findElement(By.id("number")); // FIXED ID
+
+
+        WebElement resultButton = driver.findElement(By.id("result_button_number"));
+        WebElement clearButton = driver.findElement(By.id("clear_result_button_number"));
+        WebElement resultText = driver.findElement(By.id("result_number"));
+
+        numberInput.clear();
+        numberInput.sendKeys("7");
 
 
         assertFalse(clearButton.isEnabled());
-
-
-        assertEquals("", resultText.getText());
-
+        assertFalse(resultText.isDisplayed());
 
         resultButton.click();
 
+        assertTrue(resultText.isDisplayed());
 
-        assertEquals("You entered number: " + number, resultText.getText());
+        resultButton.click();
 
-
+        assertTrue(resultText.isDisplayed());
+        assertEquals("You entered number: \"7\"",resultText.getText());
         assertTrue(clearButton.isEnabled());
 
-
         clearButton.click();
+        assertEquals("",resultText.getText());
+        assertFalse(resultText.isDisplayed());
 
-
-        assertEquals("", resultText.getText());
     }
 
 
