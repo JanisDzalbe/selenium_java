@@ -143,6 +143,11 @@ public class Sample7Task {
     }
     while (!dateWidget.findElement(By.className("ui-datepicker-month")).getText().equals("July")) {
       dateWidget.findElement(By.className("ui-datepicker-prev")).click();
+      // Just in case it ever goes to 2006 it should never run
+      if (dateWidget.findElement(By.className("ui-datepicker-year")).getText().equals("2006")){
+        System.out.println("How did it run to 2006??????????????????");
+          break;
+      }
     }
     // select date 15
     dateWidget.findElement(By.xpath("//a[text()='4']")).click();
