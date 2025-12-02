@@ -101,18 +101,35 @@ public class Sample7Task {
 
 
 
+//@Test
+//public void selectOption() throws Exception {
+//    Select dropdown = new Select(driver.findElement(By.tagName("select")));
+//
+//    dropdown.selectByVisibleText("Option 3");
+//    assertEquals("Option 3", dropdown.getFirstSelectedOption().getText());
+//
+//    dropdown.selectByValue("value2");
+//    assertEquals("Option 2", dropdown.getFirstSelectedOption().getText());
+//
+//    driver.findElement(By.id("result_button_select")).click();
+//
+//    WebElement dropdownResult = driver.findElement(By.id("result_select"));
+//    assertTrue(dropdownResult.isDisplayed());
+//    assertEquals("You selected option: Option 2", dropdownResult.getText());
+//}
 
 
-//    @Test
-//    public void selectOption() throws Exception {
 
-//          select "Option 3" in Select
-//          check that selected option is "Option 3"
-//          select "Option 2" in Select
-//          check that selected option is "Option 2"
-//          click result
-//          check that 'You selected option: Option 2' text is being displayed
-//    }
+
+
+
+
+
+
+
+
+
+
 
 // ** Bonus tasks **
 //    @Test
