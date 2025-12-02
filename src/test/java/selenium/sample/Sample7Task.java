@@ -126,21 +126,21 @@ public class Sample7Task {
 //          enter date '4 of July 2007' using calendar widget
 //          check that correct date is added
 
-    // get today date
     Calendar cal = Calendar.getInstance();
     cal.set(2007, Calendar.JULY, 4);
     String result = new SimpleDateFormat("MM/dd/yyyy").format(cal.getTime());
     System.out.println(result);
     WebElement dateBox = driver.findElement(By.id("vfb-8"));
     assertEquals("", dateBox.getDomProperty("value"));
-
     dateBox.click();
 
 
     WebElement dateWidget = driver.findElement(By.id("ui-datepicker-div"));
+    //Get to 2007
     while (!dateWidget.findElement(By.className("ui-datepicker-year")).getText().equals("2007")) {
       dateWidget.findElement(By.className("ui-datepicker-prev")).click();
     }
+    //Get to July
     while (!dateWidget.findElement(By.className("ui-datepicker-month")).getText().equals("July")) {
       dateWidget.findElement(By.className("ui-datepicker-prev")).click();
       // Just in case it ever goes to 2006 it should never run
@@ -149,9 +149,8 @@ public class Sample7Task {
           break;
       }
     }
-    // select date 15
+    //select 4th
     dateWidget.findElement(By.xpath("//a[text()='4']")).click();
-
     assertEquals(result, dateBox.getDomProperty("value"));
     dateBox.clear();
 
