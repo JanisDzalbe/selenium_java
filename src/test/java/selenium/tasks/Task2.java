@@ -79,13 +79,16 @@ public class Task2 {
 //          click "Add person"
         driver.findElement(By.xpath("//button[text()='Add person']")).click();
         wait.until(ExpectedConditions.urlToBe("https://janisdzalbe.github.io/example-site/tasks/enter_a_new_person_with_a_job.html"));
+
 //          fill "Name" and "Job" fields
         String name = "Mariss";
         String job = "Test Engineer";
         driver.findElement(By.id("name")).sendKeys(name);
         driver.findElement(By.id("job")).sendKeys(job);
+
 //          click "Add"
         driver.findElement(By.xpath("//button[text()='Add']")).click();
+
 //          check that new person is added to the list with correct name and job
         wait.until(ExpectedConditions.urlToBe("https://janisdzalbe.github.io/example-site/tasks/list_of_people_with_jobs.html"));
         WebElement newEntry = driver.findElement(By.xpath("//li[*/text()='"+ name +"']"));
@@ -95,12 +98,34 @@ public class Task2 {
 
     @Test
     public void editExistingPerson() throws Exception {
-//         TODO:
 //          click pencil icon for an existing person
+        Map<String, String> peopleList = getInitialList();
+        String nameToEdit = peopleList.keySet().stream()  // randomly selects a name from the people list
+                .skip(new Random().nextInt(peopleList.size()))
+                .findFirst().get();
+        System.out.println(nameToEdit);
+
+        WebElement entryToEdit = driver.findElement(By.xpath("//li[*/text()='"+ nameToEdit +"']"));
+        entryToEdit.findElement(By.xpath(".//i[@class='fa fa-pencil']")).click();
+
 //          check values in "Name" and "Job" fields
+        wait.until(ExpectedConditions.urlContains("https://janisdzalbe.github.io/example-site/tasks/enter_a_new_person_with_a_job.html?id="));
+        assertEquals(nameToEdit, driver.findElement(By.id("name")).getDomProperty("value"));
+        WebElement jobInput = driver.findElement(By.id("job"));
+        assertEquals(peopleList.get(nameToEdit), jobInput.getDomProperty("value"));
+
 //          change "Job" field
+        jobInput.clear();
+        String jobValue = "Tester";
+        jobInput.sendKeys(jobValue);
+
 //          click "Edit"
+        driver.findElement(By.xpath("//button[text()='Edit']")).click();
+
 //          check that the person is updated in the list with new job
+        wait.until(ExpectedConditions.urlToBe("https://janisdzalbe.github.io/example-site/tasks/list_of_people_with_jobs.html"));
+        entryToEdit = driver.findElement(By.xpath("//li[*/text()='"+ nameToEdit +"']"));
+        assertEquals(jobValue, entryToEdit.findElement(By.xpath(".//*[@class='job']")).getText());
     }
 
     @Test
