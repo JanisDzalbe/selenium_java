@@ -46,7 +46,6 @@ public class Sample6 {
         System.out.println("\t text of element with id 'nonStandartText' is '" +
                 driver.findElement(By.cssSelector("#nonStandartText")).getText() + "'");
     }
-
     @Test
     public void findElementByAllClasses() throws Exception {
         // find element by all classes using xPath
