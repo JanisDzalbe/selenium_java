@@ -3,9 +3,13 @@ package selenium.tasks;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import static org.junit.jupiter.api.Assertions.*;
 
+import java.awt.*;
 import java.io.File;
 
 public class Task2 {
@@ -40,8 +44,21 @@ public class Task2 {
 //        Maria, QA Engineer
 //        Alex, DevOps Engineer
 
+        WebElement buttonAdd = driver.findElement(By.xpath("//*[@id='addPersonBtn' and contains(@class,'w3-btn') and contains(text(),'Add person')]"));
+        assertTrue(buttonAdd.isDisplayed());
+        assertTrue(buttonAdd.isEnabled());
+
+        WebElement buttonResetList = driver.findElement(By.xpath("//*[@id='addPersonBtn' and contains(@class,'w3-btn') and contains(text(),'Reset List')]"));
+        assertTrue(buttonResetList.isDisplayed());
+        assertTrue(buttonResetList.isEnabled());
+
+        String url = driver.getCurrentUrl();
 
 
+
+
+
+    //      List<WebElement> people = driver.findElements(By.xpath("//*[@id='listOfPeople']"));
 
     }
 
@@ -52,7 +69,55 @@ public class Task2 {
 //          fill "Name" and "Job" fields
 //          click "Add"
 //          check that new person is added to the list with correct name and job
+        //    System.out.println(driver.getCurrentUrl());
+        WebElement buttonAdd = driver.findElement(By.xpath("//*[@id='addPersonBtn' and contains(@class,'w3-btn') and contains(text(),'Add person')]"));
+        buttonAdd.click();
+        String url = driver.getCurrentUrl();
+
+        //      System.out.println(driver.getCurrentUrl());
+        assertEquals(url,"https://janisdzalbe.github.io/example-site/tasks/enter_a_new_person_with_a_job.html");
+
+        driver.findElement(By.xpath("//*[@id=\"addPersonBtn\"]")).click();
+
+        WebElement fieldName =  driver.findElement(By.xpath("//*[@id='name']"));
+        WebElement fieldJob = driver.findElement(By.xpath("//*[@id='job']"));
+
+        assertEquals("", fieldName.getText());
+        assertEquals("", fieldJob.getText());
+
+        String nameKey = "Boris";
+        String jobKey = "Team lead";
+
+        fieldName.sendKeys(nameKey);
+        fieldJob.sendKeys(jobKey);
+
+        assertEquals("Boris", fieldName.getAttribute("value"));
+        assertEquals("Team lead",  fieldJob.getAttribute("value"));
+
+        driver.findElement(By.xpath("//*[@id='modal_button' and contains(text(),'Add')]")).click();
+
+        url = driver.getCurrentUrl();
+
+        assertEquals(url,"https://janisdzalbe.github.io/example-site/tasks/list_of_people_with_jobs.html");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
+
 
     @Test
     public void editExistingPerson() throws Exception {
