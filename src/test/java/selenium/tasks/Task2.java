@@ -4,6 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -20,6 +21,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class Task2 {
     WebDriver driver;
+    private static WebDriverWait wait;
+
 
     @BeforeEach
     public void openPage() {
@@ -27,6 +30,8 @@ public class Task2 {
         System.setProperty("webdriver.chrome.driver", libWithDriversLocation + "chromedriver" + new selenium.ChangeToFileExtension().extension());
         driver = new ChromeDriver();
         driver.get("https://janisdzalbe.github.io/example-site/tasks/list_of_people_with_jobs");
+
+        wait = (WebDriverWait) new WebDriverWait(driver, Duration.ofSeconds(10)).ignoring(StaleElementReferenceException.class);
     }
 
     @AfterEach
@@ -78,8 +83,6 @@ public class Task2 {
 //          fill "Name" and "Job" fields
 //          click "Add"
 //          check that new person is added to the list with correct name and job
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
         WebElement addPersonBtn = driver.findElement(By.xpath("//button[text()='Add person']"));
 
         addPersonBtn.click();
@@ -114,8 +117,6 @@ public class Task2 {
 //          change "Job" field
 //          click "Edit"
 //          check that the person is updated in the list with new job
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
         driver.findElement(By.cssSelector("#person0 .fa-pencil")).click();
 
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("name")));
