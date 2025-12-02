@@ -4,7 +4,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.By;       // ✅ REQUIRED
 import selenium.utility.BootcampUtils;
+
 
 public class Sample6Task {
     WebDriver driver;
@@ -27,23 +29,56 @@ public class Sample6Task {
 
     @Test
     public void findElementByXPath() throws Exception {
-//         TODO:
-//          1-2 ways to find text: "Heading 2 text":
-//          1-2 ways to find text: "Test Text 1"
-//          1-2 ways to find text: "Test Text 2"
-//          1-2 ways to find text: "Test Text 3"
-//          1-2 ways to find text: "Test Text 4"
-//          1-2 ways to find text: "Test Text 5"
-//          1-2 ways to find text: "This is also a button"
+
+        // Heading 2 text
+        driver.findElement(By.xpath("//h2[@id='heading_2']"));
+        driver.findElement(By.xpath("//h2[contains(text(),'Heading 2 text')]"));
+
+        // Test Text 1 (div id="test1")
+        driver.findElement(By.xpath("//div[@id='test1']"));
+        driver.findElement(By.xpath("//*[@id='test1']"));
+
+        // Test Text 2 (div id="test2")
+        driver.findElement(By.xpath("//div[@id='test2']"));
+        driver.findElement(By.xpath("//*[@id='test2']"));
+
+        // Test Text 3 (div id="test3")
+        driver.findElement(By.xpath("//div[@id='test3']"));
+        driver.findElement(By.xpath("//*[@id='test3']"));
+
+        // Test Text 4 (div id="standartText")
+        driver.findElement(By.xpath("//div[@id='standartText']"));
+        driver.findElement(By.xpath("//*[@id='standartText']"));
+
+        // Test Text 5 (div id="nonStandartText")
+        driver.findElement(By.xpath("//div[@id='nonStandartText']"));
+        driver.findElement(By.xpath("//*[@id='nonStandartText']"));
+
+        // "This is also a button" (input with id="buttonId")
+        driver.findElement(By.xpath("//input[@id='buttonId']"));
+        driver.findElement(By.xpath("//input[@value='This is also a button']"));
+
     }
+
+
 
     @Test
     public void findElementByCssName() throws Exception {
-//         TODO:
-//          1-2 ways to find text: "Heading 2 text"
-//          1-2 ways to find text: "Test Text 1"
-//          1-2 ways to find text: "Test Text 2"
-//          1-2 ways to find text: "Test Text 3"
-//          1-2 ways to find text: "This is also a button"
+
+        // Heading 2 text
+        driver.findElement(By.xpath("//h2[@id='heading_2']"));
+
+        // Test Text 1
+        driver.findElement(By.xpath("//div[@id='test1']"));
+
+        // Test Text 2
+        driver.findElement(By.xpath("//div[@id='test2']"));
+
+        // Test Text 3
+        driver.findElement(By.xpath("//div[@id='test3']"));
+
+        // "This is also a button"
+        driver.findElement(By.xpath("//input[@id='buttonId']"));
     }
+
 }
