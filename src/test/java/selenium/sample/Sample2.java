@@ -43,12 +43,12 @@ public class Sample2 {
     public void findElementByName() throws Exception {
         // From page:
         // <input type="button" value="This is a button" name="randomButton" />
-        System.out.println(driver.findElement(By.name("randomButton1")).getAttribute("value")); // "This is a button"
-        System.out.println(driver.findElement(By.name("randomButton1")).getAttribute("type")); // "button"
-        System.out.println(driver.findElement(By.name("randomButton1")).getAttribute("name")); // "randomButton"
-        System.out.println(driver.findElement(By.name("randomButton1")).getAttribute("id")); // empty
+        System.out.println(driver.findElement(By.name("randomButton1")).getDomAttribute("value")); // "This is a button"
+        System.out.println(driver.findElement(By.name("randomButton1")).getDomAttribute("type")); // "button"
+        System.out.println(driver.findElement(By.name("randomButton1")).getDomAttribute("name")); // "randomButton"
+        System.out.println(driver.findElement(By.name("randomButton1")).getDomAttribute("id")); // empty
         // Unable to locate element: {"method":"name","selector":"randomButton123"}:
-        // System.out.println(driver.findElement(By.name("randomButton123")).getAttribute("value"));
+        // System.out.println(driver.findElement(By.name("randomButton123")).getDomAttribute("value"));
     }
 
     @Test

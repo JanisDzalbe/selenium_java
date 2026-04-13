@@ -59,8 +59,8 @@ public class AgeSamplePage extends GenericSamplePage {
 
     public void checkThatFormIsClean() {
         checkPageHeaderText("Age page");
-        assertEquals(nameInput.getAttribute("value"), "Enter name here");
-        assertEquals(ageInput.getAttribute("value"), "");
+        assertEquals("Enter name here", nameInput.getDomProperty("value"));
+        assertEquals("", ageInput.getDomProperty("value"));
         assertFalse(errorText.isDisplayed());
     }
 }

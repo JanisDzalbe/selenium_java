@@ -67,10 +67,10 @@ public class extra1 {
         String originalText = "This is a text box";
         WebElement getTextBox = driver.findElement(By.name("vfb-5"));
         assertEquals(base_url, driver.getCurrentUrl());
-        assertEquals(getTextBox.getAttribute("value"), originalText);
+        assertEquals(getTextBox.getDomProperty("value"), originalText);
         getTextBox.sendKeys(" asd");
-        assertEquals(getTextBox.getAttribute("value"), originalText + " asd");
+        assertEquals(getTextBox.getDomProperty("value"), originalText + " asd");
         driver.navigate().refresh();
-        assertEquals(driver.findElement(By.name("vfb-5")).getAttribute("value"), originalText);
+        assertEquals(driver.findElement(By.name("vfb-5")).getDomProperty("value"), originalText);
     }
 }
