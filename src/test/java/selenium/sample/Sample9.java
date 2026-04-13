@@ -11,7 +11,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import selenium.utility.BootcampUtils;
 
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -57,7 +56,7 @@ public class Sample9 {
 
     @Test
     public void implicitWaitExample() throws Exception {
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
         driver.findElement(By.xpath("//*[@id='magic_text']/*[text()=\"What is this magic? It's dev magic~\"]"));
         // driver.findElement(By.id("asd"));
