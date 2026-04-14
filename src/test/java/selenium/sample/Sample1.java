@@ -14,7 +14,7 @@ public class Sample1 {
     @Test
     public void goToHomepage() throws Exception {
         // Set system property - we will have a method to do this from now on
-        System.setProperty("webdriver.chrome.driver", libWithDriversLocation + "chromedriver" + new selenium.ChangeToFileExtension().extension());
+         System.setProperty("webdriver.chrome.driver", libWithDriversLocation + "chromedriver" + new selenium.ChangeToFileExtension().extension());
         // initialize driver
         WebDriver driver = new ChromeDriver();
 
