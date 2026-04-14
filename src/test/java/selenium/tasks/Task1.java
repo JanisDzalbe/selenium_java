@@ -3,9 +3,14 @@ package selenium.tasks;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import java.io.File;
 
 public class Task1 {
@@ -29,18 +34,28 @@ public class Task1 {
     public void errorOnText() {
 //        TODO
 //         enter a text instead of a number, check that correct error is shown
+
+        driver.findElement(By.id("numb")).sendKeys("abc");
+        driver.findElement(By.className("w3-orange")).click();
+        assertTrue(driver.findElement(By.id("ch1_error")).getText().contains("Please enter a number"));
     }
 
     @Test
     public void errorOnNumberTooSmall() {
 //        TODO
 //         enter number which is too small (positive number below 50), check that correct error is shown
+        driver.findElement(By.id("numb")).sendKeys("40");
+        driver.findElement(By.className("w3-orange")).click();
+        assertTrue(driver.findElement(By.id("ch1_error")).getText().contains("Number is too small"));
     }
 
     @Test
     public void errorOnNumberTooBig() {
 //        TODO
 //         enter number which is too big (above 100), check that correct error is shown
+        driver.findElement(By.id("numb")).sendKeys("111");
+        driver.findElement(By.className("w3-orange")).click();
+        assertTrue(driver.findElement(By.id("ch1_error")).getText().contains("Number is too big"));
     }
 
     @Test
@@ -49,5 +64,13 @@ public class Task1 {
 //         enter a number between 50 and 100 digit in the input, then press submit
 //         and check that no error is shown and that square root is calculated correctly
 //         NOTE: input and assertion values have to be defined as variables
+
+        int inputNumber = 81;
+        driver.findElement(By.id("numb")).sendKeys(String.valueOf(inputNumber));
+        driver.findElement(By.className("w3-orange")).click();
+        Alert alert = driver.switchTo().alert();
+        assertEquals(String.format("Square root of %d is %.2f", inputNumber, Math.sqrt(inputNumber)), alert.getText());
+        alert.accept();
+        assertTrue(driver.findElement(By.id("ch1_error")).getText().isEmpty());
     }
 }
