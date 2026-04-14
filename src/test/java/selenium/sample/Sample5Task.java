@@ -42,6 +42,6 @@ public class Sample5Task {
         driver.findElement(By.className("w3-blue")).click();
         Alert alert = driver.switchTo().alert();
         alert.dismiss();
-        assertEquals("So you chose to stay here!", driver.findElement(By.id("textForAlerts")).getText());
+        assertEquals("So you desided to say? Good!", driver.findElement(By.id("textForAlerts")).getText());
     }
 }
