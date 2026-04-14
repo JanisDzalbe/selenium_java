@@ -3,8 +3,12 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import selenium.utility.BootcampUtils;
+
+import java.util.List;
 
 public class Sample2Task {
     WebDriver driver;
@@ -27,27 +31,36 @@ public class Sample2Task {
 
     @Test
     public void findElementByID() throws Exception {
-//         TODO:
-//          get text "Heading 2 text" using id
+        System.out.println("Test method: findElementByID");
+        System.out.println(driver.findElement(By.id("heading_2")).getText());
+        System.out.println();
     }
 
     @Test
     public void findElementByName() throws Exception {
-//         TODO:
-//          get attribute "id" and "value" of button "This is also a button" using name
+        System.out.println("Test method: findElementByName");
+        WebElement buttonElement = driver.findElement(By.name("randomButton2"));
+        System.out.println(buttonElement.getDomAttribute("id"));
+        System.out.println(buttonElement.getDomProperty("value"));
+        System.out.println();
     }
 
     @Test
     public void findElementByClassFirst() throws Exception {
-//         TODO:
-//          get first text of class "test" (should be "Test Text 1")
+        System.out.println("Test method: findElementsByClassFirst");
+        System.out.println(driver.findElements(By.className("test")).getFirst().getText());
+        System.out.println();
     }
 
     @Test
     public void findElementByClassAll() throws Exception {
-//         TODO:
-//          get size text of class "test" (should be 5)
-//          get text of class "test"
-//          get third text of class "test" (should be "Test Text 4")
+        System.out.println("Test method: findElementByClassAll");
+        List<WebElement> testClassElements = driver.findElements(By.className("test"));
+        System.out.println("Size of list = " + testClassElements.size());
+        for (WebElement e : testClassElements) {
+            System.out.println("text = " + e.getText());
+        }
+        System.out.println("Third text = " + testClassElements.get(2).getText());
+        System.out.println();
     }
 }
