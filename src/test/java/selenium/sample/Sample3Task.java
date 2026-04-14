@@ -1,10 +1,17 @@
 package selenium.sample;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import selenium.utility.BootcampUtils;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Sample3Task {
     WebDriver driver;
@@ -27,29 +34,40 @@ public class Sample3Task {
 
     @Test
     public void assertEqualsTask() throws Exception {
-//         TODO:
-//          check how many element with class "test" there are on page (5)
-//          check that value of second button is "This is also a button"
+        List<WebElement> elements = driver.findElements(By.className("test"));
+        assertEquals(5, elements.size());
+        List<WebElement> buttons = driver.findElements(By.tagName("input"));
+        assertEquals("This is also a button", buttons.get(1).getDomAttribute("value"));
     }
 
     @Test
     public void assertTrueTask() throws Exception {
-//         TODO:
-//          check that it is True that value of second button is
-//          "this is Also a Button" if you ignore Caps Locks
-//          fail with custom error message:
+        List<WebElement> buttons = driver.findElements(By.tagName("input"));
+        assertTrue(2 <= buttons.size());
+        String secondButtonValue = buttons.get(1).getDomAttribute("value");
+        assertNotNull(secondButtonValue);
+        assertTrue(secondButtonValue.equalsIgnoreCase("this is Also a Button"),
+                "This is custom error message");
     }
 
     @Test
     public void assertFalseTask() throws Exception {
-//         TODO:
-//          check that it is False that value of second button is "This is a button"
+        List<WebElement> buttons = driver.findElements(By.tagName("input"));
+        assertTrue(2 <= buttons.size());
+        String secondButtonValue = buttons.get(1).getDomAttribute("value");
+        assertNotNull(secondButtonValue);
+        assertFalse(secondButtonValue.equals("This is a button"));
+        // assertNotEquals("This is a button", secondButtonValue);
     }
 
     @Test
     public void failTask() throws Exception {
-//        TODO:
-//         check that none of items with class "test"
-//         contain number 190
+        List<WebElement> elements = driver.findElements(By.className("test"));
+        for (WebElement e : elements) {
+            if (e.getText().contains("190")) {
+                fail("Element containing 190 found");
+            }
+        }
+        // assertTrue(elements.stream().noneMatch((e) -> e.getText().contains("190")));
     }
 }
