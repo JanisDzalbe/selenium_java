@@ -70,8 +70,7 @@ public class Sample5Task {
             alert.dismiss();
 
 //          verify the text on page
-            assertTrue(driver.findElement(By.id("textForAlerts"))
-                .getText()
-                .contains("So you desided to say? Good!"));
+            assertEquals("So you desided to say? Good!",driver.findElement(By.id("textForAlerts"))
+                .getText());
     }
 }
