@@ -17,7 +17,7 @@ public class extra4Task {
     @BeforeEach
     public void openPage() {
         // Initialize driver
-        driver = BootcampUtils.initializeChromeDriver();
+        driver = BootcampUtils.initializeEdgeDriver();
 
         // Set timeout and open page
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));

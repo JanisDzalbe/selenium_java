@@ -19,7 +19,7 @@ public class Sample1 {
         WebDriver driver = new EdgeDriver();
 
         /* From now on, we will use this initialization utility method to not have repeated code:
-        driver = BootcampUtils.initializeChromeDriver();
+        driver = BootcampUtils.initializeEdgeDriver();
          */
 
         // open test homepage

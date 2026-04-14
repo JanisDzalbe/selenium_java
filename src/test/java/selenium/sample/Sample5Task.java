@@ -13,7 +13,7 @@ public class Sample5Task {
     @BeforeEach
     public void startingTests() throws Exception {
         // Initialize driver
-        driver = BootcampUtils.initializeChromeDriver();
+        driver = BootcampUtils.initializeEdgeDriver();
 
         //open page:
         driver.get("https://janisdzalbe.github.io/example-site/examples/alerts_popups");

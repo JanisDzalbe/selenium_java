@@ -23,7 +23,7 @@ public class Sample9 {
     @BeforeEach
     public void openPage() {
         // Initialize driver
-        driver = BootcampUtils.initializeChromeDriver();
+        driver = BootcampUtils.initializeEdgeDriver();
 
         // Create a wait - so that we can wait up to this many seconds for page to update
         wait = (WebDriverWait) new WebDriverWait(driver, Duration.ofSeconds(10)).ignoring(StaleElementReferenceException.class);
