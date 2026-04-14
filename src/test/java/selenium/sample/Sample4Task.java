@@ -3,8 +3,12 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import selenium.utility.BootcampUtils;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Sample4Task {
     WebDriver driver;
@@ -28,24 +32,43 @@ public class Sample4Task {
 
     @Test
     public void enterNumber() throws Exception {
-//         TODO:
+        int number = 35;
+        WebElement numberInput = driver.findElement(By.id("number"));
+        WebElement clearButton = driver.findElement(By.id("clear_result_button_number"));
+        WebElement resultButton = driver.findElement(By.id("result_button_number"));
+        WebElement resultText = driver.findElement(By.id("result_number"));
+
 //          enter a number under "Number"
+        numberInput.clear();
+        numberInput.sendKeys(String.format("%d", number));
 //          check that button is not clickable "Clear Result"
+        assertFalse(clearButton.isEnabled());
 //          check that text is not displayed
+        assertFalse(resultText.isDisplayed());
 //          click on "Result" button
+        resultButton.click();
 //          check that text is displayed
+        assertTrue(resultText.isEnabled());
 //          check that the correct Text appears ("You entered number: "NUMBER YOU ENTERED"")
+        assertEquals(String.format("You entered number: \"%d\"", number), resultText.getText());
 //          check that the button "Clear Result" is clickable now
+        assertTrue(clearButton.isEnabled());
 //          click on "Clear Result"
+        clearButton.click();
 //          check that the text is now (""), but it is not displayed
+        assertEquals("", resultText.getText());
     }
 
     @Test
     public void clickOnLink() throws Exception {
-//         TODO:
+        WebElement homepageLink = driver.findElement(By.id("homepage_link"));
 //          check current url is base_url
+        assertEquals(base_url, driver.getCurrentUrl());
 //          click on "This is a link to Homepage"
+        homepageLink.click();
 //          check that current url is not base_url
+        assertNotEquals(base_url, driver.getCurrentUrl());
 //          verify that current url is homepage
+        assertEquals("https://janisdzalbe.github.io/example-site/", driver.getCurrentUrl());
     }
 }
