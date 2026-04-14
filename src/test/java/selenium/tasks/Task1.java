@@ -30,12 +30,14 @@ public class Task1 {
         driver.quit();
     }
 
+    private WebElement getSubmitButton() { return driver.findElement(By.cssSelector(".w3-btn.w3-orange.w3-margin")); }
+
     @Test
     public void errorOnText() {
 //        TODO: enter a text instead of a number, check that correct error is shown
         WebElement numInput = driver.findElement(By.id("numb"));
         numInput.sendKeys("h");
-        driver.findElement(By.cssSelector(".w3-btn.w3-orange.w3-margin")).click();
+        getSubmitButton().click();
         assertEquals("Please enter a number", driver.findElement(By.id("ch1_error")).getText());
     }
 
@@ -44,7 +46,7 @@ public class Task1 {
 //        TODO: enter number which is too small (positive number below 50), check that correct error is shown
         WebElement numInput = driver.findElement(By.id("numb"));
         numInput.sendKeys("1");
-        driver.findElement(By.cssSelector(".w3-btn.w3-orange.w3-margin")).click();
+        getSubmitButton().click();
         assertEquals("Number is too small", driver.findElement(By.id("ch1_error")).getText());
     }
 
@@ -53,7 +55,7 @@ public class Task1 {
 //        TODO: enter number which is too big (above 100), check that correct error is shown
         WebElement numInput = driver.findElement(By.id("numb"));
         numInput.sendKeys("101");
-        driver.findElement(By.cssSelector(".w3-btn.w3-orange.w3-margin")).click();
+        getSubmitButton().click();
         assertEquals("Number is too big", driver.findElement(By.id("ch1_error")).getText());
     }
 
@@ -68,11 +70,10 @@ public class Task1 {
 
         WebElement numInput = driver.findElement(By.id("numb"));
         numInput.sendKeys(String.valueOf(inputNumber));
-        driver.findElement(By.cssSelector(".w3-btn.w3-orange.w3-margin")).click();
+        getSubmitButton().click();
 
         Alert alert = driver.switchTo().alert();
         assertEquals(expectedResult, alert.getText());
-
         alert.accept();
     }
 }
