@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import selenium.utility.BootcampUtils;
 
 public class Sample2Task {
@@ -52,7 +53,10 @@ public class Sample2Task {
 //          get text of class "test"
 //          get third text of class "test" (should be "Test Text 4")
         System.out.println("Size text of class test: " + driver.findElements(By.className("test")).size()); // 5
-        System.out.println("Text of class test: " + driver.findElements(By.className("test")).get(0).getText());
+        System.out.println("Text of class test: ");
+        for (WebElement elementWithClass : driver.findElements(By.className("test"))) {
+            System.out.println(elementWithClass.getText());
+        }
         System.out.println("Third text of class test: " + driver.findElements(By.className("test")).get(2).getText()); // "Test Text 4"
     }
 }
