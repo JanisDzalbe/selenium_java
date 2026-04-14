@@ -28,5 +28,6 @@ public class Sample1Task {
         System.out.print(driver.getCurrentUrl());
 
         driver.quit();
+
     }
 }

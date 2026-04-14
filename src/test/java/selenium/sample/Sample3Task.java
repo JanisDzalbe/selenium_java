@@ -63,6 +63,7 @@ public class Sample3Task {
         for (WebElement elem : driver.findElements(By.className("test"))) {
             if (elem.getText().contains("190")) {
                 fail();
+
             }
         }
     }

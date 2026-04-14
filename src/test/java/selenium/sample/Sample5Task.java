@@ -59,5 +59,6 @@ public class Sample5Task {
         driver.switchTo().alert().dismiss();
         assertEquals("So you desided to say? Good!", driver.findElement(By.id("textForAlerts")).getText());
 
+
     }
 }

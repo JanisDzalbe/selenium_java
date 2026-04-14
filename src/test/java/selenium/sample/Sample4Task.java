@@ -77,5 +77,6 @@ public class Sample4Task {
         driver.findElement(By.id("link1")).click();
         assertFalse(driver.getCurrentUrl().equals(base_url));
         assertEquals("https://janisdzalbe.github.io/example-site/examples/link1", driver.getCurrentUrl());
+
     }
 }

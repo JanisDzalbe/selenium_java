@@ -60,6 +60,7 @@ public class Sample2Task {
         System.out.println(driver.findElement(By.className("test")).getSize());
         for(WebElement elem : driver.findElements(By.className("test"))){
             System.out.println(elem.getText());
+
         }
     }
 }
