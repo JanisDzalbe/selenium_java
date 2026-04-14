@@ -9,12 +9,11 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.io.File;
 
 public class Sample1Task {
-    static String libWithDriversLocation = System.getProperty("user.dir") + File.separator + "lib" + File.separator;
 
     @Test
     public void goToHomepage() throws Exception {
 //        TODO: define driver
-        System.setProperty("webdriver.chrome.driver", libWithDriversLocation + "chromedriver" + new selenium.ChangeToFileExtension().extension());
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\ievaj\\OneDrive\\Documents\\TA bootcamp\\selenium_java\\lib\\chromedriver.exe");
         WebDriver driver = new ChromeDriver();
 //         TODO: go to https://janisdzalbe.github.io/example-site/index2.html
         driver.get("https://janisdzalbe.github.io/example-site/index2.html");
