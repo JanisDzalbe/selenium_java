@@ -3,8 +3,15 @@ package selenium.sample.extra;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import selenium.utility.BootcampUtils;
+
+import java.sql.SQLOutput;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class extra1Task {
     WebDriver driver;
@@ -29,6 +36,14 @@ public class extra1Task {
 
     @Test
     public void navigateBack() throws Exception {
+
+        driver.get("https://janisdzalbe.github.io/example-site/examples/po");
+        WebElement linkElement = driver.findElement(By.cssSelector("#red_box .description a"));
+        linkElement.click();
+        assertEquals("https://janisdzalbe.github.io/example-site/examples/po1", driver.getCurrentUrl());
+        driver.navigate().back();
+        assertEquals("https://janisdzalbe.github.io/example-site/examples/po", driver.getCurrentUrl());
+
 //        TODO
 //         open page with url "https://janisdzalbe.github.io/example-site/examples/po"
 //         click "More > " for the top left element
@@ -39,6 +54,14 @@ public class extra1Task {
 
     @Test
     public void navigateForward() throws Exception {
+
+        driver.get("https://janisdzalbe.github.io/example-site/examples/po");
+        WebElement linkElement = driver.findElement(By.cssSelector("#red_box .description a"));
+        linkElement.click();
+        driver.navigate().back();
+        driver.navigate().forward();
+        assertEquals("https://janisdzalbe.github.io/example-site/examples/po1", driver.getCurrentUrl());
+
 //        TODO
 //         open page with url "https://janisdzalbe.github.io/example-site/examples/po"
 //         click "More > " for the top left element
@@ -49,6 +72,16 @@ public class extra1Task {
 
     @Test
     public void refresh() throws Exception {
+        driver.get("https://janisdzalbe.github.io/example-site/examples/act");
+        WebElement buttonElement = driver.findElement(By.id("show_text"));
+        buttonElement.click();
+        WebElement textElement = driver.findElement(By.id("show_me"));
+        assertTrue(textElement.isDisplayed());
+        assertEquals("I am here!", textElement.getText());
+        driver.navigate().refresh();
+        WebElement textElementAfterRefresh = driver.findElement(By.id("show_me"));
+        assertFalse(textElementAfterRefresh.isDisplayed());
+
 //        TODO
 //         open page "https://janisdzalbe.github.io/example-site/examples/act"
 //         click on "Show" button in 'Button' section
