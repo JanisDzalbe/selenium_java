@@ -4,7 +4,7 @@ package selenium.sample;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 
 import java.io.File;
 
@@ -14,9 +14,9 @@ public class Sample1 {
     @Test
     public void goToHomepage() throws Exception {
         // Set system property - we will have a method to do this from now on
-        System.setProperty("webdriver.chrome.driver", libWithDriversLocation + "chromedriver" + new selenium.ChangeToFileExtension().extension());
+        System.setProperty("webdriver.edge.driver", libWithDriversLocation + "msedgedriver" + new selenium.ChangeToFileExtension().extension());
         // initialize driver
-        WebDriver driver = new ChromeDriver();
+        WebDriver driver = new EdgeDriver();
 
         /* From now on, we will use this initialization utility method to not have repeated code:
         driver = BootcampUtils.initializeChromeDriver();
