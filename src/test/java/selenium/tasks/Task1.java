@@ -45,7 +45,7 @@ public class Task1 {
         WebElement numInput = driver.findElement(By.id("numb"));
         numInput.sendKeys("1");
         driver.findElement(By.cssSelector(".w3-btn.w3-orange.w3-margin")).click();
-        assertEquals("Number too small", driver.findElement(By.id("ch1_error")).getText());
+        assertEquals("Number is too small", driver.findElement(By.id("ch1_error")).getText());
     }
 
     @Test
@@ -54,7 +54,7 @@ public class Task1 {
         WebElement numInput = driver.findElement(By.id("numb"));
         numInput.sendKeys("101");
         driver.findElement(By.cssSelector(".w3-btn.w3-orange.w3-margin")).click();
-        assertEquals("Number too big", driver.findElement(By.id("ch1_error")).getText());
+        assertEquals("Number is too big", driver.findElement(By.id("ch1_error")).getText());
     }
 
     @Test
