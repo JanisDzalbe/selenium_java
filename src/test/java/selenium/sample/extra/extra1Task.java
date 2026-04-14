@@ -3,8 +3,12 @@ package selenium.sample.extra;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import selenium.utility.BootcampUtils;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class extra1Task {
     WebDriver driver;
@@ -35,8 +39,15 @@ public class extra1Task {
 //         check that the url now "https://janisdzalbe.github.io/example-site/examples/po1"
 //         using driver navigation go back to "https://janisdzalbe.github.io/example-site/examples/po"
 //         check that the page now is "https://janisdzalbe.github.io/example-site/examples/po"
-    }
+        //-----
+        driver.get("https://janisdzalbe.github.io/example-site/examples/po");
+        WebElement moreLink = driver.findElement(By.cssSelector("p.w3-justify > a"));
+        moreLink.click();
+        assertEquals("https://janisdzalbe.github.io/example-site/examples/po1", driver.getCurrentUrl());
 
+        driver.navigate().back();
+        assertEquals("https://janisdzalbe.github.io/example-site/examples/po", driver.getCurrentUrl());
+    }
     @Test
     public void navigateForward() throws Exception {
 //        TODO
@@ -45,6 +56,17 @@ public class extra1Task {
 //         using driver navigation go back to "https://janisdzalbe.github.io/example-site/examples/po"
 //         using driver navigation go forward to "https://janisdzalbe.github.io/example-site/examples/po1"
 //         check that the page now is "https://janisdzalbe.github.io/example-site/examples/po1"
+        //-----
+        driver.get("https://janisdzalbe.github.io/example-site/examples/po");
+        WebElement moreLink = driver.findElement(By.cssSelector("p.w3-justify > a"));
+        moreLink.click();
+        assertEquals("https://janisdzalbe.github.io/example-site/examples/po1", driver.getCurrentUrl());
+
+        driver.navigate().back();
+        assertEquals("https://janisdzalbe.github.io/example-site/examples/po", driver.getCurrentUrl());
+
+        driver.navigate().forward();
+        assertEquals("https://janisdzalbe.github.io/example-site/examples/po1", driver.getCurrentUrl());
     }
 
     @Test
@@ -55,5 +77,18 @@ public class extra1Task {
 //         check that text "I am here!" is seen
 //         refresh page
 //         check that text "I am here!" is not seen
+        //-----
+        WebElement showButton = driver.findElement(By.id("show_text"));
+        WebElement showMeText = driver.findElement(By.id("show_me"));
+
+        showButton.click();
+        assertTrue(showMeText.isDisplayed());
+        assertEquals("I am here!", showMeText.getText());
+
+        driver.navigate().refresh();
+
+        WebElement newShowMeTextAfterRefresh = driver.findElement(By.id("show_me"));
+        assertEquals("", newShowMeTextAfterRefresh.getText());
+        assertFalse(newShowMeTextAfterRefresh.isDisplayed());
     }
 }
