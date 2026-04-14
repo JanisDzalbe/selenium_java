@@ -12,8 +12,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.io.File;
 import java.text.DecimalFormat;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Task1 {
     WebDriver driver;
@@ -81,6 +80,7 @@ public class Task1 {
         int inputText = 64;
         WebElement inputNumber =driver.findElement(By.id("numb"));
         WebElement submitButton = driver.findElement(By.className("w3-btn"));
+        WebElement errorText = driver.findElement(By.id("ch1_error"));
         inputNumber.sendKeys(String.valueOf(inputText));
         submitButton.click();
         Alert alert = driver.switchTo().alert();
@@ -88,5 +88,7 @@ public class Task1 {
         DecimalFormat df = new DecimalFormat("#.00");
         String expectedAlertText = "Square root of " + inputText + " is " + df.format(squareText);
         assertEquals(expectedAlertText, alert.getText());
+        assertFalse(errorText.isDisplayed());
+
     }
 }
