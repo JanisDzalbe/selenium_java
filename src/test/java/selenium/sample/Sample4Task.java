@@ -3,8 +3,12 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import selenium.utility.BootcampUtils;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Sample4Task {
     WebDriver driver;
@@ -28,24 +32,31 @@ public class Sample4Task {
 
     @Test
     public void enterNumber() throws Exception {
-//         TODO:
-//          enter a number under "Number"
-//          check that button is not clickable "Clear Result"
-//          check that text is not displayed
-//          click on "Result" button
-//          check that text is displayed
-//          check that the correct Text appears ("You entered number: "NUMBER YOU ENTERED"")
-//          check that the button "Clear Result" is clickable now
-//          click on "Clear Result"
-//          check that the text is now (""), but it is not displayed
+        int number = 190;
+        WebElement inputFieldForNumber = driver.findElement(By.id("number"));
+        WebElement clearResultButton = driver.findElement(By.id("clear_result_button_number"));
+        WebElement enterNumberButton = driver.findElement(By.id("result_button_number"));
+        WebElement resultElement = driver.findElement(By.id("result_number"));
+
+        inputFieldForNumber.clear();
+        inputFieldForNumber.sendKeys(Integer.toString(number));
+        assertFalse(clearResultButton.isEnabled());
+        assertFalse(resultElement.isDisplayed());
+        enterNumberButton.click();
+        assertTrue(resultElement.isDisplayed());
+        assertEquals("You entered number: \"" + number + "\"", resultElement.getText());
+        assertTrue(clearResultButton.isEnabled());
+        clearResultButton.click();
+        assertEquals("", resultElement.getText());
+        assertFalse(resultElement.isDisplayed());
     }
 
     @Test
     public void clickOnLink() throws Exception {
-//         TODO:
-//          check current url is base_url
-//          click on "This is a link to Homepage"
-//          check that current url is not base_url
-//          verify that current url is homepage
+        assertEquals(base_url, driver.getCurrentUrl());
+        WebElement link = driver.findElement(By.linkText("This is a link to Homepage"));
+        link.click();
+        assertNotEquals(base_url, driver.getCurrentUrl());
+        assertEquals("https://janisdzalbe.github.io/example-site/", driver.getCurrentUrl());
     }
 }
