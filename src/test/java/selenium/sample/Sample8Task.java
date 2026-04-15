@@ -11,6 +11,7 @@ import selenium.utility.BootcampUtils;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -70,26 +71,17 @@ public class Sample8Task {
     @Test
     public void findEmployeesBonus() throws Exception {
 
+        Predicate<WebElement> isEmployee =
+                (x) -> x.findElement(By.xpath(".//input[@value = 'employee']")).isSelected();
+
         driver.findElements(By.id("resetListBtn")).getFirst().click();
         List<WebElement> elements = driver.findElements(By.xpath("//li[contains(@id,'person')]"));
-        List<WebElement> employees = new ArrayList<>();
-        for (WebElement elem : elements) {
-            WebElement inputElement = elem.findElement(By.xpath(".//input[@value = 'employee']"));
-            if (inputElement.isSelected()) {
-                employees.add(elem);
-            }
-        }
+        List<WebElement> employees = elements.stream().filter(isEmployee).toList();
         assertEquals(5, employees.size());
 
         driver.findElements(By.id("shuffleBtn")).getFirst().click();
         elements = driver.findElements(By.xpath("//li[contains(@id,'person')]"));
-        employees = new ArrayList<>();
-        for (WebElement elem : elements) {
-            WebElement inputElement = elem.findElement(By.xpath(".//input[@value = 'employee']"));
-            if (inputElement.isSelected()) {
-                employees.add(elem);
-            }
-        }
+        employees = elements.stream().filter(isEmployee).toList();
         assertEquals(5, employees.size());
 
 //  TODO:
