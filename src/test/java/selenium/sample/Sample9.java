@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class Sample9 {
 
     WebDriver driver;
-    private static WebDriverWait wait;
+    public static WebDriverWait wait;
     static long startTime;
 
     @BeforeEach
