@@ -135,7 +135,7 @@ public class Task2 {
 
         assertNotEquals(originalSize, people().size());
 
-        // 👉 CLICK REAL RESET BUTTON
+        
         driver.findElement(By.xpath("//button[text()='Reset List']")).click();
 
         wait.until(d -> people().size() == 10);
