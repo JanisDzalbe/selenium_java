@@ -32,6 +32,7 @@ public class Sample9Task {
 //          * 3) check that both button
 //          * and loading text is not seen,
 //          * success is seen instead "Green Loaded"
+
     }
 
     @Test
