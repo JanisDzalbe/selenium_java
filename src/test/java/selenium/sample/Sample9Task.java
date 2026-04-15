@@ -3,18 +3,25 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import selenium.utility.BootcampUtils;
+
+import java.time.Duration;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Sample9Task {
     WebDriver driver;
+    WebDriverWait wait;
 
     @BeforeEach
     public void openPage() {
-        // Initialize driver
         driver = BootcampUtils.initializeChromeDriver();
-
-        // load web page
+        wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         driver.get("https://janisdzalbe.github.io/example-site/examples/loading_color");
     }
 
@@ -25,47 +32,38 @@ public class Sample9Task {
 
     @Test
     public void loadGreenSleep() throws Exception {
-//         TODO:
-//          * 1) click on start loading green button
-//          * 2) check that button does not appear,
-//          * but loading text is seen instead   "Loading green..."
-//          * 3) check that both button
-//          * and loading text is not seen,
-//          * success is seen instead "Green Loaded"
+        driver.findElement(By.id("start_green")).click();
+        Thread.sleep(5000);
+        assertTrue(driver.findElement(By.id("finish_green")).isDisplayed());
     }
 
     @Test
     public void loadGreenImplicit() throws Exception {
-//         TODO:
-//          * 1) click on start loading green button
-//          * 2) check that button does not appear,
-//          * but loading text is seen instead   "Loading green..."
-//          * 3) check that both button
-//          * and loading text is not seen,
-//          * success is seen instead "Green Loaded"
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.findElement(By.id("start_green")).click();
+        WebElement successMessage = driver.findElement(By.id("finish_green"));
+        assertTrue(successMessage.isDisplayed());
     }
 
     @Test
     public void loadGreenExplicitWait() throws Exception {
-//         TODO:
-//          * 1) click on start loading green button
-//          * 2) check that button does not appear,
-//          * but loading text is seen instead   "Loading green..."
-//          * 3) check that both button
-//          * and loading text is not seen,
-//          * success is seen instead "Green Loaded"
+        WebElement startBtn = driver.findElement(By.id("start_green"));
+        startBtn.click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("loading_green")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("finish_green")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("start_green")));
     }
 
     @Test
     public void loadGreenAndBlueBonus() {
-//         TODO:
-//          * 0) wait until button to load green and blue appears
-//          * 1) click on start loading green and blue button
-//          * 2) check that button does not appear, but loading text is seen instead for green
-//          * 3) check that button does not appear, but loading text is seen instead for green and blue
-//          * 4) check that button and loading green does not appear,
-//          * but loading text is seen instead for blue and success for green is seen
-//          * 5) check that both button and loading text is not seen, success is seen instead
-    }
+        WebElement startBtn = wait.until(ExpectedConditions.elementToBeClickable(By.id("start_green_and_blue")));
+        startBtn.click();
 
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("loading_green_without_blue")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("loading_green_with_blue")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("loading_blue_without_green")));
+        WebElement finalResult = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("finish_green_and_blue")));
+
+        assertTrue(finalResult.getText().contains("Loaded"));
+    }
 }
