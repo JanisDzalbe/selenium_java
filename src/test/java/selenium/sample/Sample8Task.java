@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import selenium.utility.BootcampUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -89,28 +90,26 @@ public class Sample8Task {
 //   Click “Shuffle Order”
 //   Assert that there still are 5 employees
 
-// Here is my attempt to solve this, but couldn't acheive needed solution yet
+        driver.findElements(By.id("resetListBtn")).getFirst().click();
+        List<WebElement> elements = driver.findElements(By.xpath("//li[contains(@id,'person')]"));
+        List<WebElement> employees = new ArrayList<>();
+        for (WebElement elem : elements) {
+            WebElement inputElement = elem.findElement(By.xpath(".//input[@value = 'employee']"));
+            if (inputElement.isSelected()) {
+                employees.add(elem);
+            }
+        }
+        assertEquals(5, employees.size());
 
-// Click Reset List
-        driver.findElement(By.id("resetListBtn")).click();
-
-// Get ONLY valid people (li with id=personX)
-        List<WebElement> people = driver.findElements(
-                By.xpath("//li[starts-with(@id,'person')]")
-        );
-
-// Assert count = 5
-        assertEquals(5, people.size());
-
-// Click Shuffle
-        driver.findElement(By.id("shuffleBtn")).click();
-
-// Get again
-        List<WebElement> shuffledPeople = driver.findElements(
-                By.xpath("//li[starts-with(@id,'person')]")
-        );
-
-// Assert still 5
-        assertEquals(5, shuffledPeople.size());
-    }
+        driver.findElements(By.id("shuffleBtn")).getFirst().click();
+        elements = driver.findElements(By.xpath("//li[contains(@id,'person')]"));
+        employees = new ArrayList<>();
+        for (WebElement elem : elements) {
+            WebElement inputElement = elem.findElement(By.xpath(".//input[@value = 'employee']"));
+            if (inputElement.isSelected()) {
+                employees.add(elem);
+            }
+        }
+        assertEquals(5, employees.size());
+}
 }
