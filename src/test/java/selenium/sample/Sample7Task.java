@@ -9,8 +9,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import selenium.utility.BootcampUtils;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
