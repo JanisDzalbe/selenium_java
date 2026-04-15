@@ -3,6 +3,7 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import selenium.utility.BootcampUtils;
 
@@ -35,6 +36,23 @@ public class Sample6Task {
 //          1-2 ways to find text: "Test Text 4"
 //          1-2 ways to find text: "Test Text 5"
 //          1-2 ways to find text: "This is also a button"
+        System.out.println(driver.findElement(By.xpath("//*[@id='heading_2']")).getText());
+        System.out.println(driver.findElements(By.xpath("//h2")).get(1).getText());
+
+        System.out.println(driver.findElement(By.xpath("//*[@id='test1']/*[@class='test']")).getText());
+        System.out.println(driver.findElements(By.xpath("//div[@id='test1']/p")).getFirst().getText());
+
+        System.out.println(driver.findElement(By.xpath("//*[@id='test1']/p[@class='twoTest']")).getText());
+        System.out.println(driver.findElements(By.xpath("//div[@id='test1']/p")).get(1).getText());
+
+        System.out.println(driver.findElements(By.xpath("//div[@id='test3']/p")).getFirst().getText());
+
+        System.out.println(driver.findElements(By.xpath("//div[@id='test3']/p")).get(1).getText());
+
+        System.out.println(driver.findElement(By.xpath("//div[@id='test2']/p[@class='Test']")).getText());
+
+        System.out.println(driver.findElement(By.xpath("//input[@id='buttonId']")).getDomProperty("value"));
+
     }
 
     @Test
@@ -45,5 +63,18 @@ public class Sample6Task {
 //          1-2 ways to find text: "Test Text 2"
 //          1-2 ways to find text: "Test Text 3"
 //          1-2 ways to find text: "This is also a button"
+        System.out.println(driver.findElement(By.cssSelector("#heading_2")).getText());
+        System.out.println(driver.findElements(By.cssSelector("h2")).get(1).getText());
+
+        System.out.println(driver.findElement(By.cssSelector("#test1 > .test")).getText());
+        System.out.println(driver.findElements(By.cssSelector("#test1 > p")).getFirst().getText());
+
+        System.out.println(driver.findElement(By.cssSelector("#test1 > .twoTest")).getText());
+        System.out.println(driver.findElements(By.cssSelector("#test1 > p")).get(1).getText());
+
+        System.out.println(driver.findElements(By.cssSelector("#test3 > p")).getFirst().getText());
+
+        System.out.println(driver.findElement(By.cssSelector("#buttonId")).getDomProperty("value"));
+
     }
 }
