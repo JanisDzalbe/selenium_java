@@ -117,7 +117,7 @@ public class Sample7Task {
 
         button.click();
         assertEquals("You selected option: Option 2", text.getText());
-        
+
 //         TODO:
 //          select "Option 3" in Select
 //          check that selected option is "Option 3"
