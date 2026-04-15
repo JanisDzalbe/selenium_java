@@ -89,12 +89,9 @@ public class Sample9Task {
         assertFalse(driver.findElement(By.id("start_green")).isDisplayed());
         assertTrue(driver.findElement(By.id("loading_green")).isDisplayed());
 
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("start_green")));
-
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("finish_green")));
         assertFalse(driver.findElement(By.id("start_green")).isDisplayed());
         assertFalse(driver.findElement(By.id("loading_green")).isDisplayed());
-
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("finish_green")));
         assertTrue(driver.findElement(By.id("finish_green")).isDisplayed());
     }
 
