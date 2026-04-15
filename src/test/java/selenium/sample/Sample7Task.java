@@ -1,10 +1,16 @@
 package selenium.sample;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import selenium.utility.BootcampUtils;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Sample7Task {
     WebDriver driver;
@@ -35,7 +41,37 @@ public class Sample7Task {
 //          tick  "Option 3"
 //          click result
 //          check that text 'You selected value(s): Option 2, Option 3' is being displayed
-    }
+
+        WebElement option1 = driver.findElement(By.cssSelector("[type=\"checkbox\"][value=\"Option 1\"]"));
+        WebElement option2 = driver.findElement(By.cssSelector("[type=\"checkbox\"][value=\"Option 2\"]"));
+        WebElement option3 = driver.findElement(By.cssSelector("[type=\"checkbox\"][value=\"Option 3\"]"));
+
+        assertFalse(option1.isSelected());
+        assertFalse(option2.isSelected());
+        assertFalse(option3.isSelected());
+
+        option2.click();
+
+        assertFalse(option1.isSelected());
+        assertTrue(option2.isSelected());
+        assertFalse(option3.isSelected());
+
+        option3.click();
+
+        driver.findElement(By.id("result_button_checkbox")).click();
+
+        assertEquals("You selected value(s): Option 2, Option 3", driver.findElement(By.id("result_checkbox")).getText());
+
+
+
+
+
+
+
+
+
+
+        }
 
 
     @Test
@@ -48,7 +84,29 @@ public class Sample7Task {
 //          check that "Option 2" and "Option 3' are not select, but "Option 1" is selected
 //          click result
 //          check that 'You selected option: Option 1' text is being displayed
+        List<WebElement> radioButtons = driver.findElements(By.cssSelector("[type=\"radio\"]"));
+        for(WebElement radioButton: radioButtons ){
+            asserFalse(radioButton.isSelected());
+        }
+        radioButtons.get(2).click();
+
+        assertFalse(radioButtons.get(0).isSelected());
+        assertFalse(radioButtons.get(1).isSelected());
+        assertTrue(radioButtons.get(2).isSelected());
+
+        radioButtons.get(0).click();
+
+        assertFalse(radioButtons.get(2).isSelected());
+        assertFalse(radioButtons.get(1).isSelected());
+        assertTrue(radioButtons.get(0).isSelected());
+
+        driver.findElement(By.id("result_button_ratio")).click();
+        assertEquals("You selected option: Option 1", driver.findElement(By.id("result_radio")).getText());
     }
+
+    private void asserFalse(boolean selected) {
+    }
+
 
     @Test
     public void selectOption() throws Exception {
@@ -59,6 +117,16 @@ public class Sample7Task {
 //          check that selected option is "Option 2"
 //          click result
 //          check that 'You selected option: Option 2' text is being displayed
+        Select select = new Select(driver.findElement(By.id("vfb-12")));
+
+        select.selectByVisibleText("Option 3");
+        assertEquals("Option 3", select.getFirstSelectedOption().getText());
+
+        select.selectByVisibleText("Option 2");
+        assertEquals("Option 2", select.getFirstSelectedOption().getText());
+
+        driver.findElement(By.id("result_button_select")).click();
+        assertEquals("You selected option: Option 2", driver.findElement(By.id("result_select")).getText());
     }
 
 // ** Bonus tasks **

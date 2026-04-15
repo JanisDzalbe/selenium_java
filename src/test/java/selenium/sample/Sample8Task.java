@@ -3,8 +3,12 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import selenium.utility.BootcampUtils;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Sample8Task {
     WebDriver driver;
@@ -30,6 +34,14 @@ public class Sample8Task {
 //  TODO:
 //   Click “Reset List”
 //   Using xPath, find “John” and asset that he is “Software Engineer”
+        driver.findElement(By.id("resetListBtn")).click();
+        String elementTitle = "John";
+        String elementIndex = "";
+        WebElement xpathElement = driver.findElement(By.xpath("//h3[contains(text(),'" + elementTitle + "')]"));
+        WebElement cssElement = driver.findElement(By.cssSelector("input[id*='" + elementIndex + "']"));
+        assertEquals("Second Element", xpathElement.getText());
+        assertEquals("yellow", cssElement.getDomProperty("value"));
+
     }
 
     @Test
