@@ -9,4 +9,5 @@ public class BootcampUtils {
         System.setProperty("webdriver.edge.driver", Constants.libWithDriversLocation + "edgedriver" + new selenium.ChangeToFileExtension().extension());
         return new EdgeDriver();
     }
+
 }

@@ -11,6 +11,8 @@ import selenium.utility.BootcampUtils;
 
 import java.time.Duration;
 
+import static selenium.utility.BootcampUtils.*;
+
 public class extra4 {
     static WebDriver driver;
     static AgeSamplePage agePage;
@@ -19,7 +21,7 @@ public class extra4 {
     @BeforeEach
     public void openPage() throws InterruptedException {
         // Initialize driver
-        driver = BootcampUtils.initializeChromeDriver();
+        driver = initializeEdgeDriver();
 
         // Set an implicity wait
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
