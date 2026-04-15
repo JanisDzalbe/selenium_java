@@ -3,10 +3,15 @@ package selenium.tasks;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.File;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Task2 {
     WebDriver driver;
@@ -21,58 +26,105 @@ public class Task2 {
 
     @AfterEach
     public void closeBrowser() {
-        driver.quit();
+        if (driver != null) {
+            driver.quit();
+        }
+    }
+
+    private List<WebElement> getPeopleCards() {
+        return driver.findElements(By.xpath("//li[starts-with(@id,'person')]"));
+    }
+
+    private WebElement findPersonByName(String name) {
+        for (WebElement person : getPeopleCards()) {
+            if (person.getText().contains(name)) {
+                return person;
+            }
+        }
+        return null;
+    }
+
+
+    @Test
+    public void initialPeopleList() {
+        WebElement addPersonButton = driver.findElement(By.id("addPersonBtn"));
+        WebElement resetListButton = driver.findElement(By.xpath("//button[text()='Reset List']"));
+
+        assertTrue(addPersonButton.isDisplayed());
+        assertTrue(addPersonButton.isEnabled());
+        assertTrue(resetListButton.isDisplayed());
+        assertTrue(resetListButton.isEnabled());
+
+        List<WebElement> persons = getPeopleCards();
+        assertEquals(10, persons.size());
+
+        assertEquals("Web Designer", findPersonByName("Mike").findElement(By.className("job")).getText());
+        assertEquals("Support", findPersonByName("Jill").findElement(By.className("job")).getText());
+        assertEquals("Accountant", findPersonByName("Jane").findElement(By.className("job")).getText());
+        assertEquals("Software Engineer", findPersonByName("John").findElement(By.className("job")).getText());
+        assertEquals("Product Manager", findPersonByName("Sarah").findElement(By.className("job")).getText());
+        assertEquals("Data Analyst", findPersonByName("Carlos").findElement(By.className("job")).getText());
+        assertEquals("UX Designer", findPersonByName("Emily").findElement(By.className("job")).getText());
+        assertEquals("Project Manager", findPersonByName("David").findElement(By.className("job")).getText());
+        assertEquals("QA Engineer", findPersonByName("Maria").findElement(By.className("job")).getText());
+        assertEquals("DevOps Engineer", findPersonByName("Alex").findElement(By.className("job")).getText());
     }
 
     @Test
-    public void initialPeopleList() throws Exception {
-//         TODO:
-//          check that "Add person" and "Reset List" buttons are displayed and enabled
-//          check list of people contains 10 entries with correct names and jobs
-//        Mike, Web Designer
-//        Jill, Support
-//        Jane, Accountant
-//        John, Software Engineer
-//        Sarah, Product Manager
-//        Carlos, Data Analyst
-//        Emily, UX Designer
-//        David, Project Manager
-//        Maria, QA Engineer
-//        Alex, DevOps Engineer
+    public void addNewPerson() {
+        driver.findElement(By.id("addPersonBtn")).click();
+
+        driver.findElement(By.id("name")).clear();
+        driver.findElement(By.id("name")).sendKeys("Anna");
+
+        driver.findElement(By.id("job")).clear();
+        driver.findElement(By.id("job")).sendKeys("Business Analyst");
+
+        driver.findElement(By.xpath("//button[text()='Add']")).click();
+
+        WebElement newPerson = findPersonByName("Anna");
+        assertNotNull(newPerson);
+        assertEquals("Business Analyst", newPerson.findElement(By.className("job")).getText());
     }
 
     @Test
-    public void addNewPerson() throws Exception {
-//         TODO:
-//          click "Add person"
-//          fill "Name" and "Job" fields
-//          click "Add"
-//          check that new person is added to the list with correct name and job
+    public void editExistingPerson() {
+        driver.findElement(By.xpath("//span[contains(@onclick,'openModalForEditPersonWithJob(0)')]")).click();
+
+        WebElement nameInput = driver.findElement(By.id("name"));
+        WebElement jobInput = driver.findElement(By.id("job"));
+
+        assertEquals("Mike", nameInput.getDomProperty("value"));
+        assertEquals("Web Designer", jobInput.getDomProperty("value"));
+
+        jobInput.clear();
+        jobInput.sendKeys("Senior Software Engineer");
+
+        driver.findElement(By.xpath("//button[text()='Edit']")).click();
+
+        WebElement updatedJohn = driver.findElement(By.id("person0"));
+        assertEquals("Senior Software Engineer", updatedJohn.findElement(By.className("job")).getText());
     }
 
     @Test
-    public void editExistingPerson() throws Exception {
-//         TODO:
-//          click pencil icon for an existing person
-//          check values in "Name" and "Job" fields
-//          change "Job" field
-//          click "Edit"
-//          check that the person is updated in the list with new job
+    public void removeExistingPerson() {
+        int before = getPeopleCards().size();
+        driver.findElement(By.xpath("//span[contains(@onclick,'deletePerson(0)')]")).click();
+
+        int after = getPeopleCards().size();
+        assertEquals(before - 1, after);
     }
 
     @Test
-    public void removeExistingPerson() throws Exception {
-//         TODO:
-//          click cross (x) icon for an existing person
-//          check that the person is removed from the list
-    }
+    public void resetList() {
+        driver.findElement(By.xpath("//span[contains(@onclick,'deletePerson(2)')]")).click();
 
-    @Test
-    public void resetList() throws Exception {
-//         TODO:
-//          modify the list in any way (add, edit or remove a person)
-//          check that the list is modified
-//          click "Reset List"
-//          check that the list is back to initial state with 10 original entries
+        assertNotEquals(10, getPeopleCards().size());
+
+        driver.findElement(By.xpath("//button[text()='Reset List']")).click();
+
+        assertEquals(10, getPeopleCards().size());
+        assertEquals("Web Designer",
+                driver.findElement(By.id("person0")).findElement(By.className("job")).getText());
     }
 }
