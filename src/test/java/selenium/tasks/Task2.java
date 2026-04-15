@@ -37,6 +37,9 @@ public class Task2 {
     @Test
     public void initialPeopleList() throws Exception {
 
+        // this approach works if there are no duplicate names (or no persons with two jobs?)
+        // I choose it because it works nicely even if the list of the people and their jobs is shuffled
+
         Map<String, String> peopleAndJobs = Map.of(
                 "Mike", "Web Designer",
                 "Jill", "Support",
