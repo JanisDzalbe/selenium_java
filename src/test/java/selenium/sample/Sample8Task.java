@@ -3,8 +3,16 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import selenium.utility.BootcampUtils;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Sample8Task {
     WebDriver driver;
@@ -27,24 +35,61 @@ public class Sample8Task {
 
     @Test
     public void findPersonByXPath() throws Exception {
-//  TODO:
-//   Click “Reset List”
-//   Using xPath, find “John” and asset that he is “Software Engineer”
+        WebElement resetButton = driver.findElement(By.id("resetListBtn"));
+
+        resetButton.click();
+
+        WebElement xpathJohn = driver.findElement(By.xpath("//*[contains(@id, 'person') and ./*[contains(@class,'name') and text()='John']]"));
+
+        assertEquals("Software Engineer", xpathJohn.findElement(By.className("job")).getText());
     }
 
     @Test
     public void findPersonWithLoop() throws Exception {
-//  TODO:
-//   Click “Shuffle Order”
-//   Using a loop, Find “Jane” and assert that she is “Accountant”
+        WebElement shuffleButton = driver.findElement(By.id("shuffleBtn"));
+
+        shuffleButton.click();
+
+        List<WebElement> allElements = driver.findElements(By.cssSelector("[id*='person']"));
+        for (WebElement element : allElements) {
+            if (element.findElement(By.className("name")).getText().equals("Jane")) {
+                assertEquals("Accountant", element.findElement(By.className("job")).getText());
+                break;
+            }
+        }
     }
 
     @Test
     public void findEmployeesBonus() throws Exception {
-//  TODO:
-//   Click “Reset List”
-//   Assert that there are 5 employees
-//   Click “Shuffle Order”
-//   Assert that there still are 5 employees
+        WebElement resetButton = driver.findElement(By.id("resetListBtn"));
+        resetButton.click();
+
+        List<WebElement> employees = new ArrayList<>();
+        List<WebElement> elements = driver.findElements(By.xpath("//li[contains(@id,'person')]"));
+
+        for (WebElement element : elements) {
+            WebElement inputElement = element.findElement(By.xpath(".//input[@value = 'employee']"));
+            if (inputElement.isSelected()) {
+                employees.add(inputElement);
+            }
+        }
+
+        assertEquals(5, employees.size());
+
+        WebElement shuffleButton = driver.findElement(By.id("shuffleBtn"));
+
+        shuffleButton.click();
+
+        List<WebElement> employees1 = new ArrayList<>();
+        List<WebElement> elements1 = driver.findElements(By.xpath("//li[contains(@id,'person')]"));
+
+        for (WebElement element : elements1) {
+            WebElement inputElement = element.findElement(By.xpath(".//input[@value = 'employee']"));
+            if (inputElement.isSelected()) {
+                employees1.add(inputElement);
+            }
+        }
+
+        assertEquals(5, employees1.size());
     }
 }
