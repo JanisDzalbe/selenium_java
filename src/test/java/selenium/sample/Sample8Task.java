@@ -3,8 +3,16 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import selenium.utility.BootcampUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class Sample8Task {
     WebDriver driver;
@@ -30,6 +38,14 @@ public class Sample8Task {
 //  TODO:
 //   Click “Reset List”
 //   Using xPath, find “John” and asset that he is “Software Engineer”
+
+//        driver.findElement(By.id("resetListBtn")).click();
+//        WebElement john = driver.findElement(By.xpath("//li[.//*[contains(@class,'name') and normalize-space()='John']]"));
+//        assertEquals("Software Engineer", john.findElement(By.xpath(".//*[contains(@class,'job')]")).getText());
+
+        driver.findElements(By.id("resetListBtn")).getFirst().click();
+        WebElement john = driver.findElement(By.xpath("//*[contains(@id,'person') and ./*[contains(@class,'name') and text()='John']]"));
+        assertEquals("Software Engineer", john.findElement(By.className("job")).getText());
     }
 
     @Test
@@ -37,6 +53,15 @@ public class Sample8Task {
 //  TODO:
 //   Click “Shuffle Order”
 //   Using a loop, Find “Jane” and assert that she is “Accountant”
+        driver.findElement(By.id("shuffleBtn")).click();
+
+        List<WebElement> people = driver.findElements(By.cssSelector("[id*=\"perosn\"]"));
+        for (WebElement person : people) {
+            if (person.findElement(By.className("name")).getText().equals("Jane")) {
+                assertEquals("Accountant", person.findElement(By.className("job")).getText());
+                break;
+            }
+        }
     }
 
     @Test
@@ -46,5 +71,28 @@ public class Sample8Task {
 //   Assert that there are 5 employees
 //   Click “Shuffle Order”
 //   Assert that there still are 5 employees
+
+        driver.findElements(By.id("resetListBtn")).getFirst().click();
+
+        List<WebElement> persons = driver.findElements(By.cssSelector("[id*=\"person\"]"));
+        int employees = 0;
+
+        for (WebElement person : persons) {
+            if (person.findElement(By.cssSelector("[value=\"employee\"]")).isSelected()) {
+                employees += 1;
+            }
+        }
+
+        assertEquals(5, employees);
+
+        driver.findElements(By.id("shuffleBtn")).getFirst().click();
+        persons = driver.findElements(By.cssSelector("[id*=\"person\"]"));
+
+        List<WebElement> employeesList = new ArrayList<>();
+        for (WebElement person : persons) {
+            if (person.findElement(By.cssSelector("[value=\"employee\"]")).isSelected()) {
+                employeesList.add(person);
+            }
+        }
     }
 }
