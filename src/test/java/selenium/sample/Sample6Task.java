@@ -3,6 +3,7 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import selenium.utility.BootcampUtils;
 
@@ -35,6 +36,21 @@ public class Sample6Task {
 //          1-2 ways to find text: "Test Text 4"
 //          1-2 ways to find text: "Test Text 5"
 //          1-2 ways to find text: "This is also a button"
+        System.out.println(driver.findElement(By.xpath("//h2[text()='Heading 2 text']")).getText());
+
+        System.out.println(driver.findElement(By.xpath("//p[text()='Test Text 1']")).getText());
+
+        System.out.println(driver.findElement(By.xpath("//p[text()='Test Text 2']")).getText());
+
+        System.out.println(driver.findElement(By.xpath("//p[text()='Test Text 3']")).getText());
+
+        System.out.println(driver.findElement(By.xpath("//p[text()='Test Text 4']")).getText());
+
+        System.out.println(driver.findElement(By.xpath("//p[text()='Test Text 5']")).getText());
+
+        // input button → use getAttribute("value")
+        System.out.println(driver.findElement(By.xpath("//input[@id='buttonId']")).getAttribute("value"));
+        System.out.println(driver.findElement(By.xpath("//input[@value='This is also a button']")).getAttribute("value"));
     }
 
     @Test
@@ -45,5 +61,22 @@ public class Sample6Task {
 //          1-2 ways to find text: "Test Text 2"
 //          1-2 ways to find text: "Test Text 3"
 //          1-2 ways to find text: "This is also a button"
+        System.out.println(driver.findElement(By.cssSelector("#heading_2")).getText());
+        System.out.println(driver.findElement(By.cssSelector("h2#heading_2")).getText());
+
+        System.out.println(driver.findElement(By.cssSelector("#test1 .test")).getText());
+        System.out.println(driver.findElement(By.cssSelector("div#test1 p.test")).getText());
+
+        System.out.println(driver.findElement(By.cssSelector("#test1 .twoTest")).getText());
+        System.out.println(driver.findElement(By.cssSelector("div#test1 p.twoTest")).getText());
+
+        System.out.println(driver.findElement(By.cssSelector("#test3 .test")).getText());
+        System.out.println(driver.findElement(By.cssSelector("div#test3 p.test")).getText());
+
+        System.out.println(driver.findElement(By.cssSelector("#buttonId")).getAttribute("value"));
+        System.out.println(driver.findElement(By.cssSelector("input[name='randomButton2']")).getAttribute("value"));
+
+        System.out.println("\n-------------------------------");
+
     }
 }
