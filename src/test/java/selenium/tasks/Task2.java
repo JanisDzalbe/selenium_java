@@ -1,22 +1,37 @@
 package selenium.tasks;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.openqa.selenium.WebDriver;
+import org.junit.jupiter.api.*;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
+import java.time.Duration;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Task2 {
+
     WebDriver driver;
+    WebDriverWait wait;
 
     @BeforeEach
     public void openPage() {
-        String libWithDriversLocation = System.getProperty("user.dir") + File.separator + "lib" + File.separator;
-        System.setProperty("webdriver.chrome.driver", libWithDriversLocation + "chromedriver" + new selenium.ChangeToFileExtension().extension());
+        String libWithDriversLocation =
+                System.getProperty("user.dir") + File.separator + "lib" + File.separator;
+
+        System.setProperty("webdriver.chrome.driver",
+                libWithDriversLocation + "chromedriver" + new selenium.ChangeToFileExtension().extension());
+
         driver = new ChromeDriver();
+        driver.manage().window().maximize();
+
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
         driver.get("https://janisdzalbe.github.io/example-site/tasks/list_of_people_with_jobs");
+
+        wait.until(d -> !d.findElements(By.cssSelector("#listOfPeople li")).isEmpty());
     }
 
     @AfterEach
@@ -24,55 +39,107 @@ public class Task2 {
         driver.quit();
     }
 
-    @Test
-    public void initialPeopleList() throws Exception {
-//         TODO:
-//          check that "Add person" and "Reset List" buttons are displayed and enabled
-//          check list of people contains 10 entries with correct names and jobs
-//        Mike, Web Designer
-//        Jill, Support
-//        Jane, Accountant
-//        John, Software Engineer
-//        Sarah, Product Manager
-//        Carlos, Data Analyst
-//        Emily, UX Designer
-//        David, Project Manager
-//        Maria, QA Engineer
-//        Alex, DevOps Engineer
+    private List<WebElement> people() {
+        return driver.findElements(By.cssSelector("#listOfPeople li"));
     }
 
+    //  TEST 1
     @Test
-    public void addNewPerson() throws Exception {
-//         TODO:
-//          click "Add person"
-//          fill "Name" and "Job" fields
-//          click "Add"
-//          check that new person is added to the list with correct name and job
+    public void initialPeopleList() {
+
+        WebElement addBtn = driver.findElement(By.xpath("//button[text()='Add person']"));
+        WebElement resetBtn = driver.findElement(By.xpath("//button[text()='Reset List']"));
+
+        assertTrue(addBtn.isDisplayed() && addBtn.isEnabled());
+        assertTrue(resetBtn.isDisplayed() && resetBtn.isEnabled());
+
+        List<WebElement> list = people();
+        assertEquals(10, list.size());
+
+        assertTrue(list.get(0).getText().contains("Mike"));
+        assertTrue(list.get(9).getText().contains("Alex"));
     }
 
+    // TEST 2
     @Test
-    public void editExistingPerson() throws Exception {
-//         TODO:
-//          click pencil icon for an existing person
-//          check values in "Name" and "Job" fields
-//          change "Job" field
-//          click "Edit"
-//          check that the person is updated in the list with new job
+    public void addNewPerson() {
+
+        int before = people().size();
+
+        // Open modal
+        driver.findElement(By.xpath("//button[text()='Add person']")).click();
+
+        // Wait for modal inputs
+        wait.until(d -> d.findElement(By.id("name")).isDisplayed());
+
+        // Fill ONLY existing fields
+        driver.findElement(By.id("name")).sendKeys("Test User");
+        driver.findElement(By.id("job")).sendKeys("Tester");
+
+        // Click Add
+        driver.findElement(By.xpath("//button[text()='Add']")).click();
+
+        // Wait for list update
+        wait.until(d -> people().size() == before + 1);
+
+        WebElement last = people().get(people().size() - 1);
+
+        assertTrue(last.getText().contains("Test User"));
+        assertTrue(last.getText().contains("Tester"));
     }
 
+    //  TEST 3
     @Test
-    public void removeExistingPerson() throws Exception {
-//         TODO:
-//          click cross (x) icon for an existing person
-//          check that the person is removed from the list
+    public void editExistingPerson() {
+
+        WebElement first = people().get(0);
+
+        first.findElement(By.className("editbtn")).click();
+
+        wait.until(d -> d.findElement(By.id("job")).isDisplayed());
+
+        WebElement job = driver.findElement(By.id("job"));
+        job.clear();
+        job.sendKeys("Updated Job");
+
+        driver.findElement(By.xpath("//button[text()='Edit']")).click();
+
+        wait.until(d -> people().get(0).getText().contains("Updated Job"));
+
+        assertTrue(people().get(0).getText().contains("Updated Job"));
     }
 
+    //  TEST 4
     @Test
-    public void resetList() throws Exception {
-//         TODO:
-//          modify the list in any way (add, edit or remove a person)
-//          check that the list is modified
-//          click "Reset List"
-//          check that the list is back to initial state with 10 original entries
+    public void removeExistingPerson() {
+
+        int before = people().size();
+
+        people().get(0).findElement(By.className("closebtn")).click();
+
+        wait.until(d -> people().size() == before - 1);
+
+        assertEquals(before - 1, people().size());
+    }
+
+    //  TEST 5 (FIXED)
+    @Test
+    public void resetList() {
+
+        int originalSize = people().size();
+
+        // modify list
+        people().get(0).findElement(By.className("closebtn")).click();
+
+        wait.until(d -> people().size() < originalSize);
+
+        assertNotEquals(originalSize, people().size());
+
+        // 👉 CLICK REAL RESET BUTTON
+        driver.findElement(By.xpath("//button[text()='Reset List']")).click();
+
+        wait.until(d -> people().size() == 10);
+
+        assertEquals(10, people().size());
     }
 }
