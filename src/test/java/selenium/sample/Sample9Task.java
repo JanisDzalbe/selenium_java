@@ -3,8 +3,16 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import selenium.utility.BootcampUtils;
+
+import java.time.Duration;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class Sample9Task {
     WebDriver driver;
@@ -32,7 +40,14 @@ public class Sample9Task {
 //          * 3) check that both button
 //          * and loading text is not seen,
 //          * success is seen instead "Green Loaded"
+        driver.findElement(By.id("start_green")).click();
+        assertFalse(driver.findElement(By.id("start_green")).isDisplayed());
+        assertTrue(driver.findElement(By.id("loading_green")).isDisplayed());
+        Thread.sleep(5000);
 
+        assertFalse(driver.findElement(By.id("start_green")).isDisplayed());
+        assertFalse(driver.findElement(By.id("loading_green")).isDisplayed());
+        assertTrue(driver.findElement(By.id("finish_green")).isDisplayed());
     }
 
     @Test
@@ -44,6 +59,17 @@ public class Sample9Task {
 //          * 3) check that both button
 //          * and loading text is not seen,
 //          * success is seen instead "Green Loaded"
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+
+        driver.findElement(By.id("start_green")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("loading_green")));
+        assertTrue(driver.findElement(By.id("loading_green")).isDisplayed());
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("finish_green")));
+        assertTrue(driver.findElement(By.id("finish_green")).isDisplayed());
+
+        assertFalse(driver.findElement(By.id("start_green")).isDisplayed());
+        assertFalse(driver.findElement(By.id("loading_green")).isDisplayed());
     }
 
     @Test
@@ -55,6 +81,20 @@ public class Sample9Task {
 //          * 3) check that both button
 //          * and loading text is not seen,
 //          * success is seen instead "Green Loaded"
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        driver.findElement(By.id("start_green")).click();
+
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("start_green")));
+        assertFalse(driver.findElement(By.id("start_green")).isDisplayed());
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("loading_green")));
+        assertTrue(driver.findElement(By.id("loading_green")).isDisplayed());
+
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("loading_green")));
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("finish_green")));
+        assertTrue(driver.findElement(By.id("finish_green")).isDisplayed());
     }
 
     @Test
@@ -67,6 +107,13 @@ public class Sample9Task {
 //          * 4) check that button and loading green does not appear,
 //          * but loading text is seen instead for blue and success for green is seen
 //          * 5) check that both button and loading text is not seen, success is seen instead
+
+        /*WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("start_green_and_blue")));
+        driver.findElement(By.id("start_green_and_blue")).click();
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("start_green_and_blue")));
+        wait.until(ExpectedConditions.textToBePresentInElementLocated(
+                By.id("green_and_blue_status"), "Green Loaded"));*/
     }
 
 }
