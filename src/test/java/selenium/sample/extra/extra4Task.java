@@ -10,16 +10,15 @@ import selenium.utility.BootcampUtils;
 
 import java.time.Duration;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class extra4Task {
     static WebDriver driver;
     static ColorSamplePage colorPage;
 
     @BeforeEach
     public void openPage() {
-        // Initialize driver
         driver = BootcampUtils.initializeChromeDriver();
-
-        // Set timeout and open page
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.get("https://janisdzalbe.github.io/example-site/examples/loading_color");
         colorPage = PageFactory.initElements(driver, ColorSamplePage.class);
@@ -32,14 +31,12 @@ public class extra4Task {
 
     @Test
     public void loadGreenSleep() throws Exception {
-//         TODO:
-//          Use page object ColorSamplePage
-//          * 1) click on start loading green button
-//          * 2) check that button does not appear,
-//          * but loading text is seen instead   "Loading green..."
-//          * 3) check that both button
-//          * and loading text is not seen,
-//          * success is seen instead "Green Loaded"
+        colorPage.clickStartLoadingGreen();
+        assertFalse(colorPage.isStartButtonVisible(), "Start button should be hidden");
+        assertTrue(colorPage.isLoadingTextVisible(), "Loading text should be visible");
+        assertEquals("Loading green...", colorPage.getLoadingText());
+        assertTrue(colorPage.isSuccessMessageVisible(), "Success message 'Green Loaded' should appear");
+        assertFalse(colorPage.isLoadingTextVisible(), "Loading text should disappear after finish");
+        assertEquals("Green Loaded", colorPage.getSuccessMessageText());
     }
-
 }

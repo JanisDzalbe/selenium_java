@@ -1,20 +1,53 @@
 package selenium.pages;
 
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 public class ColorSamplePage extends GenericSamplePage {
-//         TODO:
-//         Define elements in page
-//         see https://www.selenium.dev/selenium/docs/api/java/org/openqa/selenium/support/FindBy.html
+
+    // Define elements using @FindBy
+    @FindBy(id = "start_green")
+    private WebElement startGreenButton;
+
+    @FindBy(id = "loading_green")
+    private WebElement loadingGreenText;
+
+    @FindBy(id = "finish_green")
+    private WebElement successGreenMessage;
 
     public void clickStartLoadingGreen() {
-//         TODO:
-//         implement clicking on "Start loading green" button
+        startGreenButton.click();
     }
 
-//         TODO
-//         Implement methods for:
-//         * 1) check that "Start loading green" button is not visible
-//         * 2) check that text "Loading green..." is visible
-//         * 3) check that text "Loading green..." is not visible
-//         * 4) check that text "Green Loaded" is visible
+    public boolean isStartButtonVisible() {
+        try {
+            return startGreenButton.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isLoadingTextVisible() {
+        try {
+            return loadingGreenText.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public String getLoadingText() {
+        return loadingGreenText.getText();
+    }
+
+    public boolean isSuccessMessageVisible() {
+        try {
+            return successGreenMessage.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public String getSuccessMessageText() {
+        return successGreenMessage.getText();
+    }
 }
