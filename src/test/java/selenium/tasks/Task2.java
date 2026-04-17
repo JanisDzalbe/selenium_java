@@ -70,7 +70,7 @@ public class Task2 {
             String job = element.findElement(By.className("job")).getText();
             peopleAndJobsOnWebsite.put(name, job);
         }
-        assert(peopleAndJobs.equals(peopleAndJobsOnWebsite));
+        assertEquals(peopleAndJobs, peopleAndJobsOnWebsite);
 
 //         TODO:
 //          check that "Add person" and "Reset List" buttons are displayed and enabled
