@@ -24,7 +24,7 @@ public class extra2 {
         WebElement h1 = driver.findElement(By.xpath("//h1"));
         assertEquals("block", h1.getCssValue("display"));
         assertEquals(Color.fromString("rgba(0, 0, 0, 1)"), Color.fromString(h1.getCssValue("color")));
-        assertEquals(driver.findElement(By.tagName("h1")).getText(), "Lorem ipsum");
+        assertEquals("Lorem ipsum", driver.findElement(By.tagName("h1")).getText());
         System.out.println(driver.findElement(By.tagName("h1")).getCssValue("color"));
         System.out.println(driver.findElement(By.tagName("h1")).getCssValue("background-color"));
     }
