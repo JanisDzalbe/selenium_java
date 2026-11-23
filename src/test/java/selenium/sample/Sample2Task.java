@@ -42,8 +42,8 @@ public class Sample2Task {
     public void findElementByName() throws Exception {
 //         TODO:
 //          get attribute "id" and "value" of button "This is also a button" using name
-        System.out.println(driver.findElement(By.name("randomButton1")).getDomAttribute("value"));
-        System.out.println(driver.findElement(By.name("randomButton1")).getDomAttribute("id"));
+        System.out.println(driver.findElement(By.name("randomButton2")).getDomAttribute("value"));
+        System.out.println(driver.findElement(By.name("randomButton2")).getDomAttribute("id"));
 
     }
 
