@@ -7,15 +7,17 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.io.File;
 
 /**
- * Activity 1: Basic Selenium WebDriver setup, navigation, page info retrieval, and browser teardown.
+ * Activity 1: Basic Selenium WebDriver setup, navigation,
+ * page info retrieval, and browser teardown.
  */
 public class Sample1Task {
     static String libWithDriversLocation = System.getProperty("user.dir") + File.separator + "lib" + File.separator;
 
     /**
-     * Opens the example site v2 in Chrome, prints the page title and current URL, and closes the browser.
+     * Opens the example site v2 in Chrome, prints the page title and current URL,
+     * and closes the browser.
      *
-     * @throws Exception if driver initialization or thread sleep is interrupted
+     * @throws Exception if driver initialization fails
      */
     @Test
     public void goToHomepage() throws Exception {
