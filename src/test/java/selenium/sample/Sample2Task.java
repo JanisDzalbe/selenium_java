@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import selenium.utility.BootcampUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import java.util.List;
 
 public class Sample2Task {
     WebDriver driver;
@@ -58,5 +59,9 @@ public class Sample2Task {
         List<WebElement> testElements = driver.findElements(By.className("test"));
         System.out.println(testElements.size());
 
+        for (WebElement testElement : testElements) {
+            System.out.println(testElement.getText());
+        }
+        System.out.println(testElements.get(2).getText());
     }
 }
