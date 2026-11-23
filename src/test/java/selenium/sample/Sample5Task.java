@@ -39,12 +39,12 @@ public class Sample5Task {
 //          verify alert text
 //          click ok on second alert
 //          verify that the correct page is opened
-        driver.findElement(By.className("w3-btn w3-round-xlarge w3-ripple w3-blue")).click();
+        driver.findElement(By.className("w3-blue")).click();
         driver.switchTo().alert().accept();
         Alert secondAlert = driver.switchTo ().alert();
-        assertEquals("Expected alert message", secondAlert.getText());
+        assertEquals("Booooooooo!", secondAlert.getText());
         secondAlert.accept();
-        assertEquals("https://janisdzalbe.github.io/example-site/examples/alerts_popups", driver.getCurrentUrl());
+        assertEquals("https://janisdzalbe.github.io/example-site/examples/alerted_page", driver.getCurrentUrl());
 
     }
 
@@ -55,9 +55,8 @@ public class Sample5Task {
 //          switch to alert
 //          click cancel
 //          verify the text on page
-        driver.findElement(By.className("w3-btn w3-round-xlarge w3-ripple w3-blue")).click();
+        driver.findElement(By.className("w3-blue")).click();
         driver.switchTo().alert().dismiss();
-        Alert secondAlert = driver.switchTo ().alert();
-        assertEquals("To go to alerted page press Ok. Or stay here", driver.findElement(By.id("textForAlerts")).getText());
+        assertEquals("So you desided to say? Good!", driver.findElement(By.id("textForAlerts")).getText());
     }
 }
