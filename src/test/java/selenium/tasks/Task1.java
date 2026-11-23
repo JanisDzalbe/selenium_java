@@ -3,10 +3,17 @@ package selenium.tasks;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import selenium.utility.BootcampUtils;
+
 
 import java.io.File;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Task1 {
     WebDriver driver;
@@ -14,9 +21,10 @@ public class Task1 {
     @BeforeEach
     public void openPage() {
 
-        String libWithDriversLocation = System.getProperty("user.dir") + File.separator + "lib" + File.separator;
-        System.setProperty("webdriver.chrome.driver", libWithDriversLocation + "chromedriver" + new selenium.ChangeToFileExtension().extension());
-        driver = new ChromeDriver();
+        //String libWithDriversLocation = System.getProperty("user.dir") + File.separator + "lib" + File.separator;
+        //System.setProperty("webdriver.chrome.driver", libWithDriversLocation + "chromedriver" + new selenium.ChangeToFileExtension().extension());
+        driver = BootcampUtils.initializeChromeDriver();
+        //driver = new ChromeDriver();
         driver.get("https://janisdzalbe.github.io/example-site/tasks/enter_a_number");
     }
 
@@ -27,27 +35,45 @@ public class Task1 {
 
     @Test
     public void errorOnText() {
-//        TODO
-//         enter a text instead of a number, check that correct error is shown
+        WebElement input = driver.findElement(By.id("numb"));
+        input.clear();
+        input.sendKeys("Text instead of num");
+        driver.findElement(By.cssSelector("button[onclick='numberValidation()']")).click();
+        String error = driver.findElement(By.id("ch1_error")).getText();
+        assertEquals("Please enter a number", error);
+
     }
 
     @Test
     public void errorOnNumberTooSmall() {
-//        TODO
-//         enter number which is too small (positive number below 50), check that correct error is shown
+        WebElement input = driver.findElement(By.id("numb"));
+        input.clear();
+        input.sendKeys("23");
+        driver.findElement(By.cssSelector("button[onclick='numberValidation()']")).click();
+        String error = driver.findElement(By.id("ch1_error")).getText();
+        assertEquals("Number is too small", error);
     }
 
     @Test
     public void errorOnNumberTooBig() {
-//        TODO
-//         enter number which is too big (above 100), check that correct error is shown
+        WebElement input = driver.findElement(By.id("numb"));
+        input.clear();
+        input.sendKeys("222");
+        driver.findElement(By.cssSelector("button[onclick='numberValidation()']")).click();
+        String error = driver.findElement(By.id("ch1_error")).getText();
+        assertEquals("Number is too big", error);
     }
 
     @Test
     public void correctSquareRoot() {
-//        TODO
-//         enter a number between 50 and 100 digit in the input, then press submit
-//         and check that no error is shown and that square root is calculated correctly
-//         NOTE: input and assertion values have to be defined as variables
+        WebElement input = driver.findElement(By.id("numb"));
+        input.clear();
+        input.sendKeys("64");
+        String expectedResult = "Square root of 64 is 8.00";
+        driver.findElement(By.cssSelector("button[onclick='numberValidation()']")).click();
+        Alert alert = driver.switchTo().alert();
+        String actualResult = alert.getText();
+        alert.accept();
+        assertEquals(expectedResult, actualResult);
     }
 }
