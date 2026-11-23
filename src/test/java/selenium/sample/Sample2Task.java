@@ -11,7 +11,8 @@ import selenium.utility.BootcampUtils;
 import java.util.List;
 
 /**
- * Activity 2: Locating web elements by ID, name, and className, and retrieving text and DOM attributes.
+ * Activity 2: Locating web elements by ID, name, and className,
+ * and retrieving their text and DOM attributes.
  */
 public class Sample2Task {
     WebDriver driver;
@@ -26,7 +27,7 @@ public class Sample2Task {
         // Initialize driver
         driver = BootcampUtils.initializeChromeDriver();
 
-        //open page:
+        // open page:
         driver.get("https://janisdzalbe.github.io/example-site/examples/locators");
     }
 
@@ -52,7 +53,8 @@ public class Sample2Task {
     }
 
     /**
-     * Finds the button "This is also a button" by its name attribute and prints its "id" and "value" attributes.
+     * Finds the button "This is also a button" by its name attribute
+     * and prints its "id" and "value" attributes.
      *
      * @throws Exception if the element cannot be found
      */
@@ -75,7 +77,8 @@ public class Sample2Task {
     }
 
     /**
-     * Finds all elements with class "test", prints the count, loops through all texts, and prints "Test Text 4".
+     * Finds all elements with class "test", prints the count, loops through all texts,
+     * and prints the 3rd element ("Test Text 4").
      *
      * @throws Exception if elements cannot be retrieved
      */
@@ -91,6 +94,6 @@ public class Sample2Task {
         }
 
         // get third text of class "test" (should be "Test Text 4")
-        System.out.println(allElementsWithClass.get(3).getText());
+        System.out.println(allElementsWithClass.get(2).getText());
     }
 }
