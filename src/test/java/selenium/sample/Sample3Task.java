@@ -39,8 +39,8 @@ public class Sample3Task {
         int actualCount = driver.findElements(By.className("test")).size();
         assertEquals(5, actualCount);
 
-        List<WebElement> button = driver.findElements(By.tagName("button"));
-        String secondButtonText = button.get(1).getText();
+        List<WebElement> button = driver.findElements(By.cssSelector("input[type='button']"));
+        String secondButtonText = button.get(1).getDomProperty("value");
         assertEquals("This is also a button", secondButtonText);
     }
 
@@ -50,8 +50,8 @@ public class Sample3Task {
 //          check that it is True that value of second button is
 //          "this is Also a Button" if you ignore Caps Locks
 //          fail with custom error message:
-        List<WebElement> button = driver.findElements(By.tagName("button"));
-        String secondButtonText = button.get(1).getText();
+        List<WebElement> button = driver.findElements(By.cssSelector("input[type='button']"));
+        String secondButtonText = button.get(1).getDomProperty("value");
         assertTrue(secondButtonText.equalsIgnoreCase("this is Also a Button"),
                 "Second button text did not match 'this is Also a Button' (ignoring case)");
     }
@@ -60,8 +60,8 @@ public class Sample3Task {
     public void assertFalseTask() throws Exception {
 //         TODO:
 //          check that it is False that value of second button is "This is a button"
-        List<WebElement> button = driver.findElements(By.tagName("button"));
-        String secondButtonText = button.get(1).getText();
+        List<WebElement> button = driver.findElements(By.cssSelector("input[type='button']"));
+        String secondButtonText = button.get(1).getDomProperty("value");
         assertFalse(secondButtonText.equals("This is a button"));
     }
 

@@ -39,6 +39,7 @@ public class Sample4Task {
         WebElement resultButton = driver.findElement(By.id("result_button_number"));
         WebElement clearResultButton = driver.findElement(By.id("clear_result_button_number"));
         WebElement resultText = driver.findElement(By.id("result_number"));
+        numberInput.clear();
         numberInput.sendKeys(number);
 
 //          check that button is not clickable "Clear Result"
