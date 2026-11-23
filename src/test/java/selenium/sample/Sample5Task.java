@@ -3,8 +3,15 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+
 import selenium.utility.BootcampUtils;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class Sample5Task {
     WebDriver driver;
@@ -27,22 +34,50 @@ public class Sample5Task {
 
     @Test
     public void goToAlertedPageViaButton() throws Exception {
-//         TODO:
-//          click on "To go to alerted page press Ok. Or stay here" button
-//          switch to alert
-//          click ok
-//          switch to second alert
-//          verify alert text
-//          click ok on second alert
-//          verify that the correct page is opened
+
+        // Click the button
+        driver.findElement(By.xpath(
+                "//button[contains(text(), 'To go to alerted page')]"
+        )).click();
+
+        // Switch to the first alert and accept
+        Alert firstAlert = driver.switchTo().alert();
+        firstAlert.accept();
+
+        // Switch to the second alert
+        Alert secondAlert = driver.switchTo().alert();
+
+        // Verify second alert text
+        assertEquals("Booooooooo!", secondAlert.getText());
+
+        // Accept second alert
+        secondAlert.accept();
+
+        // Verify the correct page is opened
+        assertEquals(
+                "This page is alerted",
+                driver.findElement(By.id("heading")).getText()
+        );
+
+        assertEquals(
+                "https://janisdzalbe.github.io/example-site/examples/alerted_page",
+                driver.getCurrentUrl()
+        );
     }
+
 
     @Test
     public void doNotGoToAlertedPageViaButton() throws Exception {
-//         TODO:
-//          click on "To go to alerted page press Ok. Or stay here" button
-//          switch to alert
-//          click cancel
-//          verify the text on page
+
+        driver.findElement(By.xpath(
+                "//button[contains(text(), 'To go to alerted page')]"
+        )).click();
+
+        Alert alert = driver.switchTo().alert();
+        alert.dismiss();
+
+        System.out.println(driver.findElement(By.tagName("body")).getText());
     }
+
 }
+
