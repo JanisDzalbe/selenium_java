@@ -3,8 +3,12 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import selenium.utility.BootcampUtils;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Sample4Task {
     WebDriver driver;
@@ -38,6 +42,18 @@ public class Sample4Task {
 //          check that the button "Clear Result" is clickable now
 //          click on "Clear Result"
 //          check that the text is now (""), but it is not displayed
+            driver.findElement(By.id("number")).sendKeys("56");
+            WebElement clearResultBtn = driver.findElement(By.id("clear_result_button_number"));
+            assertFalse(clearResultBtn.isSelected());
+            driver.findElement(By.id("result_button_number")).click();
+            WebElement result =driver.findElement(By.id("result_number"));
+            assertTrue(result.isDisplayed());
+            assertEquals("",result.getText());
+            assertTrue(clearResultBtn.isEnabled());
+            clearResultBtn.click();
+            assertEquals("",result.getText());
+
+
     }
 
     @Test
@@ -46,6 +62,12 @@ public class Sample4Task {
 //          check current url is base_url
 //          click on "This is a link to Homepage"
 //          check that current url is not base_url
-//          verify that current url is homepage
+//          verify that current url is
+        assertEquals(base_url,driver.getCurrentUrl());
+        driver.findElement(By.id("homepage_link")).click();
+        assertNotEquals(base_url,driver.getCurrentUrl());
+        assertEquals("https://janisdzalbe.github.io/example-site/",driver.getCurrentUrl());
+
     }
+
 }
