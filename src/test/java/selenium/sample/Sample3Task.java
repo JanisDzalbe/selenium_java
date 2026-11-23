@@ -3,8 +3,14 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import selenium.utility.BootcampUtils;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Sample3Task {
     WebDriver driver;
@@ -30,6 +36,10 @@ public class Sample3Task {
 //         TODO:
 //          check how many element with class "test" there are on page (5)
 //          check that value of second button is "This is also a button"
+        List<WebElement> elementsInPage = driver.findElements(By.className("test"));
+        int expectedNumberOfElements = 5;
+        int actualNumberOfElements = elementsInPage.size();
+        assertEquals(expectedNumberOfElements, actualNumberOfElements);
     }
 
     @Test
@@ -38,18 +48,32 @@ public class Sample3Task {
 //          check that it is True that value of second button is
 //          "this is Also a Button" if you ignore Caps Locks
 //          fail with custom error message:
+        String expectedText = "this is Also a Button";
+        WebElement actualTextEl = driver.findElement(By.name("randomButton2"));
+        String actualText = actualTextEl.getDomAttribute("value");
+        assertTrue(expectedText.equalsIgnoreCase(actualText), "The value of the second button is not as expected: " + actualText);
     }
 
     @Test
     public void assertFalseTask() throws Exception {
 //         TODO:
 //          check that it is False that value of second button is "This is a button"
+        String expectedText = "This is a button";
+        WebElement actualTextEl = driver.findElement(By.name("randomButton2"));
+        String actualText = actualTextEl.getDomAttribute("value");
+        assertFalse(expectedText.equals(actualText), "The value of the second button is unexpectedly: " + actualText);
     }
+
 
     @Test
     public void failTask() throws Exception {
 //        TODO:
 //         check that none of items with class "test"
 //         contain number 190
+        List<WebElement> elementsInPage = driver.findElements(By.className("test"));
+        for (WebElement element : elementsInPage) {
+            String elementText = element.getText();
+            assertFalse(elementText.contains("190"), "Element with class 'test' contains number 190: " + elementText);
+        }
     }
 }
