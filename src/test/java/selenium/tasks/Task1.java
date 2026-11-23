@@ -66,14 +66,16 @@ public class Task1 {
 
     @Test
     public void correctSquareRoot() {
+        String inputd = "64";
         WebElement input = driver.findElement(By.id("numb"));
         input.clear();
-        input.sendKeys("64");
+        input.sendKeys(inputd);
         String expectedResult = "Square root of 64 is 8.00";
         driver.findElement(By.cssSelector("button[onclick='numberValidation()']")).click();
         Alert alert = driver.switchTo().alert();
         String actualResult = alert.getText();
         alert.accept();
         assertEquals(expectedResult, actualResult);
+        assertEquals("", driver.findElement(By.id("ch1_error")).getText());
     }
 }
