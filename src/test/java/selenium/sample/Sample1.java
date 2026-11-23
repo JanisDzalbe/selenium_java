@@ -25,6 +25,7 @@ public class Sample1 {
         // open test homepage
         driver.get("https://janisdzalbe.github.io/example-site/");
         System.out.println(driver.findElement(By.id("h1")).getText());
+
         // get title of page
         System.out.println(driver.getTitle());
         // get URL of current page
