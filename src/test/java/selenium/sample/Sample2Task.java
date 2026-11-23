@@ -48,14 +48,14 @@ public class Sample2Task {
 
     @Test
     public void findElementByClassFirst() throws Exception {
-        System.out.println(driver.findElement(By.className("test")).getText("Test Text 1"));
+        System.out.println(driver.findElement(By.className("test")).getText());
 //         TODO:
 //          get first text of class "test" (should be "Test Text 1")
     }
 
     @Test
     public void findElementByClassAll() throws Exception {
-      List<WebElement> testElements = driver.findElements(By.className("test"));
+        List<WebElement> testElements = driver.findElements(By.className("test"));
         System.out.println(testElements.size());
 
         for (WebElement testElement : testElements) {
@@ -66,5 +66,6 @@ public class Sample2Task {
 //          get size text of class "test" (should be 5)
 //          get text of class "test"
 //          get third text of class "test" (should be "Test Text 4")
+        }
     }
 }

@@ -3,8 +3,12 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import selenium.utility.BootcampUtils;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Sample5Task {
     WebDriver driver;
@@ -27,22 +31,30 @@ public class Sample5Task {
 
     @Test
     public void goToAlertedPageViaButton() throws Exception {
-//         TODO:
-//          click on "To go to alerted page press Ok. Or stay here" button
-//          switch to alert
-//          click ok
-//          switch to second alert
-//          verify alert text
-//          click ok on second alert
-//          verify that the correct page is opened
+        // click on "To go to alerted page press Ok. Or stay here" button
+        driver.findElement(By.className("w3-blue")).click();
+
+        // switch to alert and click ok
+        driver.switchTo().alert().accept();
+
+        // switch to second alert, verify text and click ok
+        Alert secondAlert = driver.switchTo().alert();
+        assertEquals("Boooooooo!", secondAlert.getText());
+        secondAlert.accept();
+
+        // verify that the correct page is opened
+        assertEquals("https://github.io", driver.getCurrentUrl());
     }
 
     @Test
     public void doNotGoToAlertedPageViaButton() throws Exception {
-//         TODO:
-//          click on "To go to alerted page press Ok. Or stay here" button
-//          switch to alert
-//          click cancel
-//          verify the text on page
+        // click on "To go to alerted page press Ok. Or stay here" button
+        driver.findElement(By.className("w3-blue")).click();
+
+        // switch to alert and click cancel
+        driver.switchTo().alert().dismiss();
+
+        // verify the text on page
+        assertEquals("So you desided to say? Good!", driver.findElement(By.id("textForAlerts")).getText());
     }
 }
