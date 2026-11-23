@@ -74,6 +74,7 @@ public class Sample2Task {
         // 1. Check and print total count (should be 5)
         int size = elements.size();
         System.out.println("Total elements with class 'test': " + size);
+
         Assertions.assertEquals(5, size);
 
         // 2. Print text of each element with class "test"
