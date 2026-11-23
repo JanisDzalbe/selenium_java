@@ -8,8 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import selenium.utility.BootcampUtils;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Sample4Task {
     WebDriver driver;
@@ -45,9 +44,20 @@ public class Sample4Task {
 //          check that the text is now (""), but it is not displayed
 
         WebElement numberArea = driver.findElement(By.id("number"));
-        WebElement numberResultButton = driver.findElement(By.id("number"));
-        WebElement numberClearButton = driver.findElement(By.id("number"));
-        WebElement numberResult = driver.findElement(By.id("number"));
+        WebElement numberResultButton = driver.findElement(By.id("result_button_number"));
+        WebElement numberClearButton = driver.findElement(By.id("clear_result_button_number"));
+        WebElement numberResult = driver.findElement(By.id("result_number"));
+
+        numberArea.sendKeys("8");
+        assertFalse(numberClearButton.isEnabled());
+        assertFalse(numberResult.isDisplayed());
+        numberResultButton.click();
+        assertTrue(numberResult.isDisplayed());
+        assertEquals("entered number is: \"85\"", numberResult.getText());
+        assertTrue(numberClearButton.isEnabled());
+        numberClearButton.click();
+        assertFalse(numberResult.isDisplayed());
+        assertEquals("", numberResult.getText());
 
 
     }
@@ -59,6 +69,10 @@ public class Sample4Task {
 //          click on "This is a link to Homepage"
 //          check that current url is not base_url
 //          verify that current url is homepage
+        assertEquals(base_url, driver.getCurrentUrl());
+        driver.findElement(By.id("homepage_link")).click();
+        assertNotEquals(base_url, driver.getCurrentUrl());
+        assertEquals("https://janisdzalbe.github.io/example-site/", driver.getCurrentUrl());
     }
 }
 
