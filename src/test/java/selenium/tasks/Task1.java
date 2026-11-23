@@ -3,10 +3,15 @@ package selenium.tasks;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.File;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Task1 {
     WebDriver driver;
@@ -29,18 +34,40 @@ public class Task1 {
     public void errorOnText() {
 //        TODO
 //         enter a text instead of a number, check that correct error is shown
+        WebElement input = driver.findElement(By.id("numb"));
+        WebElement submitButton = driver.findElement(By.className("w3-orange"));
+        WebElement result = driver.findElement(By.className("error"));
+
+        input.sendKeys("katya");
+        submitButton.click();
+        assertEquals("Please enter a number", result.getText());
+
     }
 
     @Test
     public void errorOnNumberTooSmall() {
 //        TODO
 //         enter number which is too small (positive number below 50), check that correct error is shown
+        WebElement input = driver.findElement(By.id("numb"));
+        WebElement submitButton = driver.findElement(By.className("w3-orange"));
+        WebElement result = driver.findElement(By.className("error"));
+
+        input.sendKeys("20");
+        submitButton.click();
+        assertEquals("Number is too small", result.getText());
     }
 
     @Test
     public void errorOnNumberTooBig() {
 //        TODO
 //         enter number which is too big (above 100), check that correct error is shown
+        WebElement input = driver.findElement(By.id("numb"));
+        WebElement submitButton = driver.findElement(By.className("w3-orange"));
+        WebElement result = driver.findElement(By.className("error"));
+
+        input.sendKeys("150");
+        submitButton.click();
+        assertEquals("Number is too big", result.getText());
     }
 
     @Test
@@ -49,5 +76,20 @@ public class Task1 {
 //         enter a number between 50 and 100 digit in the input, then press submit
 //         and check that no error is shown and that square root is calculated correctly
 //         NOTE: input and assertion values have to be defined as variables
+        String inputValue = "64";
+        String expectedResult = "8.00";
+        String expectedAlertText = "Square root of " + inputValue + " is " + expectedResult;
+
+        WebElement input = driver.findElement(By.id("numb"));
+        WebElement submitButton = driver.findElement(By.className("w3-orange"));
+
+        input.sendKeys(inputValue);
+        submitButton.click();
+
+        Alert alert = driver.switchTo().alert();
+        String actualAlertText = alert.getText();
+        assertEquals(expectedAlertText, actualAlertText);
+        alert.accept();
+
     }
 }
