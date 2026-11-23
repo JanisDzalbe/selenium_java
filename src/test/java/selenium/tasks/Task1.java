@@ -11,8 +11,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.File;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Task1 {
     WebDriver driver;
@@ -46,10 +45,11 @@ public class Task1 {
     public void errorOnNumberTooSmall() {
 //        TODO
 //         enter number which is too small (positive number below 50), check that correct error is shown
-        driver.findElement(By.id("numb"));
-        String sendKeyOne = "22";
+        String sendKeyOne = "12";
+        driver.findElement(By.id("numb")).sendKeys(sendKeyOne);
         driver.findElement(By.tagName("button")).click();
-        String elementTextOnPage = driver.findElement(By.tagName("body")).getText();
+        String elementTextOnPage = driver.findElement(By.id("ch1_error")).getText();
+        System.out.println("Original text: " + elementTextOnPage);
         assertTrue(elementTextOnPage.contains("Number is too small"));
     }
 
@@ -57,12 +57,13 @@ public class Task1 {
     public void errorOnNumberTooBig() {
 //        TODO
 //         enter number which is too big (above 100), check that correct error is shown
-        driver.findElement(By.id("numb"));
-        String sendKeyOne = "101";
-        driver.findElement(By.tagName("button")).click();
-        String elementTextOnPage = driver.findElement(By.tagName("body")).getText();
-        assertTrue(elementTextOnPage.contains("Number is too big"));
 
+        String sendKeyOne = "101";
+        driver.findElement(By.id("numb")).sendKeys(sendKeyOne);
+        driver.findElement(By.tagName("button")).click();
+        String elementTextOnPage = driver.findElement(By.id("ch1_error")).getText();
+        System.out.println("Original text: " + elementTextOnPage);
+        assertTrue(elementTextOnPage.contains("Number is too big"));
     }
 
     @Test
