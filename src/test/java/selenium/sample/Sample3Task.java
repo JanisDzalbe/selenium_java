@@ -36,8 +36,8 @@ public class Sample3Task {
 //         TODO:
 //          check how many element with class "test" there are on page (5)
 //          check that value of second button is "This is also a button"
-        List<WebElement> classElements = driver.findElements(By.className("test"));
-        assertEquals(5,classElements.size());
+        int classElements = driver.findElements(By.className("test")).size();
+        assertEquals(5,classElements);
 
         String buttonValue= driver.findElement(By.name("randomButton1")).getDomProperty("value");
         assertEquals("This is also a button",buttonValue);
