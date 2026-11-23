@@ -3,8 +3,15 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import selenium.utility.BootcampUtils;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class Sample3Task {
     WebDriver driver;
@@ -30,6 +37,8 @@ public class Sample3Task {
 //         TODO:
 //          check how many element with class "test" there are on page (5)
 //          check that value of second button is "This is also a button"
+        assertEquals(5, driver.findElements(By.className("test")).size());
+        assertEquals("This is also a button", driver.findElement(By.id("buttonId")).getDomAttribute("value"));
     }
 
     @Test
@@ -38,12 +47,15 @@ public class Sample3Task {
 //          check that it is True that value of second button is
 //          "this is Also a Button" if you ignore Caps Locks
 //          fail with custom error message:
+        assertTrue(driver.findElement(By.id("buttonId")).getDomAttribute("value").equalsIgnoreCase("this is Also a Button"), "wrong button text");
     }
 
     @Test
     public void assertFalseTask() throws Exception {
 //         TODO:
 //          check that it is False that value of second button is "This is a button"
+        assertFalse(driver.findElement(By.id("buttonId")).getDomAttribute("value").equals("This is a button"));
+
     }
 
     @Test
@@ -51,5 +63,10 @@ public class Sample3Task {
 //        TODO:
 //         check that none of items with class "test"
 //         contain number 190
+        List<WebElement> testElements = driver.findElements(By.className("test"));
+
+        for (WebElement testElement : testElements) {
+            assertFalse(testElement.getText().equals("190"));
+        }
     }
 }

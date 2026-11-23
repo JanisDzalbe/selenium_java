@@ -9,7 +9,7 @@ import selenium.utility.BootcampUtils;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class Sample3 {
+public class  Sample3 {
     WebDriver driver;
 
     // method which is being run before each test
