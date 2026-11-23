@@ -3,8 +3,14 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import selenium.utility.BootcampUtils;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class Sample5Task {
     WebDriver driver;
@@ -35,6 +41,17 @@ public class Sample5Task {
 //          verify alert text
 //          click ok on second alert
 //          verify that the correct page is opened
+        WebElement togotoalertedpagepressOkOrStayHere = driver.findElement(By.cssSelector("button.w3-blue"));
+        togotoalertedpagepressOkOrStayHere.click();
+
+        Alert firstAlert = driver.switchTo().alert();
+        firstAlert.accept();
+        Alert secondAlert = driver.switchTo().alert();
+
+        assertEquals("Booooooooo!", secondAlert.getText());
+        secondAlert.accept();
+
+        assertTrue(driver.getCurrentUrl().contains("alerted_page"));
     }
 
     @Test
@@ -44,5 +61,12 @@ public class Sample5Task {
 //          switch to alert
 //          click cancel
 //          verify the text on page
+        WebElement togotoalertedpagepressOkOrStayHere = driver.findElement(By.cssSelector("button.w3-blue"));
+        togotoalertedpagepressOkOrStayHere.click();
+
+        Alert firstAlert = driver.switchTo().alert();
+        firstAlert.dismiss();
+
+        assertTrue(driver.getCurrentUrl().contains("alerts_popups"));
     }
 }
