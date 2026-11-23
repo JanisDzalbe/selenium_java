@@ -3,8 +3,14 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import selenium.utility.BootcampUtils;
+import static org.junit.jupiter.api.Assertions.*;
+
+
 
 public class Sample5Task {
     WebDriver driver;
@@ -29,12 +35,24 @@ public class Sample5Task {
     public void goToAlertedPageViaButton() throws Exception {
 //         TODO:
 //          click on "To go to alerted page press Ok. Or stay here" button
-//          switch to alert
+        WebElement goToAlertedpage = driver.findElement(By.cssSelector("button[onclick='goToAlertedPage()']"));
+        goToAlertedpage.click();
+        //          switch to alert
+        Alert alert = driver.switchTo().alert();
+
 //          click ok
+        alert.accept();
 //          switch to second alert
+        alert = driver.switchTo().alert();
 //          verify alert text
+        String alertText = alert.getText();
+        assertEquals("Booooooooo!",  alertText);
 //          click ok on second alert
+        alert.accept();
 //          verify that the correct page is opened
+        String currentUrl = driver.getCurrentUrl();
+        assertEquals("https://janisdzalbe.github.io/example-site/examples/alerted_page", currentUrl);
+
     }
 
     @Test
@@ -44,5 +62,16 @@ public class Sample5Task {
 //          switch to alert
 //          click cancel
 //          verify the text on page
+
+        WebElement goToAlertedpage = driver.findElement(By.cssSelector("button[onclick='goToAlertedPage()']"));
+        goToAlertedpage.click();
+        //          switch to alert
+        Alert alert = driver.switchTo().alert();
+
+//          click ok
+        alert.dismiss();
+        String text = driver.findElement(By.id("textForAlerts")).getText();
+        assertEquals("So you desided to say? Good!", text);
+
     }
 }
