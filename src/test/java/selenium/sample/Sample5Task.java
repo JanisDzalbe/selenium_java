@@ -3,8 +3,12 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import selenium.utility.BootcampUtils;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Sample5Task {
     WebDriver driver;
@@ -35,6 +39,18 @@ public class Sample5Task {
 //          verify alert text
 //          click ok on second alert
 //          verify that the correct page is opened
+        Alert alert = driver.switchTo().alert();
+
+        driver.findElement(By.className("w3-blue")).click();
+        assertEquals("Want to see an alerted page?!", alert.getText());
+        alert.accept();
+        assertEquals("Booooooooo!", alert.getText());
+        alert.accept();
+        assertEquals("This page is alerted", driver.findElement(By.id("heading")).getText());
+
+
+
+
     }
 
     @Test
@@ -44,5 +60,12 @@ public class Sample5Task {
 //          switch to alert
 //          click cancel
 //          verify the text on page
+        Alert alert = driver.switchTo().alert();
+
+        driver.findElement(By.className("w3-blue")).click();
+        assertEquals("Want to see an alerted page?!", alert.getText());
+        alert.dismiss();
+        String dismissText = driver.findElement(By.id("textForAlerts")).getText();
+        assertEquals("So you desided to say? Good!", dismissText);
     }
 }
