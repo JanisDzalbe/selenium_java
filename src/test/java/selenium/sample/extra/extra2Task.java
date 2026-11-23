@@ -34,7 +34,10 @@ public class extra2Task {
         driver = new ChromeDriver();
 //        TODO
 //        go to page https://janisdzalbe.github.io/example-site/examples/po
-//        check the background color of h1 element
+        driver.get("https://janisdzalbe.github.io/example-site/examples/po");
+//       check the background color of h1 element
+//        driver.findElement(By.tagName("h1")).getCssValue("color");
+
     }
 
     @Test
