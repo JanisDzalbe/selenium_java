@@ -41,7 +41,6 @@ public class Task1 {
 
         numberInput.sendKeys(invalidText);
         submitButton.click();
-
         assertTrue(errorMessage.isDisplayed());
         assertEquals("Please enter a number", errorMessage.getText());
     }
