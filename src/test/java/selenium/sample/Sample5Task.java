@@ -50,7 +50,8 @@ public class Sample5Task {
         assertEquals("Booooooooo!", secondAlert.getText());
         secondAlert.accept();
 
-        assertEquals("This page is alerted", driver.findElement(By.id("heading")).getText());
+        assertEquals("https://janisdzalbe.github.io/example-site/examples/alerted_page",
+                driver.getCurrentUrl());
 
     }
 
