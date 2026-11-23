@@ -3,8 +3,13 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import selenium.utility.BootcampUtils;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class Sample4Task {
     WebDriver driver;
@@ -38,6 +43,13 @@ public class Sample4Task {
 //          check that the button "Clear Result" is clickable now
 //          click on "Clear Result"
 //          check that the text is now (""), but it is not displayed
+
+        WebElement numberArea = driver.findElement(By.id("number"));
+        WebElement numberResultButton = driver.findElement(By.id("number"));
+        WebElement numberClearButton = driver.findElement(By.id("number"));
+        WebElement numberResult = driver.findElement(By.id("number"));
+
+
     }
 
     @Test
@@ -49,3 +61,4 @@ public class Sample4Task {
 //          verify that current url is homepage
     }
 }
+

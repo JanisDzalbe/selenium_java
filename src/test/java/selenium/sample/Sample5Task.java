@@ -3,8 +3,12 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import selenium.utility.BootcampUtils;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Sample5Task {
     WebDriver driver;
@@ -35,6 +39,13 @@ public class Sample5Task {
 //          verify alert text
 //          click ok on second alert
 //          verify that the correct page is opened
+        driver.findElement(By.className("w3-btn w3-round-xlarge w3-ripple w3-blue")).click();
+        driver.switchTo().alert().accept();
+        Alert secondAlert = driver.switchTo ().alert();
+        assertEquals("Expected alert message", secondAlert.getText());
+        secondAlert.accept();
+        assertEquals("https://janisdzalbe.github.io/example-site/examples/alerts_popups", driver.getCurrentUrl());
+
     }
 
     @Test
@@ -44,5 +55,9 @@ public class Sample5Task {
 //          switch to alert
 //          click cancel
 //          verify the text on page
+        driver.findElement(By.className("w3-btn w3-round-xlarge w3-ripple w3-blue")).click();
+        driver.switchTo().alert().dismiss();
+        Alert secondAlert = driver.switchTo ().alert();
+        assertEquals("To go to alerted page press Ok. Or stay here", driver.findElement(By.id("textForAlerts")).getText());
     }
 }
