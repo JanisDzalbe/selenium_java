@@ -127,6 +127,12 @@ public class Sample7Task {
 //         TODO:
 //          enter date '4 of July 2007' using calendar widget
 //          check that correct date is added
+
+        WebElement date = driver.findElement(By.id("vfb-8"));
+
+        date.sendKeys("26/03/2011");
+
+        assertEquals("26/03/2011", date.getDomProperty("value"));
     }
 
     @Test
