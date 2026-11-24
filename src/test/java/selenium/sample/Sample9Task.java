@@ -3,8 +3,16 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import selenium.utility.BootcampUtils;
+
+import java.time.Duration;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Sample9Task {
     WebDriver driver;
@@ -32,6 +40,24 @@ public class Sample9Task {
 //          * 3) check that both button
 //          * and loading text is not seen,
 //          * success is seen instead "Green Loaded"
+
+        WebElement greenButton =driver.findElement(By.id("start_green"));
+        greenButton.click();
+        assertFalse(greenButton.isDisplayed());
+        assertTrue(driver.findElement(By.xpath("/*[contains(text(),'Loading green...')]")).isDisplayed());
+
+        Thread.sleep(5000);
+
+        // Check that both button is  displayed
+        assertFalse(greenButton.isDisplayed());
+        // Check that loading text is not displayed
+        assertFalse(driver.findElement(By.xpath("//*[contains(text(),'Loading green...')]")).isDisplayed());
+        // Check that success message is displayed
+        assertTrue(driver.findElement(By.xpath("//*[@id='finish_green']/label")).isDisplayed());
+
+
+
+
     }
 
     @Test
@@ -43,6 +69,21 @@ public class Sample9Task {
 //          * 3) check that both button
 //          * and loading text is not seen,
 //          * success is seen instead "Green Loaded"
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+
+        WebElement greenButton =driver.findElement(By.id("start_green"));
+        greenButton.click();
+        assertFalse(greenButton.isDisplayed());
+        assertTrue(driver.findElement(By.xpath("/*[contains(text(),'Loading green...')]")).isDisplayed());
+
+        //  success message should check first
+        assertTrue(driver.findElement(By.xpath("//*[@id='finish_green']/label")).isDisplayed());
+        // Check that both button is  displayed
+        assertFalse(greenButton.isDisplayed());
+        // Check that loading text is not displayed
+        assertFalse(driver.findElement(By.xpath("//*[contains(text(),'Loading green...')]")).isDisplayed());
+
+
     }
 
     @Test
@@ -54,6 +95,23 @@ public class Sample9Task {
 //          * 3) check that both button
 //          * and loading text is not seen,
 //          * success is seen instead "Green Loaded"
+
+        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(5));
+
+        WebElement greenButton =driver.findElement(By.id("start_green"));
+        greenButton.click();
+        assertFalse(greenButton.isDisplayed());
+        assertTrue(driver.findElement(By.xpath("/*[contains(text(),'Loading green...')]")).isDisplayed());
+
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(),'Loading green...')]")));
+        //  success message should check first
+        assertTrue(driver.findElement(By.xpath("//*[@id='finish_green']/label")).isDisplayed());
+        // Check that both button is  displayed
+        assertFalse(greenButton.isDisplayed());
+        // Check that loading text is not displayed
+        assertFalse(driver.findElement(By.xpath("//*[contains(text(),'Loading green...')]")).isDisplayed());
+
+
     }
 
     @Test
