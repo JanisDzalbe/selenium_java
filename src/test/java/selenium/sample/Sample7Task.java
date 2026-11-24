@@ -141,6 +141,12 @@ public  class Sample7Task {
 //         TODO:
 //          enter date '4 of July 2007' using calendar widget
 //          check that correct date is added
+
+        WebElement dateInput = driver.findElement(By.id("vfb-8"));
+        dateInput.click();
+
+        while(true){
+        }
     }
 
     @Test
