@@ -88,8 +88,8 @@ public class Task2 {
 
             WebElement person = personList.get(i);
 
-            String actualName = person.findElement(By.cssSelector(".name")).getText();
-            String actualJob = person.findElement(By.cssSelector(".job")).getText();
+            String actualName = person.findElement(By.xpath(".//*[contains(@class, 'name')]")).getText();
+            String actualJob = person.findElement(By.xpath(".//*[contains(@class, 'job')]")).getText();
 
             assertEquals(expectedNames[i], actualName);
             assertEquals(expectedJobs[i], actualJob);
@@ -116,7 +116,7 @@ public class Task2 {
         WebElement addButton = driver.findElement(By.xpath("//button[text()='Add']"));
         addButton.click();
 
-        WebElement newPerson = driver.findElement(By.xpath("//*[contains(@class, 'name') and text()='Katya']/parent::*"));
+        WebElement newPerson = driver.findElement(By.xpath("//li[.//*[contains(@class, 'name') and text()='Katya']]"));
 
         assertEquals("Katya", newPerson.findElement(By.className("name")).getText());
         assertEquals("Administrator", newPerson.findElement(By.className("job")).getText());
@@ -146,7 +146,7 @@ public class Task2 {
         WebElement editButton = driver.findElement(By.xpath("//button[text()='Edit']"));
         editButton.click();
 
-        WebElement mike = driver.findElement(By.xpath("//*[contains(@class, 'name') and text()='Mike']/parent::*"));
+        WebElement mike = driver.findElement(By.xpath("//li[.//*[contains(@class, 'name') and text()='Mike']]"));
         assertEquals("Scrum Master", mike.findElement(By.className("job")).getText());
 
     }
@@ -156,11 +156,11 @@ public class Task2 {
 //         TODO:
 //          click cross (x) icon for an existing person
 //          check that the person is removed from the list
-        WebElement mike = driver.findElement(By.xpath("//*[contains(@class, 'name') and text()='Mike']/parent::*"));
+        WebElement mike = driver.findElement(By.xpath("//li[.//*[contains(@class, 'name') and text()='Mike']]"));
         WebElement crossIcon = driver.findElement(By.xpath("//*[@id='person0']//*[contains(@class, 'closebtn')]"));
         crossIcon.click();
 
-        List<WebElement> mikeAfterDelete = driver.findElements(By.xpath("//*[contains(@class, 'name') and text()='Mike']"));
+        List<WebElement> mikeAfterDelete = driver.findElements(By.xpath("//li[.//*[contains(@class, 'name') and text()='Mike']]"));
         assertEquals(0, mikeAfterDelete.size());
 
     }
@@ -172,11 +172,11 @@ public class Task2 {
 //          check that the list is modified
 //          click "Reset List"
 //          check that the list is back to initial state with 10 original entries
-        WebElement mike = driver.findElement(By.xpath("//*[contains(@class, 'name') and text()='Mike']/parent::*"));
+        WebElement mike = driver.findElement(By.xpath("//li[.//*[contains(@class, 'name') and text()='Mike']]"));
         WebElement crossIcon = mike.findElement(By.cssSelector(".closebtn"));
         crossIcon.click();
 
-        List<WebElement> mikeAfterDelete = driver.findElements(By.xpath("//*[contains(@class, 'name') and text()='Mike']"));
+        List<WebElement> mikeAfterDelete = driver.findElements(By.xpath("//li[.//*[contains(@class, 'name') and text()='Mike']]"));
         assertEquals(0, mikeAfterDelete.size());
 
         WebElement resetListButton = driver.findElement(By.xpath("//button[text()='Reset List']"));
@@ -185,7 +185,7 @@ public class Task2 {
         List<WebElement> personList = driver.findElements(By.cssSelector("[id*='person']"));
         assertEquals(10, personList.size());
 
-        WebElement mikeAfterReset = driver.findElement(By.xpath("//*[contains(@class, 'name') and text()='Mike']/parent::*"));
+        WebElement mikeAfterReset = driver.findElement(By.xpath("//li[.//*[contains(@class, 'name') and text()='Mike']]"));
         assertTrue(mikeAfterReset.isDisplayed());
 
     }
