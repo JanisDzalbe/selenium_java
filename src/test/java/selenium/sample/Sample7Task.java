@@ -3,8 +3,15 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import selenium.utility.BootcampUtils;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Sample7Task {
     WebDriver driver;
@@ -30,11 +37,27 @@ public class Sample7Task {
     public void selectCheckBox() throws Exception {
 //         TODO:
 //          check that none of the checkboxes are ticked
-//          tick  "Option 2"
+    List<WebElement> checkBoxes = driver.findElements(By.cssSelector(".w3-check"));
+    for(WebElement check : checkBoxes) {
+        assertFalse(check.isSelected());
+    }
+    //          tick  "Option 2"
 //          check that "Option 1" and "Option 3" are not ticked, but "Option 2" is ticked
+        checkBoxes.get(1).click();
+        assertTrue(checkBoxes.get(1).isSelected());
+        assertFalse(checkBoxes.get(0).isSelected());
+        assertFalse(checkBoxes.get(2).isSelected());
 //          tick  "Option 3"
-//          click result
-//          check that text 'You selected value(s): Option 2, Option 3' is being displayed
+        checkBoxes.get(2).click();
+        //          click result
+        WebElement resultBtn = driver.findElement(By.cssSelector("#result_button_checkbox"));
+        resultBtn.click();
+        //          check that text 'You selected value(s): Option 2, Option 3' is being displayed
+        WebElement resultText = driver.findElement(By.cssSelector("#result_checkbox"));
+        String expectedText = "You selected value(s): Option 2, Option 3";
+        String acrualText = resultText.getText();
+        assertTrue(acrualText.contains(expectedText));
+
     }
 
 
@@ -42,23 +65,48 @@ public class Sample7Task {
     public void selectRadioButton() throws Exception {
 //         TODO:
 //          check that none of the radio are selected
+        List<WebElement> radioButtons = driver.findElements(By.cssSelector("input[type='radio']"));
 //          select  "Option 3"
+        radioButtons.get(2).click();
 //          check that "Option 1" and "Option 2' are not select, but "Option 3" is selected
+        assertTrue(radioButtons.get(2).isSelected());
+        assertFalse(radioButtons.get(0).isSelected());
+        assertFalse(radioButtons.get(1).isSelected());
 //          select  "Option 1"
+        radioButtons.get(0).click();
 //          check that "Option 2" and "Option 3' are not select, but "Option 1" is selected
+        assertTrue(radioButtons.get(0).isSelected());
+        assertFalse(radioButtons.get(1).isSelected());
+        assertFalse(radioButtons.get(2).isSelected());
 //          click result
+        driver.findElement(By.cssSelector("#result_button_ratio")).click();
 //          check that 'You selected option: Option 1' text is being displayed
+        WebElement resultText = driver.findElement(By.cssSelector("#result_radio"));
+        String expectedText = "You selected option: Option 1";
+        String actualText = resultText.getText();
+        assertTrue(actualText.contains(expectedText));
+
     }
 
     @Test
     public void selectOption() throws Exception {
 //         TODO:
 //          select "Option 3" in Select
+        Select dropdown = new Select(driver.findElement(By.id("vfb-12")));
 //          check that selected option is "Option 3"
+        dropdown.selectByVisibleText("Option 3");
+        assertEquals("Option 3", dropdown.getFirstSelectedOption().getText());
 //          select "Option 2" in Select
 //          check that selected option is "Option 2"
+        dropdown.selectByVisibleText("Option 2");
+        assertEquals("Option 2", dropdown.getFirstSelectedOption().getText());
 //          click result
 //          check that 'You selected option: Option 2' text is being displayed
+        driver.findElement(By.cssSelector("#result_button_select")).click();
+        WebElement resultText = driver.findElement(By.cssSelector("#result_select"));
+        String expectedText = "You selected option: Option 2";
+        String actualText = resultText.getText();
+        assertTrue(actualText.contains(expectedText));
     }
 
 // ** Bonus tasks **
