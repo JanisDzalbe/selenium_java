@@ -3,8 +3,17 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import selenium.utility.BootcampUtils;
+
+import java.time.Duration;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class Sample9Task {
     WebDriver driver;
@@ -32,6 +41,14 @@ public class Sample9Task {
 //          * 3) check that both button
 //          * and loading text is not seen,
 //          * success is seen instead "Green Loaded"
+
+        driver.findElement(By.id("start_green")).click();
+        Thread.sleep(1000);
+        String loadingText = driver.findElement(By.xpath("//*[normalize-space()='Loading green...']")).getText();
+        Thread.sleep(1000);
+        assertEquals("Loading green...", loadingText);
+        WebElement success = driver.findElement(By.xpath("//*[normalize-space()='Green Loaded']"));
+        assertEquals("Green loaded", success.getText());
     }
 
     @Test
@@ -43,6 +60,11 @@ public class Sample9Task {
 //          * 3) check that both button
 //          * and loading text is not seen,
 //          * success is seen instead "Green Loaded"
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.findElement(By.id("start_green")).click();
+        WebElement success = driver.findElement(By.xpath("//*[normalize-space()='Green Loaded']"));
+        assertEquals("Green Loaded", success.getText());
+        assertTrue(driver.findElements(By.id("start_green")).stream().noneMatch(WebElement::isDisplayed));
     }
 
     @Test
@@ -54,6 +76,15 @@ public class Sample9Task {
 //          * 3) check that both button
 //          * and loading text is not seen,
 //          * success is seen instead "Green Loaded"
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        driver.findElement(By.id("start_green")).click();
+        WebElement loading = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[normalize-space()='Loading green...']")));
+        assertEquals("Loading green...", loading.getText());
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[normalize-space()='Loading green...']")));
+        WebElement success = wait.until( ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[normalize-space()='Green Loaded']")));
+        assertEquals("Green Loaded", success.getText());
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("start_green")));
     }
 
     @Test
