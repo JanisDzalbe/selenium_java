@@ -3,6 +3,7 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import selenium.utility.BootcampUtils;
 
@@ -35,6 +36,20 @@ public class Sample6Task {
 //          1-2 ways to find text: "Test Text 4"
 //          1-2 ways to find text: "Test Text 5"
 //          1-2 ways to find text: "This is also a button"
+        System.out.println(driver.findElement(By.xpath("//h2[@id='heading_2']")).getText());
+        System.out.println(driver.findElement(By.xpath("//p[text()='Test Text 1']")).getText());
+        System.out.println(driver.findElement(By.xpath("//p[@class='twoTest']")).getText());
+        System.out.println(driver.findElement(By.xpath("//div[@id='test3']/p[1]")).getText());
+        System.out.println(driver.findElement(By.xpath("//p[text()='Test Text 4']")).getText());
+        System.out.println(driver.findElement(By.xpath("//div[@id='test2']/p[1]")).getText());
+        System.out.println(driver.findElement(By.xpath("//input[@name='randomButton2']")).getDomAttribute("value"));
+        System.out.println(driver.findElement(By.xpath("//*[@id='heading_2']")).getText());
+        System.out.println(driver.findElement(By.xpath("//*[@id='test1']/p[1]")).getText());
+        System.out.println(driver.findElement(By.xpath("//*[contains(@class,'twoTest')]")).getText());
+        System.out.println(driver.findElement(By.xpath("//p[text()='Test Text 3']")).getText());
+        System.out.println(driver.findElement(By.xpath("//*[contains(text(),'Test Text 4')]")).getText());
+        System.out.println(driver.findElement(By.xpath("//p[text()='Test Text 5']")).getText());
+        System.out.println(driver.findElement(By.xpath("//*[@id='buttonId']")).getDomAttribute("value"));
     }
 
     @Test
@@ -45,5 +60,15 @@ public class Sample6Task {
 //          1-2 ways to find text: "Test Text 2"
 //          1-2 ways to find text: "Test Text 3"
 //          1-2 ways to find text: "This is also a button"
+        System.out.println(driver.findElement(By.cssSelector("#heading_2")).getText());
+        System.out.println(driver.findElement(By.cssSelector("#test1 p:first-child")).getText());
+        System.out.println(driver.findElement(By.cssSelector(".twoTest")).getText());
+        System.out.println(driver.findElement(By.cssSelector("#test3 .test")).getText());
+        System.out.println(driver.findElement(By.cssSelector("input#buttonId")).getDomAttribute("value"));
+        System.out.println(driver.findElement(By.cssSelector("h2#heading_2")).getText());
+        System.out.println(driver.findElement(By.cssSelector("#test1 .test")).getText());
+        System.out.println(driver.findElement(By.cssSelector("p.twoTest")).getText());
+        System.out.println(driver.findElement(By.cssSelector("div#test3 > p.test")).getText());
+        System.out.println(driver.findElement(By.cssSelector("input[name='randomButton2']")).getDomAttribute("value"));
     }
 }
