@@ -49,13 +49,14 @@ public  class Sample7Task {
         for (WebElement checkBox : checkBoxes) {
             assertFalse(checkBox.isSelected()); // checkboxes are NOT selected
         }
-
+        // tick option 2
         checkBoxes.get(1).click();
+        // checking option 1 and 3 not selected , but option 2 selected
         assertFalse(checkBoxes.get(0).isSelected());
-        assertTrue(checkBoxes.get(1).isSelected());
         assertFalse(checkBoxes.get(2).isSelected());
+        assertTrue(checkBoxes.get(1).isSelected());
 
-        checkBoxes.get(1).click();
+        checkBoxes.get(2).click();
 
         driver.findElement(By.id("result_button_checkbox")).click();
         assertEquals("You selected value(s): Option 3",driver.findElement(By.id("result_checkbox")).isDisplayed());
