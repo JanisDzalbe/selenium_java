@@ -3,8 +3,15 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import selenium.utility.BootcampUtils;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class Sample8Task {
     WebDriver driver;
@@ -29,7 +36,12 @@ public class Sample8Task {
     public void findPersonByXPath() throws Exception {
 //  TODO:
 //   Click “Reset List”
-//   Using xPath, find “John” and asset that he is “Software Engineer”
+//   Using xPath, find “John” and assert that he is “Software Engineer”
+        driver.findElement(By.id("resetListBtn")).click();
+        WebElement johnName = driver.findElement(By.xpath("//span[text()='John']"));
+        assertEquals("John", johnName.getText());
+        WebElement johnJob = driver.findElement(By.xpath("//li[.//span[@class='w3-xlarge name' and text()='John']]//span[@class='job']"));
+        assertEquals("Software Engineer", johnJob.getText());
     }
 
     @Test
@@ -37,6 +49,28 @@ public class Sample8Task {
 //  TODO:
 //   Click “Shuffle Order”
 //   Using a loop, Find “Jane” and assert that she is “Accountant”
+        driver.findElement(By.id("shuffleBtn")).click();
+
+        List<WebElement> people = driver.findElements(By.cssSelector("#listOfPeople li"));
+
+        boolean janeFound = false;
+
+        for (WebElement person : people) {
+
+            String name = person.findElement(By.className("name")).getText();
+
+            if (name.equals("Jane")) {
+
+                String job = person.findElement(By.className("job")).getText();
+
+                assertEquals("Accountant", job);
+
+                janeFound = true;
+                break;
+            }
+        }
+        assertTrue(janeFound, "Jane was not found in the list");
+
     }
 
     @Test
@@ -46,5 +80,16 @@ public class Sample8Task {
 //   Assert that there are 5 employees
 //   Click “Shuffle Order”
 //   Assert that there still are 5 employees
+        driver.findElement(By.id("resetListBtn")).click();
+
+        List<WebElement> employees = driver.findElements(By.cssSelector("#listOfPeople input[value='employee']:checked"));
+
+        assertEquals(5, employees.size());
+
+        driver.findElement(By.id("shuffleBtn")).click();
+
+        List<WebElement> shuffledEmployees = driver.findElements(By.cssSelector("#listOfPeople input[value='employee']:checked"));
+
+        assertEquals(5, shuffledEmployees.size());
     }
 }
