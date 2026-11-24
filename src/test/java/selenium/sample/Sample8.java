@@ -61,6 +61,8 @@ public class Sample8 {
                 thirdElem.findElement(By.tagName("p")).getText());
         assertEquals("This is the fourth element, positioned in the middle of our collection.",
                 fourthElem.findElement(By.className("element-paragraph")).getText());
+        assertEquals("This is the fourth element, positioned in the middle of our collection.",
+                fourthElem.findElement(By.xpath(".//*[@class=\"element-paragraph\"]")).getText());
     }
 
     @Test
