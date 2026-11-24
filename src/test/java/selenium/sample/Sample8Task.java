@@ -3,8 +3,15 @@ package selenium.sample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import selenium.utility.BootcampUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Sample8Task {
     WebDriver driver;
@@ -29,22 +36,67 @@ public class Sample8Task {
     public void findPersonByXPath() throws Exception {
 //  TODO:
 //   Click “Reset List”
+        driver.findElements(By.id("resetListBtn")).get(0).click();
+
 //   Using xPath, find “John” and asset that he is “Software Engineer”
+        WebElement john = driver.findElement(By.xpath("//*[contains(@id,'person') and .//*[contains(@class, 'name') and text()='John']]"));
+        assertEquals("Software Engineer", john.findElement(By.className("job")).getText());
     }
 
     @Test
     public void findPersonWithLoop() throws Exception {
 //  TODO:
 //   Click “Shuffle Order”
+        driver.findElements(By.id("shuffleBtn")).get(0).click();
+
 //   Using a loop, Find “Jane” and assert that she is “Accountant”
+        List<WebElement> personList = driver.findElements(By.cssSelector("[id*=person]"));
+        WebElement jane = null;
+
+        for (WebElement person : personList) {
+            if (person.findElement(By.xpath(".//*[@class='w3-xlarge name']")).getText().equals("Jane")) {
+                jane = person;
+            }
+        }
+
+        assertEquals("Accountant", jane.findElement(By.className("job")).getText());
     }
 
     @Test
     public void findEmployeesBonus() throws Exception {
 //  TODO:
 //   Click “Reset List”
+        driver.findElements(By.id("resetListBtn")).get(0).click();
+
+        List<WebElement> personList = driver.findElements(By.cssSelector("[id*=person]"));
+        List<WebElement> employees = new ArrayList<>();
+
 //   Assert that there are 5 employees
+
+        for (WebElement person : personList) {
+            if (person.findElement(By.cssSelector("[value='employee']")).isSelected()) {
+                employees.add(person);
+            }
+        }
+
+        assertEquals(5, employees.size());
+
 //   Click “Shuffle Order”
+
+        driver.findElements(By.id("shuffleBtn")).get(0).click();
+
 //   Assert that there still are 5 employees
+
+        personList = driver.findElements(By.cssSelector("[id*=person]"));
+        employees = new ArrayList<>();
+
+        for (WebElement person : personList) {
+            if (person.findElement(By.cssSelector("[value='employee']")).isSelected()) {
+                employees.add(person);
+            }
+        }
+
+        assertEquals(5, employees.size());
+
     }
 }
