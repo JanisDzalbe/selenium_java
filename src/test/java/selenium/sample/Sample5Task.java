@@ -1,9 +1,13 @@
 package selenium.sample;
 
 import org.junit.jupiter.api.AfterEach;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+
 import selenium.utility.BootcampUtils;
 
 public class Sample5Task {
@@ -29,20 +33,37 @@ public class Sample5Task {
     public void goToAlertedPageViaButton() throws Exception {
 //         TODO:
 //          click on "To go to alerted page press Ok. Or stay here" button
+            driver.findElement(By.className("w3-blue")).click();
+
 //          switch to alert
+            Alert alert = driver.switchTo().alert();
+
 //          click ok
+            alert.accept();
+
 //          switch to second alert
+            Alert secondAlert = driver.switchTo().alert();
+
 //          verify alert text
+            assertEquals("Booooooooo!", secondAlert.getText());
+
 //          click ok on second alert
+            secondAlert.accept();
+
 //          verify that the correct page is opened
+            assertEquals("This page is alerted", driver.findElement(By.id("heading")).getText());
     }
 
     @Test
     public void doNotGoToAlertedPageViaButton() throws Exception {
 //         TODO:
 //          click on "To go to alerted page press Ok. Or stay here" button
+            driver.findElement(By.className("w3-blue")).click();
 //          switch to alert
+            Alert alert = driver.switchTo().alert();
 //          click cancel
+            alert.dismiss();
 //          verify the text on page
+             assertEquals("So you desided to say? Good!", driver.findElement(By.id("textForAlerts")).getText());
     }
 }
